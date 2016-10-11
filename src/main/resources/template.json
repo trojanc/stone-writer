@@ -1,0 +1,26 @@
+{
+  "name" : "Testing Template",
+  "lines" : [
+    {
+      "items" : [
+        {
+          "contentType" : "text",
+          "value" : "Hello World",
+          "align" : "left",
+          "mode" : "normal"
+        }
+      ]
+    },
+    {
+      "items" : [
+        {
+          "contentType" : "dynamicText",
+          "dataType" : "String",
+          "expression" : "object.name",
+          "align" : "right",
+          "mode" : "normal"
+        }
+      ]
+    }
+  ]
+}

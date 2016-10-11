@@ -1,0 +1,32 @@
+{
+  "name": "Test Template",
+  "lines": [
+    {
+      "align": "LEFT",
+      "mode": "NORMAL",
+      "lineItems": [
+        {
+          "mode": "NORMAL",
+          "alignment": "LEFT",
+          "text": "Hello"
+        },
+        {
+          "mode": "NORMAL",
+          "alignment": "RIGHT",
+          "text": "worlad"
+        }
+      ]
+    },
+    {
+      "align": "LEFT",
+      "mode": "NORMAL",
+      "lineItems": [
+        {
+          "mode": "NORMAL",
+          "alignment": "LEFT",
+          "text": "Awsumness!"
+        }
+      ]
+    }
+  ]
+}
