@@ -3,10 +3,15 @@ package coza.trojanc.stonewriter.processor;
 import coza.trojanc.stonewriter.processor.fields.ProcessedFeed;
 import coza.trojanc.stonewriter.processor.fields.ProcessedLine;
 import coza.trojanc.stonewriter.processor.fields.ProcessedText;
+import coza.trojanc.stonewriter.shared.DynamicType;
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.fields.*;
+import org.apache.commons.jexl3.*;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,18 +21,25 @@ import java.util.Map;
 public class TemplateProcessor {
 
 	private final PrintTemplate template;
-	private final ProcessedTemplate processedTemplate;
-	private final Map<String, ?extends Object> context;
+	private final JexlContext jc;
+
+	private ProcessedTemplate processedTemplate;
+	private JexlEngine jexl;
 
 
 	public TemplateProcessor(PrintTemplate template){
 		this(template, Collections.emptyMap());
 	}
 
-	public TemplateProcessor(PrintTemplate template, Map<String, ?extends Object> context){
+	public TemplateProcessor(PrintTemplate template, Map<String, Object> context){
 		this.template = template;
+		this.jc = new MapContext(context);
+		init();
+	}
+
+	private void init(){
+		this.jexl = new JexlBuilder().create();
 		this.processedTemplate = new ProcessedTemplate();
-		this.context = context;
 	}
 
 
@@ -72,13 +84,69 @@ public class TemplateProcessor {
 			}
 
 			else if (DynamicText.class.isAssignableFrom(lineItem.getClass())) {
-				DynamicText text = (DynamicText) lineItem;
-				ProcessedText processedText = new ProcessedText();
-				processedText.setAlignment(text.getAlignment());
-				processedText.setMode(text.getMode());
-				processedText.setText(text.getExpression());// TODO execute expression
+				ProcessedText processedText = processDynamicText((DynamicText) lineItem);
 				processedLine.getLineItems().add(processedText);
 			}
 		});
+	}
+
+	private ProcessedText processDynamicText(DynamicText text){
+		ProcessedText processedText = new ProcessedText();
+		processedText.setAlignment(text.getAlignment());
+		processedText.setMode(text.getMode());
+
+		final Object evaluatedObject = evaluateExpression(text.getExpression());
+
+		// Plain String
+		if(text.getType() == DynamicType.String){
+			processedText.setText(evaluatedObject.toString());
+		}
+
+		// Date
+		else if(text.getType() == DynamicType.Date){
+			if(!Date.class.isAssignableFrom(evaluatedObject.getClass())){
+				throw new IllegalArgumentException("Expected evaluated object to be of type java.util.Date instead found: " + evaluatedObject.getClass().toString());
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat(text.getFormatting());
+			String formattedDate = sdf.format((Date)evaluatedObject);
+			processedText.setText(formattedDate);
+		}
+
+		// Decimal
+		else if(text.getType() == DynamicType.Decimal){
+			if(!Number.class.isAssignableFrom(evaluatedObject.getClass())){
+				throw new IllegalArgumentException("Expected evaluated object to be of type java.lang.Number instead found: " + evaluatedObject.getClass().toString());
+			}
+			if(text.getFormatting() == null){
+				processedText.setText(evaluatedObject.toString());
+			}
+			else{
+				DecimalFormat df = new DecimalFormat(text.getFormatting());
+				String formattedNumber = df.format(evaluatedObject);
+				processedText.setText(formattedNumber);
+			}
+		}
+
+		// Number
+		else if(text.getType() == DynamicType.Number){
+			if(!Number.class.isAssignableFrom(evaluatedObject.getClass())){
+				throw new IllegalArgumentException("Expected evaluated object to be of type java.lang.Number instead found: " + evaluatedObject.getClass().toString());
+			}
+			if(text.getFormatting() == null){
+				processedText.setText(evaluatedObject.toString());
+			}
+			else{
+				String formattedNumber = String.format(text.getFormatting(), evaluatedObject).trim();
+				processedText.setText(formattedNumber);
+			}
+
+		}
+
+		return processedText;
+	}
+
+	private Object evaluateExpression(String expression){
+		JexlExpression e = jexl.createExpression(expression);
+		return e.evaluate(this.jc);
 	}
 }

@@ -17,7 +17,11 @@ public class PrintLineBuilder {
 	}
 
 	public PrintTextBuilder addText(){
-		return new PrintTextBuilder(this);
+		return new PrintTextBuilder(this, false);
+	}
+
+	public PrintTextBuilder addDynamicText(){
+		return new PrintTextBuilder(this, true);
 	}
 
 	/**

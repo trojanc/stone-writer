@@ -1,7 +1,10 @@
 package coza.trojanc.stonewriter.template.builder;
 
+import coza.trojanc.stonewriter.shared.DynamicType;
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.shared.Align;
+import coza.trojanc.stonewriter.template.fields.AbstractTextItem;
+import coza.trojanc.stonewriter.template.fields.DynamicText;
 import coza.trojanc.stonewriter.template.fields.Text;
 
 /**
@@ -9,17 +12,42 @@ import coza.trojanc.stonewriter.template.fields.Text;
  */
 public class PrintTextBuilder {
 
-	private PrintLineBuilder lineBuilder;
-	private Text text;
+	private final PrintLineBuilder lineBuilder;
+	private final AbstractTextItem text;
+	private final boolean isDynamic;
 
-	public PrintTextBuilder(PrintLineBuilder lineBuilder){
+	public PrintTextBuilder(PrintLineBuilder lineBuilder, boolean dymanic){
 		this.lineBuilder = lineBuilder;
-		this.text = new Text();
+		this.isDynamic = dymanic;
+		this.text = dymanic ? new DynamicText() :  new Text();
 		this.lineBuilder.getLine().getLineItems().add(this.text);
 	}
 
 	public PrintTextBuilder text(String text){
-		this.text.setText(text);
+		if(!isDynamic){
+			((Text)this.text).setText(text);
+		}
+		return this;
+	}
+
+	public PrintTextBuilder expression(String expression){
+		if(isDynamic){
+			((DynamicText)this.text).setExpression(expression);
+		}
+		return this;
+	}
+
+	public PrintTextBuilder formatting(String formatting){
+		if(isDynamic){
+			((DynamicText)this.text).setFormatting(formatting);
+		}
+		return this;
+	}
+
+	public PrintTextBuilder type(DynamicType type){
+		if(isDynamic){
+			((DynamicText)this.text).setType(type);
+		}
 		return this;
 	}
 
@@ -31,7 +59,11 @@ public class PrintTextBuilder {
 
 
 	public PrintTextBuilder addText(){
-		return new PrintTextBuilder(this.lineBuilder);
+		return new PrintTextBuilder(this.lineBuilder, false);
+	}
+
+	public PrintTextBuilder addDynamicText(){
+		return new PrintTextBuilder(this.lineBuilder, true);
 	}
 
 	public PrintLineBuilder addLine(){
