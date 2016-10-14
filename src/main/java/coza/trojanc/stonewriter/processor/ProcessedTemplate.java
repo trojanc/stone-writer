@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * A class representing a template that has been processed
+ * Created by Charl on 2016-10-11.
  */
 public class ProcessedTemplate {
 
