@@ -15,6 +15,8 @@ public class ProcessedText{
 
 	private String text;
 
+	private Integer offset;
+
 	public Mode getMode() {
 		return mode;
 	}
@@ -37,5 +39,13 @@ public class ProcessedText{
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public Integer getOffset() {
+		return offset;
+	}
+
+	public void setOffset(Integer offset) {
+		this.offset = offset;
 	}
 }

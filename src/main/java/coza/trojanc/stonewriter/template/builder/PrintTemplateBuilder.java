@@ -12,18 +12,30 @@ import coza.trojanc.stonewriter.template.fields.Text;
  */
 public class PrintTemplateBuilder {
 
+	/**
+	 * Template we are busy building
+	 */
 	private PrintTemplate template;
 
-	// Current busy line
+	/**
+	 * Current busy line
+	 */
 	private Line line;
 
-	// Current busy text item
+	/**
+	 * Current busy text item
+	 */
 	private AbstractTextItem textItem;
 
 	public PrintTemplateBuilder(){
 		template = new PrintTemplate();
 	}
 
+	/**
+	 * Set the name of the template
+	 * @param name
+	 * @return
+	 */
 	public PrintTemplateBuilder name(String name){
 		template.setName(name);
 		return this;
@@ -85,6 +97,13 @@ public class PrintTemplateBuilder {
 		checkValidLine();
 		ensureTextItem();
 		textItem.setAlignment(align);
+		return this;
+	}
+
+	public PrintTemplateBuilder offset(Integer offset){
+		checkValidLine();
+		ensureTextItem();
+		textItem.setOffset(offset);
 		return this;
 	}
 

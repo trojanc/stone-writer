@@ -47,6 +47,7 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 				processedText.setAlignment(text.getAlignment());
 				processedText.setMode(text.getMode());
 				processedText.setText(text.getText());
+				processedText.setOffset(text.getOffset());
 				processedLine.getLineItems().add(processedText);
 			}
 
@@ -56,6 +57,7 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 				processedText.setAlignment(text.getAlignment());
 				processedText.setMode(text.getMode());
 				processedText.setText(context.get(text.getContextKey()));
+				processedText.setOffset(text.getOffset());
 				processedLine.getLineItems().add(processedText);
 			}
 		});

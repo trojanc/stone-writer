@@ -15,7 +15,7 @@ public abstract class AbstractTextItem implements TemplateTextItem{
 	/** global alignment */
 	private Align alignment = Align.LEFT;
 
-	private int offset = 0;
+	private Integer offset;
 
 	public AbstractTextItem(){}
 
@@ -42,12 +42,12 @@ public abstract class AbstractTextItem implements TemplateTextItem{
 		this.alignment = alignment;
 	}
 
-	public void setOffset(int offset){
+	public void setOffset(Integer offset){
 		this.offset = offset;
 	}
 
 	@Override
-	public int getOffset() {
+	public Integer getOffset() {
 		return offset;
 	}
 }

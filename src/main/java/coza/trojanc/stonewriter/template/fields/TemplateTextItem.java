@@ -11,7 +11,7 @@ public interface TemplateTextItem {
 
 	Align getAlignment();
 
-	int getOffset();
+	Integer getOffset();
 
 	Mode getMode();
 }

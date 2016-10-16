@@ -1,6 +1,9 @@
 package coza.trojanc.stonewriter;
 
 import coza.trojanc.stonewriter.context.*;
+import coza.trojanc.stonewriter.shared.Align;
+import coza.trojanc.stonewriter.template.PrintTemplate;
+import coza.trojanc.stonewriter.template.builder.PrintTemplateBuilder;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -72,6 +75,23 @@ public class TestUtils {
 			resolvedVariables = Collections.unmodifiableMap(variables);
 		}
 		return resolvedVariables;
+	}
+
+	public static PrintTemplate createTemplate(){
+		return new PrintTemplateBuilder().name("Test Template")
+			.line()
+			.text("CHARL TAKEWAYS").align(Align.CENTER)
+			.line()
+			.text("SHIFT").align(Align.LEFT)
+			.text("12").align(Align.RIGHT).offset(10)
+			.line()
+			.text("Hers Johnny!")
+			.align(Align.RIGHT)
+			.line()
+			.dynamicText(TestUtils.KEY_PLAYER_AGE).align(Align.RIGHT)
+			.dynamicText(TestUtils.KEY_PLAYER_NAME)
+			.dynamicText(TestUtils.KEY_PLAYER_BIRTH)
+			.build();
 	}
 
 
