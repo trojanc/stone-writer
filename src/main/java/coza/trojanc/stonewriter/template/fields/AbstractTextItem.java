@@ -17,6 +17,14 @@ public abstract class AbstractTextItem implements TemplateTextItem{
 
 	private int offset = 0;
 
+	public AbstractTextItem(){}
+
+	public AbstractTextItem(AbstractTextItem source){
+		this.mode = source.mode;
+		this.offset = source.offset;
+		this.alignment = source.alignment;
+	}
+
 
 	public Mode getMode() {
 		return mode;

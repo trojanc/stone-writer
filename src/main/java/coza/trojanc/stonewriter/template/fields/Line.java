@@ -5,76 +5,36 @@
  */
 package coza.trojanc.stonewriter.template.fields;
 
-import coza.trojanc.stonewriter.shared.Align;
-import coza.trojanc.stonewriter.shared.Mode;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Defines a Line message element in the Prompt message element
+ * Class that represents a line within a template
  */
 public class Line implements TemplateLine {
 
-	/** alignment - Set to null if not specified */
-	private Align align;
+	private final List<TemplateTextItem> lineItems;
 
-	/** mode - Set to 0 if not specified */
-	private Mode mode;
-
-	private List<TemplateTextItem> lineItems = new ArrayList<>();
+	public Line(){
+		lineItems = new ArrayList<>();
+	}
 
 	public List<TemplateTextItem> getLineItems() {
 		return lineItems;
 	}
 
-	public void setLineItems(List<TemplateTextItem> lineItems) {
-		this.lineItems = lineItems;
-	}
-
-	/**
-	 * Line constructor
-	 */
-	public Line() {
-		this.align = Align.LEFT;
-		this.mode = Mode.NORMAL;
-	}
-
-	
-	/**
-	 * Returns the alignment
-	 * @return
-	 */
-	public Align getAlign() {
-		return align;
-	}
-
-	
-	/**
-	 * Returns the mode
-	 * @return
-	 */
-	public Mode getMode() {
-		return this.mode;
-	}
-	
-
-
-	/**
-	 * Sets the alignment
-	 * @param align
-	 */
-	public void setAlign(Align align) {
-		this.align = align;
+	public void addLineItem(TemplateTextItem item){
+		lineItems.add(item);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder()
-		.append("Line[")
-		.append("align=").append(this.align.toString())
-		.append(",mode=").append(this.mode.toString())
-		.append("]");
+		.append("Line[");
+		lineItems.forEach(templateTextItem -> {
+			sb.append(templateTextItem.toString());
+		});
+		sb.append("]");
 		return sb.toString();
 	}
 }

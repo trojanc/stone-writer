@@ -50,6 +50,7 @@ public class HtmlPrinter extends AbstractTextPrinter {
 
 	protected void printLine(ProcessedLine processedLine){
 		Element line = htmlDocument.createElement("div");
+		line.setAttribute("class", "line");
 		processedLine.getLineItems().forEach(processedText ->{
 			Element text = htmlDocument.createElement("span");
 			text.setAttribute("align", processedText.getAlignment().name().toLowerCase());

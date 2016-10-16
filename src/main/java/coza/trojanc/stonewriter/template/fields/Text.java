@@ -13,6 +13,11 @@ public class Text extends AbstractTextItem{
 	 * Text constructor.
 	 */ 
 	public Text() {
+		super();
+	}
+
+	public Text(AbstractTextItem source){
+		super(source);
 	}
 
 
@@ -22,5 +27,16 @@ public class Text extends AbstractTextItem{
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder()
+			.append("Text[")
+			.append("text=").append(this.text)
+			.append(",align=").append(this.getAlignment())
+			.append(",offset=").append(this.getOffset())
+			.append("]")
+			.toString();
 	}
 }

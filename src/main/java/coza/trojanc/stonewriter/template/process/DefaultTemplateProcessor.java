@@ -18,7 +18,7 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 	private ProcessedTemplate processedTemplate;
 	private Map<String, String> context;
 
-	private void processTemplateItem(TemplateTextItem item){
+	private void processTemplateItem(TemplateLine item){
 
 		// If it is a feed
 		if(Feed.class.isAssignableFrom(item.getClass())){
@@ -73,7 +73,7 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 		this.context = context;
 
 
-		List<TemplateTextItem> lines = template.getLines();
+		List<TemplateLine> lines = template.getLines();
 		lines.forEach(printableTemplateItem -> {
 			processTemplateItem(printableTemplateItem);
 		});

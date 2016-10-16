@@ -1,6 +1,11 @@
 package coza.trojanc.stonewriter.template.builder;
 
+import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.template.PrintTemplate;
+import coza.trojanc.stonewriter.template.fields.AbstractTextItem;
+import coza.trojanc.stonewriter.template.fields.DynamicText;
+import coza.trojanc.stonewriter.template.fields.Line;
+import coza.trojanc.stonewriter.template.fields.Text;
 
 /**
  * Created by Charl-PC on 2016-10-11.
@@ -8,6 +13,12 @@ import coza.trojanc.stonewriter.template.PrintTemplate;
 public class PrintTemplateBuilder {
 
 	private PrintTemplate template;
+
+	// Current busy line
+	private Line line;
+
+	// Current busy text item
+	private AbstractTextItem textItem;
 
 	public PrintTemplateBuilder(){
 		template = new PrintTemplate();
@@ -19,15 +30,101 @@ public class PrintTemplateBuilder {
 	}
 
 
-	public PrintLineBuilder addLine(){
-		return new PrintLineBuilder(this);
+	public PrintTemplateBuilder line(){
+		finishBusyLine();
+		line = new Line();
+		return this;
 	}
 
-	PrintTemplate getTemplate() {
-		return template;
-	}
 
 	public PrintTemplate build(){
+		finishBusyLine();
 		return template;
+	}
+
+
+	public PrintTemplateBuilder text(String text){
+		return staticText(text);
+	}
+
+	public PrintTemplateBuilder text(String text, boolean dynamic){
+		if(dynamic){
+			return dynamicText(text);
+		}
+		else{
+			return staticText(text);
+		}
+	}
+
+	public PrintTemplateBuilder staticText(String text){
+		finishLineItem();
+		checkValidLine();
+		textItem = new Text();
+
+		if(DynamicText.class.isAssignableFrom(textItem.getClass())){
+			throw new IllegalArgumentException("Cannot add text value to dynamic text");
+		}
+		((Text)textItem).setText(text);
+
+		return this;
+	}
+
+	public PrintTemplateBuilder dynamicText(String key){
+		finishLineItem();
+		checkValidLine();
+		textItem = new DynamicText();
+		if(!DynamicText.class.isAssignableFrom(textItem.getClass())){
+			throw new IllegalArgumentException("Cannot add key to static text");
+		}
+		((DynamicText)textItem).setContextKey(key);
+		return this;
+	}
+
+
+	public PrintTemplateBuilder align(Align align){
+		checkValidLine();
+		ensureTextItem();
+		textItem.setAlignment(align);
+		return this;
+	}
+
+
+	/**
+	 * Finish the line if we are busy with one
+	 */
+	private void finishBusyLine(){
+		if(line != null){
+			finishLineItem();
+			template.addLine(line);
+			line = null;
+		}
+	}
+
+	/**
+	 * Finish a line item if we are busy with one
+	 */
+	private void finishLineItem(){
+		if(textItem != null){
+			this.line.addLineItem(textItem);
+			textItem = null;
+		}
+	}
+
+	/**
+	 * Check that we are busy with a line
+	 */
+	private void checkValidLine(){
+		if(line == null){
+			throw new IllegalArgumentException("Not busy with a line!");
+		}
+	}
+
+	/**
+	 * Ensure a text item is ready to be used
+	 */
+	private void ensureTextItem(){
+		if(textItem == null){
+			throw new IllegalArgumentException("Not busy with a text item!");
+		}
 	}
 }

@@ -21,13 +21,19 @@ public class PrintTemplateBuilderTest {
 		PrintTemplateBuilder builder = new PrintTemplateBuilder();
 
 		PrintTemplate template = builder.name("Test Template")
-			.addLine()
-				.addText().text("Hello").align(Align.LEFT)
-				.addText().text("world").align(Align.RIGHT)
-			.addLine()
-				.addDynamicText().key(TestUtils.KEY_PLAYER_AGE)
-				.addDynamicText().key(TestUtils.KEY_PLAYER_NAME)
-				.addDynamicText().key(TestUtils.KEY_PLAYER_BIRTH)
+			.line()
+				.text("Hello")
+					.align(Align.LEFT)
+			.line()
+				.text("world")
+					.align(Align.RIGHT)
+			.line()
+				.text("Hers Johnny!")
+					.align(Align.RIGHT)
+			.line()
+				.dynamicText(TestUtils.KEY_PLAYER_AGE)
+				.dynamicText(TestUtils.KEY_PLAYER_NAME)
+				.dynamicText(TestUtils.KEY_PLAYER_BIRTH)
 			.build();
 
 
