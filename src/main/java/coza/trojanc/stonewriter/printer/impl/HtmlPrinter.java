@@ -1,5 +1,6 @@
-package coza.trojanc.stonewriter.printer;
+package coza.trojanc.stonewriter.printer.impl;
 
+import coza.trojanc.stonewriter.printer.layout.AbstractTextPrinter;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
 import coza.trojanc.stonewriter.shared.Mode;
 import org.w3c.dom.Document;

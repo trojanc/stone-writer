@@ -1,8 +1,6 @@
-package coza.trojanc.stonewriter.printer;
+package coza.trojanc.stonewriter.printer.layout;
 
-import coza.trojanc.stonewriter.processor.layout.LayoutBuilderTester;
-import coza.trojanc.stonewriter.processor.layout.PrintTextLayoutBuilder;
-import coza.trojanc.stonewriter.processor.layout.TextLayoutBuilder;
+import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.shared.PrintStringUtil;
 
 import java.util.regex.Matcher;
@@ -14,35 +12,27 @@ import java.util.regex.Pattern;
  * @author Charl Thiem
  */
 public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutBuilder
-{
-	/** Static string of 'single line' chars */
-	protected static char[] emptyBuf		= "                                                                                                 ".toCharArray(); 
-	/** Static string of 'single line' chars */
-	protected static String lineSingleChars = "-------------------------------------------------------------------------------------------------"; 
-	/** Static string of 'double line' chars */
-	protected static String lineDoubleChars = "================================================================================================="; 
-	/** Builder used to create the text to display/print */
+{	/** Builder used to create the text to display/print */
 	protected StringBuilder	builder;
+
+	/** The default text in a char buffer when starting a line */
+	private final char[] defaultCharBuffer;
+
 	/** Width of a line */
 	protected final int		lineWidth;
-	/** Current index in the line */
-	protected int			appendIndex		= 0;
+
 	/** An array of chars to the width of the line */
 	protected char[]		charBuffer		= null;
+
 	/** flag indicating that the char buffer has been used */
 	protected boolean		charBufferInUse	= false;
+
 	/** Chars that should be removed from strings as it could possible break the print command */
 	protected final Pattern	invalidCharsPatern;
+
 	/** Char that should be placed in the place of an invalid char */
 	protected final char	invalidCharReplacement;
 
-
-	/**
-	 * Creates a new instance of a <code>AbstractThinClientPrintBuilder</code>
-	 */
-	protected AbstractPrintTextLayoutBuilder(){
-		this(40, null, ' ');
-	}
 
 	/**
 	 * Creates a new instance of a <code>AbstractThinClientPrintBuilder</code> setting
@@ -60,8 +50,8 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param invalidCharsRegex Regular expression of invalid characters
 	 * @param invalidCharReplacement The character that should be used to replace the invalid character
 	 */
-	protected AbstractPrintTextLayoutBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement)
-	{
+	protected AbstractPrintTextLayoutBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement){
+		this.defaultCharBuffer = PrintStringUtil.getLineBuffer(line_width);
 		this.builder = new StringBuilder();
 		this.lineWidth = line_width;
 		this.charBuffer = new char[this.lineWidth];
@@ -98,9 +88,8 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * Clears the char buffer;
 	 */
 	protected void resetCharBuffer() {
-		System.arraycopy(emptyBuf, 0, this.charBuffer, 0, this.lineWidth);
+		System.arraycopy(defaultCharBuffer, 0, this.charBuffer, 0, this.lineWidth);
 		this.charBufferInUse = false;
-		this.appendIndex = 0;
 	}
 	
 	public PrintTextLayoutBuilder initialize(){
@@ -118,48 +107,71 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		return this.builder.toString();
 	}
 
-	public char[] toChars(){
-		return toString().toCharArray();
-	}
-
-	public byte[] toBytes() {
-		return toString().getBytes();
-	}
-
-	public TextLayoutBuilder append(long number){
-		this.builder.append(number);
-		return this;
-	}
-
-	public TextLayoutBuilder insertCenter(long number, int position){
-		return this.insertCenter(Long.toString(number), position);
-	}
-
-	public TextLayoutBuilder insertLeft(long number, int position_left){
-		return this.insertLeft(Long.toString(number), position_left);
-	}
-
-	public TextLayoutBuilder insertRight(long number, int position_right){
-		return this.insertRight(Long.toString(number), position_right);
-	}
-
-	public TextLayoutBuilder nl(int num_line){
-		for (int i = 0; i < num_line; i++){
-			this.nl();
-		}
-		return this;
-	}
-
-	public TextLayoutBuilder insertLeft(String text, int position_left){
+	public PrintTextLayoutBuilder insertLeft(String text, int position_left){
 		return this.insertLeft(text, position_left, this.lineWidth);
 	}
 
-	public TextLayoutBuilder insertRight(String text, int position_right){
+	public PrintTextLayoutBuilder insertRight(String text, int position_right){
 		return this.insertRight(text, position_right, this.lineWidth);
 	}
 
-	public TextLayoutBuilder insertCenter(String text, final int position){
+	public PrintTextLayoutBuilder insertCenter(String text, final int position){
 		return this.insertCenter(text, position, this.lineWidth);
+	}
+
+
+
+	public PrintTextLayoutBuilder left(String text) {
+		//complete char buffer line?
+		this.completeCharBuffer();
+
+		//add all lines left aligned
+		int w = this.lineWidth;
+
+		String[] strs = PrintStringUtil.getLines(text, w, "\n");
+		for (String value : strs) {
+			nl();
+			this.builder.append(value);
+		}
+
+		return this;
+	}
+
+	public PrintTextLayoutBuilder center(String text) {
+		//complete char buffer line?
+		this.completeCharBuffer();
+
+		int w = this.lineWidth;
+
+		//add all lines center aligned
+		String[] strs = PrintStringUtil.getLines(text, w, "\n");
+		int pos = this.lineWidth / 2;
+		for (String value : strs) {
+			this.nl();
+			PrintStringUtil.insertCenterAligned(this.charBuffer, pos, value, lineWidth);
+			this.builder.append(new String(this.charBuffer));
+			this.resetCharBuffer();
+		}
+
+		return this;
+	}
+
+
+	public PrintTextLayoutBuilder right(String text) {
+		//complete char buffer line?
+		this.completeCharBuffer();
+
+		//add all lines right aligned
+		String[] strs = PrintStringUtil.getLines(text, lineWidth, "\n");
+		int pos = lineWidth;
+		for (String value : strs) {
+			PrintStringUtil.insertRightAligned(this.charBuffer, pos, value, lineWidth);
+			this.nl();
+			this.builder.append(new String(this.charBuffer));
+			this.resetCharBuffer();
+		}
+
+		return this;
 	}
 
 	
@@ -171,7 +183,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected TextLayoutBuilder insertLeft(String text, int position_left, int width){
+	protected PrintTextLayoutBuilder insertLeft(String text, int position_left, int width){
 		if (text == null) {
 			return this;
 		}
@@ -182,7 +194,6 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		} 
 		else {
 			PrintStringUtil.insertLeftAligned(this.charBuffer, position_left, text, width);
-			this.appendIndex += text.length(); // What if this runs over the line?!
 		}
 		return this;
 	}
@@ -195,7 +206,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected TextLayoutBuilder insertRight(String text, int position_right, int width){
+	protected PrintTextLayoutBuilder insertRight(String text, int position_right, int width){
 		if (text == null) {
 			return this;
 		}
@@ -203,11 +214,9 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		this.charBufferInUse = true;
 		if (position_right < 0){
 			PrintStringUtil.insertRightAligned(this.charBuffer, width + position_right - 1, text, width);
-			this.appendIndex = width - Math.abs(position_right);
-		} 
+		}
 		else {
 			PrintStringUtil.insertRightAligned(this.charBuffer, position_right, text, width);
-			this.appendIndex = width - position_right - 1;
 		}
 		return this;
 	}
@@ -220,7 +229,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected TextLayoutBuilder insertCenter(String text, final int position, int width){
+	protected PrintTextLayoutBuilder insertCenter(String text, final int position, int width){
 		if (text == null) {
 			return this;
 		}
@@ -228,43 +237,18 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		this.charBufferInUse = true;
 		if (position < 0){
 			PrintStringUtil.insertCenterAligned(this.charBuffer, width+position-1, text, width);
-			this.appendIndex = width + position + (text.length() / 2); // Might exceed line width
-		} 
+		}
 		else {
 			PrintStringUtil.insertCenterAligned(this.charBuffer, position, text, width);
-			this.appendIndex = position + (text.length() / 2);
 		}
 		return this;
 	}
 
-
-	public TextLayoutBuilder insertChar(char chr, int position){
-		this.charBufferInUse = true;
-		if (position < 0) {
-			position = this.lineWidth + position - 1;
-		}
-		if ((position < 0) || (position >= this.lineWidth)) {
-			return this;
-		}
-		
-		this.appendIndex = position + 1; // What if this runs over the line?! - whoever uses append index should not assume it will be correct.
-		this.charBuffer[position] = chr;
-		
-		return this;
-	}
-	
-	/**
-	 * Creates a test printing
-	 * @return
-	 */
-	public PrintTextLayoutBuilder createTestPrint(){
-		return LayoutBuilderTester.testPrintBuilder(this);
-	}
 
 	/**
 	 * Flushes the char buffer
 	 */
-	public void flushCharBuffer() {
+	public void completeCharBuffer() {
 		if (this.charBufferInUse) {
 			int last_space_position = charBuffer.length-1;
 			for (; last_space_position > 0; last_space_position--) {	//> 0 since we will at least print one space char
@@ -284,53 +268,48 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	}
 
 
-	public PrintTextLayoutBuilder nameValue(String name, int name_pos, String value, int value_pos) {
-		if (name == null) {
-			return this;
-		}
-		
-		if (value == null) {
-			value = "";
-		}
-		
-		//name
-		this.insertLeft(name, name_pos);
-		int name_length = name.length();
-		
-		//verify that the value position is valid 
-		if ((name_pos + name_length >= value_pos - 2) || (value_pos < 0) || (value_pos >= this.lineWidth))  {
-			value_pos = name_pos + name_length + 2;
-		}
-
-		//colon just in front of value position
-		this.insertChar(':', value_pos - 2);
-
-		//verify that the value will fit after the colon on the same line
-		if (value_pos + value.length() <= this.lineWidth) {
-			this.insertLeft(value, value_pos).nl();
-		} 
-//		//verify that the value will fit directly after the colon on the same line
-//		else if (value_pos + value.length() - 1 < this.lineWidth) {
-//			this.insertLeft(value, value_pos - 1).nl();
-//		} 
-		//value will have to go onto the next line
-		else {
-			this.nl();
-			this.insertRight(value, -1).nl();
-		}
-		
-		return this;
-	}
-
-	public TextLayoutBuilder centerB(String text) {
-		return this.center(text);
-	}
-
-	public TextLayoutBuilder insertRight(String text) {
+	public PrintTextLayoutBuilder insertRight(String text) {
 		return this.insertRight(text, this.getLineWidth()-1);
 	}
 
-	public TextLayoutBuilder insertRight(long number) {
-		return this.insertRight(number, this.getLineWidth()-1);
+	@Override
+	public PrintTextLayoutBuilder insertText(String text, Integer offset, Align align) {
+		if(align == Align.LEFT){
+			if(offset == null){
+				left(text);
+			}
+			else{
+				insertLeft(text, offset);
+			}
+		}
+		else if(align == Align.CENTER){
+			if(offset == null){
+				center(text);
+			}
+			else{
+				insertCenter(text, offset);
+			}
+		}
+		else if(align == Align.RIGHT){
+			if(offset == null){
+				right(text);
+			}
+			else{
+				insertRight(text, offset);
+			}
+		}
+		return this;
+	}
+
+	public PrintTextLayoutBuilder nl() {
+		if (this.charBufferInUse){
+			this.builder.append(String.valueOf(charBuffer));
+			/* Clear each character */
+			for (int i = 0; i < lineWidth; i++){
+				this.charBuffer[i] = ' ';
+			}
+			this.charBufferInUse = false;
+		}
+		return this;
 	}
 }

@@ -1,8 +1,5 @@
-package coza.trojanc.stonewriter.printer.impl;
+package coza.trojanc.stonewriter.printer.layout;
 
-import coza.trojanc.stonewriter.printer.AbstractPrintTextLayoutBuilder;
-import coza.trojanc.stonewriter.processor.layout.PrintTextLayoutBuilder;
-import coza.trojanc.stonewriter.processor.layout.TextLayoutBuilder;
 import coza.trojanc.stonewriter.shared.PrintStringUtil;
 
 public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
@@ -83,7 +80,7 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 	 * Creates a new instance of a <code>EpsonPrintBuilder</code>
 	 */
 	public EpsonPrintBuilder(){
-		super();
+		super(40);
 	}
 
 	/**
@@ -104,50 +101,21 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 		return this;
 	}
 
-	public PrintTextLayoutBuilder leftB(String text) {
-		this.setAlignment(Print_Align.LEFT);
-		this.changeMode(Print_Mode.DEFAULT);
-		/* Turn on emphasise */
-		super.builder.append((char)0x1B).append((char)0x45).append((char)0x01);
-		this.printTextAsLines(text, false); // TODO not yet sure how this works for bold
-		/* Turn off emphasise */
-		super.builder.append((char)0x1B).append((char)0x45).append((char)0x00);
-		return this;
-	}
-
-	public TextLayoutBuilder append(String text) {
-		/* If busy with complete it and start a new line. */
-		if (super.charBufferInUse){
-			this.nl();
-		}
-		super.builder.append(text);
-		return this;
-	}
-
-
-	public TextLayoutBuilder center(String text) {
+	public PrintTextLayoutBuilder center(String text) {
 		this.changeMode(Print_Mode.DEFAULT);
 		this.setAlignment(Print_Align.CENTER);
 		this.printTextAsLines(text, false);
 		return this;
 	}
 
-	public TextLayoutBuilder left(String text) {
+	public PrintTextLayoutBuilder left(String text) {
 		this.setAlignment(Print_Align.LEFT);
 		this.printTextAsLines(text, false);
 		return this;
 	}
 
-	public TextLayoutBuilder nl() {
-		if (super.charBufferInUse){
-			super.builder.append(String.valueOf(charBuffer));
-			/* Clear each character */
-			for (int i = 0; i < lineWidth; i++){
-				super.charBuffer[i] = ' ';
-			}
-			super.appendIndex = 0;
-			super.charBufferInUse = false;
-		}
+	public PrintTextLayoutBuilder nl() {
+		super.nl();
 		// Clear current style
 		//this.changeMode(Print_Mode.DEFAULT); NOT NEEDED AS EACH LINE RESETS STYLE
 		/* Move to next line */
@@ -155,23 +123,8 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 		return this;
 	}
 
-	public TextLayoutBuilder nl(int num_line) {
-		if (super.charBufferInUse){
-			nl();
-			num_line--;
-		}
-		/* Feed too big will be set to max */
-		if (num_line > 255) {
-			num_line = 255;
-		}
-		if (num_line > 0){
-			super.builder.append((char) 0x1B).append((char) 0x64).append((char) num_line);
-		}
-		return this;
-	}
 
-
-	public TextLayoutBuilder right(String text) {
+	public PrintTextLayoutBuilder right(String text) {
 		this.changeMode(Print_Mode.DEFAULT);
 		this.setAlignment(Print_Align.RIGHT);
 		this.printTextAsLines(text, false);
@@ -180,7 +133,7 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 	
 
 	@Override
-	public TextLayoutBuilder insertCenter(String text, int position) {
+	public PrintTextLayoutBuilder insertCenter(String text, int position) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertCenter(text, position);
@@ -188,19 +141,19 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 	
 
 	@Override
-	public TextLayoutBuilder insertLeft(String text, int position_left) {
+	public PrintTextLayoutBuilder insertLeft(String text, int position_left) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertLeft(text, position_left);
 	}
 
 	@Override
-	public TextLayoutBuilder insertRight(String text, int position_right) {
+	public PrintTextLayoutBuilder insertRight(String text, int position_right) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertRight(text, position_right);
 	}
-	
+
 	/**
 	 * Splits the text specified into multiple lines.
 	 * @param text
@@ -246,53 +199,9 @@ public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
 		}
 	}
 
-	/**
-	 * Runs a unit test on this class. Test will be printed in console in epson escape characters.
-	 * @param args No arguments required.
-	 */
-	public static void main(String[] args) {
-		EpsonPrintBuilder builder = new EpsonPrintBuilder(40);
-		builder.createTestPrint();
-		System.out.println(builder.toString());
-	}
-
-	public PrintTextLayoutBuilder ff() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PrintTextLayoutBuilder line() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-	@Override
-	public PrintTextLayoutBuilder line(char chr) {
-		return null;
-	}
-
-	public PrintTextLayoutBuilder lineDouble() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-	public PrintTextLayoutBuilder lineChar(char chr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public TextLayoutBuilder centerB(String text) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public TextLayoutBuilder insertRight(String text) {
+	public PrintTextLayoutBuilder insertRight(String text) {
 		return this.insertRight(text, this.getLineWidth()-1);
 	}
 
-	public TextLayoutBuilder insertRight(long number) {
-		return this.insertRight(number, this.getLineWidth()-1);
-	}
-	
 
 }

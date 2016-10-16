@@ -1,4 +1,4 @@
-package coza.trojanc.stonewriter.printer;
+package coza.trojanc.stonewriter.printer.layout;
 
 import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedFeed;
