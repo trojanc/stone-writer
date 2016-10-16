@@ -4,7 +4,7 @@ package coza.trojanc.stonewriter.template.fields;
 /**
  * Text - Defines a printer feed element.   
  */
-public class Feed implements PrintableTemplateItem{
+public class Feed implements TemplateLine {
 
 	//number of lines to feed
 	private int lines;

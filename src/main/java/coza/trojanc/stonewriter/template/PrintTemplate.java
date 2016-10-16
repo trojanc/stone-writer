@@ -1,6 +1,6 @@
 package coza.trojanc.stonewriter.template;
 
-import coza.trojanc.stonewriter.template.fields.PrintableTemplateItem;
+import coza.trojanc.stonewriter.template.fields.TemplateTextItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class PrintTemplate {
 	/**
 	 * List of lines to be printed
 	 */
-	private List<PrintableTemplateItem> lines = new ArrayList<>();
+	private List<TemplateTextItem> lines = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -30,11 +30,11 @@ public class PrintTemplate {
 		this.name = name;
 	}
 
-	public List<PrintableTemplateItem> getLines() {
+	public List<TemplateTextItem> getLines() {
 		return lines;
 	}
 
-	public void setLines(List<PrintableTemplateItem> lines) {
+	public void setLines(List<TemplateTextItem> lines) {
 		this.lines = lines;
 	}
 

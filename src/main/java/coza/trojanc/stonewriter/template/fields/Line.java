@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Defines a Line message element in the Prompt message element
  */
-public class Line implements PrintableTemplateItem{
+public class Line implements TemplateLine {
 
 	/** alignment - Set to null if not specified */
 	private Align align;
@@ -22,13 +22,13 @@ public class Line implements PrintableTemplateItem{
 	/** mode - Set to 0 if not specified */
 	private Mode mode;
 
-	private List<LineItem> lineItems = new ArrayList<>();
+	private List<TemplateTextItem> lineItems = new ArrayList<>();
 
-	public List<LineItem> getLineItems() {
+	public List<TemplateTextItem> getLineItems() {
 		return lineItems;
 	}
 
-	public void setLineItems(List<LineItem> lineItems) {
+	public void setLineItems(List<TemplateTextItem> lineItems) {
 		this.lineItems = lineItems;
 	}
 
