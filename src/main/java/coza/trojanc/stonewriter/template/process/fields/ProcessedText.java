@@ -1,4 +1,4 @@
-package coza.trojanc.stonewriter.processor.fields;
+package coza.trojanc.stonewriter.template.process.fields;
 
 import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.shared.Mode;

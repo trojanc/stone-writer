@@ -1,4 +1,4 @@
-package coza.trojanc.stonewriter.processor.fields;
+package coza.trojanc.stonewriter.template.process.fields;
 
 import java.util.ArrayList;
 import java.util.List;
