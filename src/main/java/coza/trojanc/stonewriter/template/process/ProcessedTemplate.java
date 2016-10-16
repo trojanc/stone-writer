@@ -1,6 +1,6 @@
-package coza.trojanc.stonewriter.processor;
+package coza.trojanc.stonewriter.template.process;
 
-import coza.trojanc.stonewriter.processor.fields.ProcessedLineItem;
+import coza.trojanc.stonewriter.template.process.fields.ProcessedLineItem;
 
 import java.util.ArrayList;
 import java.util.List;

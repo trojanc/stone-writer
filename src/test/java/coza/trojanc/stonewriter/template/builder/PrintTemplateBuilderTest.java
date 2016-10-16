@@ -1,36 +1,20 @@
 package coza.trojanc.stonewriter.template.builder;
 
+import coza.trojanc.stonewriter.TestUtils;
 import coza.trojanc.stonewriter.printer.HtmlPrinter;
-import coza.trojanc.stonewriter.processor.ProcessedTemplate;
-import coza.trojanc.stonewriter.processor.TemplateProcessor;
 import coza.trojanc.stonewriter.shared.Align;
-import coza.trojanc.stonewriter.shared.DynamicType;
 import coza.trojanc.stonewriter.template.PrintTemplate;
+import coza.trojanc.stonewriter.template.process.DefaultTemplateProcessor;
+import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
+import coza.trojanc.stonewriter.template.process.TemplateProcessor;
 import org.junit.Test;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by Charl-PC on 2016-10-11.
  */
 public class PrintTemplateBuilderTest {
-
-	public static class Foo{
-
-		public String getName(){
-			return "Tautua";
-		}
-
-		public int getAge(){
-			return 21;
-		}
-
-		public Date getBirth(){
-			return new Date();
-		}
-	}
 
 	@Test
 	public void testBuildReceipt(){
@@ -41,16 +25,16 @@ public class PrintTemplateBuilderTest {
 				.addText().text("Hello").align(Align.LEFT)
 				.addText().text("world").align(Align.RIGHT)
 			.addLine()
-				.addDynamicText().expression("foo.name")
-				.addDynamicText().expression("foo.age").type(DynamicType.Number).formatting("R% 8d%n")
-				.addDynamicText().expression("foo.birth").type(DynamicType.Date).formatting("YYYY-MM-dd")
+				.addDynamicText().key(TestUtils.KEY_PLAYER_AGE)
+				.addDynamicText().key(TestUtils.KEY_PLAYER_NAME)
+				.addDynamicText().key(TestUtils.KEY_PLAYER_BIRTH)
 			.build();
 
-		Map<String, Object> context = new HashMap<>();
-		context.put("foo", new Foo());
 
-		TemplateProcessor processor = new TemplateProcessor(template, context);
-		ProcessedTemplate processedTemplate = processor.process();
+
+		final Map<String, String> context = TestUtils.createResolvedVariables();
+		TemplateProcessor processor = new DefaultTemplateProcessor();
+		ProcessedTemplate processedTemplate = processor.process(template, context);
 
 		HtmlPrinter printer = new HtmlPrinter();
 		printer.init();

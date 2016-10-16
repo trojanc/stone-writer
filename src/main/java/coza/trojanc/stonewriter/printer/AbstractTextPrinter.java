@@ -1,8 +1,8 @@
 package coza.trojanc.stonewriter.printer;
 
-import coza.trojanc.stonewriter.processor.ProcessedTemplate;
-import coza.trojanc.stonewriter.processor.fields.ProcessedFeed;
-import coza.trojanc.stonewriter.processor.fields.ProcessedLine;
+import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
+import coza.trojanc.stonewriter.template.process.fields.ProcessedFeed;
+import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
 
 /**
  * Created by Charl-PC on 2016-10-11.

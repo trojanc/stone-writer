@@ -1,6 +1,6 @@
 package coza.trojanc.stonewriter.printer;
 
-import coza.trojanc.stonewriter.processor.fields.ProcessedLine;
+import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
 import coza.trojanc.stonewriter.shared.Mode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

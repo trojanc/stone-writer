@@ -1,8 +1,7 @@
 package coza.trojanc.stonewriter.template.builder;
 
-import coza.trojanc.stonewriter.shared.DynamicType;
-import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.shared.Align;
+import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.fields.AbstractTextItem;
 import coza.trojanc.stonewriter.template.fields.DynamicText;
 import coza.trojanc.stonewriter.template.fields.Text;
@@ -30,26 +29,13 @@ public class PrintTextBuilder {
 		return this;
 	}
 
-	public PrintTextBuilder expression(String expression){
+	public PrintTextBuilder key(String key){
 		if(isDynamic){
-			((DynamicText)this.text).setExpression(expression);
+			((DynamicText)this.text).setContextKey(key);
 		}
 		return this;
 	}
 
-	public PrintTextBuilder formatting(String formatting){
-		if(isDynamic){
-			((DynamicText)this.text).setFormatting(formatting);
-		}
-		return this;
-	}
-
-	public PrintTextBuilder type(DynamicType type){
-		if(isDynamic){
-			((DynamicText)this.text).setType(type);
-		}
-		return this;
-	}
 
 	public PrintTextBuilder align(Align align){
 		this.text.setAlignment(align);
