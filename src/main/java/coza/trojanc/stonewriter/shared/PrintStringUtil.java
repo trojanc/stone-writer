@@ -6,6 +6,19 @@ import java.util.Vector;
  * Created by Charl-PC on 2016-10-13.
  */
 public class PrintStringUtil {
+
+	public static char[] getLineBuffer(int lineSize){
+		return getLineBuffer(lineSize, ' ');
+	}
+
+	public static char[] getLineBuffer(final int lineSize, final char fillWithChar){
+		char[] buffer = new char[lineSize];
+		for(int i = 0 ; i < lineSize; i++){
+			buffer[i] = fillWithChar;
+		}
+
+		return buffer;
+	}
 	/**
 	 * Parses one 'line' of chars from a string for the given width so that no words are chopped in half.
 	 * @param str
