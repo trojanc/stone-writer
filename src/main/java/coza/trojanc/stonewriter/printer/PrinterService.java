@@ -26,6 +26,7 @@ public class PrinterService {
 				printLine(line);
 			}
 		});
+
 	}
 
 	private void printLine(ProcessedLine line){

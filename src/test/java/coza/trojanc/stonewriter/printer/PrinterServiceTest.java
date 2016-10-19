@@ -2,6 +2,7 @@ package coza.trojanc.stonewriter.printer;
 
 import coza.trojanc.stonewriter.TestUtils;
 import coza.trojanc.stonewriter.printer.impl.HtmlPrinter;
+import coza.trojanc.stonewriter.printer.impl.PlainTextPrinter;
 import coza.trojanc.stonewriter.printer.layout.PlainTextLayoutBuilder;
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.process.DefaultTemplateProcessor;
@@ -28,10 +29,8 @@ public class PrinterServiceTest {
 		htmlPrinter.getHtml();
 
 		PrinterService printerService = new PrinterService();
-		PlainTextLayoutBuilder printer = new PlainTextLayoutBuilder(40);
-		printerService.print(processedTemplate, printer);
-		System.out.println(printer.toString());
-
+		PlainTextPrinter plainTextPrinter = new PlainTextPrinter();
+		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
 
 	}
 

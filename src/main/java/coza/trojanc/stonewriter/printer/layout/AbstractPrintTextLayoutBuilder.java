@@ -11,27 +11,28 @@ import java.util.regex.Pattern;
  * An abstract implementation of a print text layout builder
  * @author Charl Thiem
  */
-public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutBuilder
-{	/** Builder used to create the text to display/print */
+public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutBuilder {
+
+	/** Builder used to create the text to display/print */
 	protected StringBuilder	builder;
 
 	/** The default text in a char buffer when starting a line */
 	private final char[] defaultCharBuffer;
 
 	/** Width of a line */
-	protected final int		lineWidth;
+	protected final int lineWidth;
 
 	/** An array of chars to the width of the line */
-	protected char[]		charBuffer		= null;
+	protected char[] charBuffer = null;
 
 	/** flag indicating that the char buffer has been used */
-	protected boolean		charBufferInUse	= false;
+	protected boolean charBufferInUse	= false;
 
 	/** Chars that should be removed from strings as it could possible break the print command */
-	protected final Pattern	invalidCharsPatern;
+	protected final Pattern invalidCharsPatern;
 
 	/** Char that should be placed in the place of an invalid char */
-	protected final char	invalidCharReplacement;
+	protected final char invalidCharReplacement;
 
 
 	/**

@@ -1,8 +1,9 @@
 package coza.trojanc.stonewriter.printer.impl;
 
-import coza.trojanc.stonewriter.printer.layout.AbstractTextPrinter;
-import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
+import coza.trojanc.stonewriter.printer.Printer;
+import coza.trojanc.stonewriter.printer.layout.PrintTextLayoutBuilder;
 import coza.trojanc.stonewriter.shared.Mode;
+import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -19,22 +20,20 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * Created by Charl-PC on 2016-10-11.
  */
-public class HtmlPrinter extends AbstractTextPrinter {
+public class HtmlPrinter implements Printer {
 
 	private Document htmlDocument;
 	private Element mainRootElement;
 
 	public HtmlPrinter(){
-
+		super();
 	}
 
 
-	@Override
 	public void feed() {
 		mainRootElement.appendChild(htmlDocument.createElement("br"));
 	}
 
-	@Override
 	public void init(){
 		DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder icBuilder;
@@ -77,5 +76,15 @@ public class HtmlPrinter extends AbstractTextPrinter {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	@Override
+	public PrintTextLayoutBuilder getLayoutBuilder() {
+		return null;
+	}
+
+	@Override
+	public void print() {
+
 	}
 }
