@@ -1,4 +1,7 @@
-package coza.trojanc.stonewriter.context;
+package coza.trojanc.stonewriter.context.impl;
+
+import coza.trojanc.stonewriter.context.ContextVariable;
+import coza.trojanc.stonewriter.context.DynamicType;
 
 /**
  * Created by Charl-PC on 2016-10-16.

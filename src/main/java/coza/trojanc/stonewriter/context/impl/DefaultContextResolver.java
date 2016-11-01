@@ -1,11 +1,14 @@
-package coza.trojanc.stonewriter.context;
+package coza.trojanc.stonewriter.context.impl;
 
+import coza.trojanc.stonewriter.context.ContextDefinition;
+import coza.trojanc.stonewriter.context.ContextResolver;
+import coza.trojanc.stonewriter.context.ContextVariable;
+import coza.trojanc.stonewriter.context.DynamicType;
 import org.apache.commons.jexl3.*;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,15 +20,15 @@ public class DefaultContextResolver implements ContextResolver {
 	private JexlContext jc;
 	private JexlEngine jexl;
 
-	private Map<String, String> resolvedVariables;
+	private DefaultContextMap resolvedVariables;
 
 	public DefaultContextResolver(){
 	}
 
 	@Override
-	public Map<String, String> resolve(ContextDefinition contextDefinition, Map<String, Object> variables) {
+	public DefaultContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables) {
 		this.contextDefinition = contextDefinition;
-		this.resolvedVariables = new HashMap<>(contextDefinition.getFields().size());
+		this.resolvedVariables = new DefaultContextMap();
 		this.jc = new MapContext(variables);
 		this.jexl = new JexlBuilder().create();
 		resolveContext();
@@ -35,7 +38,7 @@ public class DefaultContextResolver implements ContextResolver {
 	private void resolveContext(){
 		contextDefinition.getFields().forEach((s, contextVariable) -> {
 			String value = resolveContextVariable(contextVariable);
-			resolvedVariables.put(contextVariable.getKey(), value);
+			resolvedVariables.add(contextVariable.getKey(), value);
 		});
 	}
 

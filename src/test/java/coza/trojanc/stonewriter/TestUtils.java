@@ -1,6 +1,8 @@
 package coza.trojanc.stonewriter;
 
 import coza.trojanc.stonewriter.context.*;
+import coza.trojanc.stonewriter.context.impl.SimpleContextDefinition;
+import coza.trojanc.stonewriter.context.impl.SimpleContextVariable;
 import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.builder.PrintTemplateBuilder;

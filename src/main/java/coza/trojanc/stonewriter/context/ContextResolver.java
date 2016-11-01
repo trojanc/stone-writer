@@ -1,5 +1,7 @@
 package coza.trojanc.stonewriter.context;
 
+import coza.trojanc.stonewriter.context.impl.DefaultContextMap;
+
 import java.util.Map;
 
 /**
@@ -7,5 +9,5 @@ import java.util.Map;
  */
 public interface ContextResolver {
 
-	Map<String, String> resolve(ContextDefinition contextDefinition, Map<String, Object> variables);
+	DefaultContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables);
 }

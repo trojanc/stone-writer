@@ -1,6 +1,7 @@
 package coza.trojanc.stonewriter.context;
 
 import coza.trojanc.stonewriter.TestUtils;
+import coza.trojanc.stonewriter.context.impl.DefaultContextResolver;
 import org.junit.Before;
 import org.junit.Test;
 
