@@ -92,7 +92,11 @@ public class PrintStringUtilTest {
 
     @Test
     public void insertRightAligned() throws Exception {
-
+		final int LINE_SIZE = 10;
+		char[] buffer = PrintStringUtil.getLineBuffer(LINE_SIZE);
+		PrintStringUtil.insertRightAligned(buffer, LINE_SIZE-1, "test", LINE_SIZE);
+		final char[] expected = {' ',' ',' ',' ',' ',' ','t','e','s','t'};
+		assertArrayEquals(expected, buffer);
     }
 
     @Test

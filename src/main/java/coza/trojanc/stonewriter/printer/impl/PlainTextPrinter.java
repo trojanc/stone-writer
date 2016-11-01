@@ -1,22 +1,22 @@
 package coza.trojanc.stonewriter.printer.impl;
 
 import coza.trojanc.stonewriter.printer.Printer;
-import coza.trojanc.stonewriter.printer.layout.PlainTextLayoutBuilder;
-import coza.trojanc.stonewriter.printer.layout.PrintTextLayoutBuilder;
+import coza.trojanc.stonewriter.format.impl.PlainTextFormatBuilder;
+import coza.trojanc.stonewriter.format.PrintFormatBuilder;
 
 /**
  * Created by Charl-PC on 2016-10-16.
  */
 public class PlainTextPrinter implements Printer{
 
-	private PrintTextLayoutBuilder layoutBuilder;
+	private PrintFormatBuilder layoutBuilder;
 
 	private int width = 40;
 
 	@Override
-	public PrintTextLayoutBuilder getLayoutBuilder() {
+	public PrintFormatBuilder getLayoutBuilder() {
 		if(layoutBuilder == null){
-			layoutBuilder = new PlainTextLayoutBuilder(width);
+			layoutBuilder = new PlainTextFormatBuilder(width);
 		}
 		return layoutBuilder;
 	}

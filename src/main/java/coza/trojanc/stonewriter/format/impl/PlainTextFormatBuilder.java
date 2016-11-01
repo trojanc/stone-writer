@@ -1,6 +1,6 @@
 package coza.trojanc.stonewriter.printer.layout;
 
-public class PlainTextLayoutBuilder extends AbstractPrintTextLayoutBuilder {
+public class PlainTextLayoutBuilder extends AbstractPlainTextLayoutBuilder {
 
 	public PlainTextLayoutBuilder(int line_width) {
 		super(line_width);

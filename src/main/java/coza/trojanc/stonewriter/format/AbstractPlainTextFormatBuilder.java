@@ -1,6 +1,5 @@
-package coza.trojanc.stonewriter.printer.layout;
+package coza.trojanc.stonewriter.format;
 
-import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.shared.PrintStringUtil;
 
 import java.util.regex.Matcher;
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
  * An abstract implementation of a print text layout builder
  * @author Charl Thiem
  */
-public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutBuilder {
+public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuilder {
 
 	/** Builder used to create the text to display/print */
 	protected StringBuilder	builder;
@@ -19,14 +18,8 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	/** The default text in a char buffer when starting a line */
 	private final char[] defaultCharBuffer;
 
-	/** Width of a line */
-	protected final int lineWidth;
-
 	/** An array of chars to the width of the line */
 	protected char[] charBuffer = null;
-
-	/** flag indicating that the char buffer has been used */
-	protected boolean charBufferInUse	= false;
 
 	/** Chars that should be removed from strings as it could possible break the print command */
 	protected final Pattern invalidCharsPatern;
@@ -40,7 +33,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * the line width.
 	 * @param line_width The number of characters that can be displayed on a line
 	 */
-	protected AbstractPrintTextLayoutBuilder(int line_width){
+	protected AbstractPlainTextFormatBuilder(int line_width){
 		this(line_width, null, ' ');
 	}
 
@@ -51,10 +44,10 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param invalidCharsRegex Regular expression of invalid characters
 	 * @param invalidCharReplacement The character that should be used to replace the invalid character
 	 */
-	protected AbstractPrintTextLayoutBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement){
+	protected AbstractPlainTextFormatBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement){
+		super(line_width);
 		this.defaultCharBuffer = PrintStringUtil.getLineBuffer(line_width);
 		this.builder = new StringBuilder();
-		this.lineWidth = line_width;
 		this.charBuffer = new char[this.lineWidth];
 		if (invalidCharsRegex != null){
 			this.invalidCharsPatern = Pattern.compile(invalidCharsRegex);
@@ -93,7 +86,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		this.charBufferInUse = false;
 	}
 	
-	public PrintTextLayoutBuilder initialize(){
+	public PrintFormatBuilder initialize(){
 		this.resetCharBuffer();
 		return this;
 	}
@@ -108,37 +101,43 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 		return this.builder.toString();
 	}
 
-	public PrintTextLayoutBuilder insertLeft(String text, int position_left){
+	public Object getFormat(){
+		return this.toString();
+	}
+
+	public PrintFormatBuilder insertLeft(String text, int position_left){
 		return this.insertLeft(text, position_left, this.lineWidth);
 	}
 
-	public PrintTextLayoutBuilder insertRight(String text, int position_right){
+	public PrintFormatBuilder insertRight(String text, int position_right){
 		return this.insertRight(text, position_right, this.lineWidth);
 	}
 
-	public PrintTextLayoutBuilder insertCenter(String text, final int position){
+	public PrintFormatBuilder insertCenter(String text, final int position){
 		return this.insertCenter(text, position, this.lineWidth);
 	}
 
 
 
-	public PrintTextLayoutBuilder left(String text) {
+	public PrintFormatBuilder left(String text) {
 		//complete char buffer line?
 		this.completeCharBuffer();
 
 		//add all lines left aligned
 		int w = this.lineWidth;
-
+		int line = 0;
 		String[] strs = PrintStringUtil.getLines(text, w, "\n");
 		for (String value : strs) {
-			nl();
+			if(line++ != 0) {
+				this.nl();
+			}
 			this.builder.append(value);
 		}
 
 		return this;
 	}
 
-	public PrintTextLayoutBuilder center(String text) {
+	public PrintFormatBuilder center(String text) {
 		//complete char buffer line?
 		this.completeCharBuffer();
 
@@ -146,9 +145,12 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 
 		//add all lines center aligned
 		String[] strs = PrintStringUtil.getLines(text, w, "\n");
+		int line = 0;
 		int pos = this.lineWidth / 2;
 		for (String value : strs) {
-			this.nl();
+			if(line++ != 0) {
+				this.nl();
+			}
 			PrintStringUtil.insertCenterAligned(this.charBuffer, pos, value, lineWidth);
 			this.builder.append(new String(this.charBuffer));
 			this.resetCharBuffer();
@@ -158,16 +160,19 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	}
 
 
-	public PrintTextLayoutBuilder right(String text) {
+	public PrintFormatBuilder right(String text) {
 		//complete char buffer line?
 		this.completeCharBuffer();
 
 		//add all lines right aligned
 		String[] strs = PrintStringUtil.getLines(text, lineWidth, "\n");
-		int pos = lineWidth;
+		int pos = lineWidth-1;
+		int line = 0;
 		for (String value : strs) {
 			PrintStringUtil.insertRightAligned(this.charBuffer, pos, value, lineWidth);
-			this.nl();
+			if(line++ != 0) {
+				this.nl();
+			}
 			this.builder.append(new String(this.charBuffer));
 			this.resetCharBuffer();
 		}
@@ -184,7 +189,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected PrintTextLayoutBuilder insertLeft(String text, int position_left, int width){
+	protected PrintFormatBuilder insertLeft(String text, int position_left, int width){
 		if (text == null) {
 			return this;
 		}
@@ -207,7 +212,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected PrintTextLayoutBuilder insertRight(String text, int position_right, int width){
+	protected PrintFormatBuilder insertRight(String text, int position_right, int width){
 		if (text == null) {
 			return this;
 		}
@@ -230,7 +235,7 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 	 * @param width
 	 * @return
 	 */
-	protected PrintTextLayoutBuilder insertCenter(String text, final int position, int width){
+	protected PrintFormatBuilder insertCenter(String text, final int position, int width){
 		if (text == null) {
 			return this;
 		}
@@ -260,49 +265,15 @@ public abstract class AbstractPrintTextLayoutBuilder implements PrintTextLayoutB
 			this.resetCharBuffer();
 		}
 	}
-	
-	/**
-	 * @return the lineWidht
-	 */
-	public int getLineWidth() {
-		return this.lineWidth;
-	}
 
 
-	public PrintTextLayoutBuilder insertRight(String text) {
+
+	public PrintFormatBuilder insertRight(String text) {
 		return this.insertRight(text, this.getLineWidth()-1);
 	}
 
-	@Override
-	public PrintTextLayoutBuilder insertText(String text, Integer offset, Align align) {
-		if(align == Align.LEFT){
-			if(offset == null){
-				left(text);
-			}
-			else{
-				insertLeft(text, offset);
-			}
-		}
-		else if(align == Align.CENTER){
-			if(offset == null){
-				center(text);
-			}
-			else{
-				insertCenter(text, offset);
-			}
-		}
-		else if(align == Align.RIGHT){
-			if(offset == null){
-				right(text);
-			}
-			else{
-				insertRight(text, offset);
-			}
-		}
-		return this;
-	}
 
-	public PrintTextLayoutBuilder nl() {
+	public PrintFormatBuilder nl() {
 		if (this.charBufferInUse){
 			this.builder.append(String.valueOf(charBuffer));
 			/* Clear each character */

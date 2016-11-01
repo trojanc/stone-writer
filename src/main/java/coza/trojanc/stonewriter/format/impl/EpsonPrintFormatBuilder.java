@@ -2,7 +2,7 @@ package coza.trojanc.stonewriter.printer.layout;
 
 import coza.trojanc.stonewriter.shared.PrintStringUtil;
 
-public class EpsonPrintBuilder extends AbstractPrintTextLayoutBuilder {
+public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 
 	/**
 	 * Paper sensors<br>

@@ -368,7 +368,7 @@ public class PrintStringUtil {
 	 * If the value of <code>position</code> is negative the position will be taken as an index
 	 * from the right, else the it will be taken as an index position from the left.
 	 * @param line Array containing the line in which the value should be added
-	 * @param position
+	 * @param position Index where last character of the <code>value</code> must be right aligned on
 	 * @param value The value to add in the line
 	 */
 	public static void insertRightAligned(char[] line, int position, String value, int maxLength) {

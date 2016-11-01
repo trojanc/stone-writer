@@ -1,6 +1,6 @@
 package coza.trojanc.stonewriter.printer;
 
-import coza.trojanc.stonewriter.printer.layout.PrintTextLayoutBuilder;
+import coza.trojanc.stonewriter.format.PrintFormatBuilder;
 import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedFeed;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
@@ -11,9 +11,9 @@ import coza.trojanc.stonewriter.template.process.fields.ProcessedText;
  */
 public class PrinterService {
 
-	private PrintTextLayoutBuilder builder;
+	private PrintFormatBuilder builder;
 
-	public void print(ProcessedTemplate template, PrintTextLayoutBuilder builder){
+	public void print(ProcessedTemplate template, PrintFormatBuilder builder){
 		this.builder = builder;
 
 		template.getItems().forEach(processedLineItem -> {
