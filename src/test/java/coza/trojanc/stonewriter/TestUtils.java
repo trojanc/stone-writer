@@ -88,6 +88,7 @@ public class TestUtils {
 			.text("123").align(Align.RIGHT).offset(-2)
 			.line()
 			.text("Heres Johnny!").align(Align.RIGHT)
+			.text("Heres Johnny!").align(Align.LEFT)
 			.line()
 			.dynamicText(TestUtils.KEY_PLAYER_AGE).align(Align.RIGHT)
 			.dynamicText(TestUtils.KEY_PLAYER_NAME)
