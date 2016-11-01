@@ -1,17 +1,20 @@
-package coza.trojanc.stonewriter.printer.layout;
+package coza.trojanc.stonewriter.format.impl;
 
-public class PlainTextLayoutBuilder extends AbstractPlainTextLayoutBuilder {
+import coza.trojanc.stonewriter.format.AbstractPlainTextFormatBuilder;
+import coza.trojanc.stonewriter.format.PrintFormatBuilder;
 
-	public PlainTextLayoutBuilder(int line_width) {
+public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
+
+	public PlainTextFormatBuilder(int line_width) {
 		super(line_width);
 	}
 
-	public PlainTextLayoutBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement) {
+	public PlainTextFormatBuilder(int line_width, String invalidCharsRegex, char invalidCharReplacement) {
 		super(line_width, invalidCharsRegex, invalidCharReplacement);
 	}
 
 	@Override
-	public PrintTextLayoutBuilder nl() {
+	public PrintFormatBuilder nl() {
 		super.nl();
 		super.builder.append("\n");
 		return this;

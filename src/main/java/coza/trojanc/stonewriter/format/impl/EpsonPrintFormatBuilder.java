@@ -1,8 +1,10 @@
-package coza.trojanc.stonewriter.printer.layout;
+package coza.trojanc.stonewriter.format.impl;
 
+import coza.trojanc.stonewriter.format.AbstractPlainTextFormatBuilder;
+import coza.trojanc.stonewriter.format.PrintFormatBuilder;
 import coza.trojanc.stonewriter.shared.PrintStringUtil;
 
-public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
+public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	/**
 	 * Paper sensors<br>
@@ -79,7 +81,7 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 	/**
 	 * Creates a new instance of a <code>EpsonPrintBuilder</code>
 	 */
-	public EpsonPrintBuilder(){
+	public EpsonPrintFormatBuilder(){
 		super(40);
 	}
 
@@ -88,12 +90,12 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 	 * widrth of the paper.
 	 * @param line_width
 	 */
-	public EpsonPrintBuilder(int line_width) {
+	public EpsonPrintFormatBuilder(int line_width) {
 		super(line_width);
 	}
 
 
-	public PrintTextLayoutBuilder initialize(){
+	public PrintFormatBuilder initialize(){
 		super.initialize();
 		super.builder.append((char) 0x1B).append((char) 0x40);
 		this.current_alignment = Print_Align.LEFT;
@@ -101,20 +103,20 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 		return this;
 	}
 
-	public PrintTextLayoutBuilder center(String text) {
+	public PrintFormatBuilder center(String text) {
 		this.changeMode(Print_Mode.DEFAULT);
 		this.setAlignment(Print_Align.CENTER);
 		this.printTextAsLines(text, false);
 		return this;
 	}
 
-	public PrintTextLayoutBuilder left(String text) {
+	public PrintFormatBuilder left(String text) {
 		this.setAlignment(Print_Align.LEFT);
 		this.printTextAsLines(text, false);
 		return this;
 	}
 
-	public PrintTextLayoutBuilder nl() {
+	public PrintFormatBuilder nl() {
 		super.nl();
 		// Clear current style
 		//this.changeMode(Print_Mode.DEFAULT); NOT NEEDED AS EACH LINE RESETS STYLE
@@ -124,7 +126,7 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 	}
 
 
-	public PrintTextLayoutBuilder right(String text) {
+	public PrintFormatBuilder right(String text) {
 		this.changeMode(Print_Mode.DEFAULT);
 		this.setAlignment(Print_Align.RIGHT);
 		this.printTextAsLines(text, false);
@@ -133,7 +135,7 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 	
 
 	@Override
-	public PrintTextLayoutBuilder insertCenter(String text, int position) {
+	public PrintFormatBuilder insertCenter(String text, int position) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertCenter(text, position);
@@ -141,14 +143,14 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 	
 
 	@Override
-	public PrintTextLayoutBuilder insertLeft(String text, int position_left) {
+	public PrintFormatBuilder insertLeft(String text, int position_left) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertLeft(text, position_left);
 	}
 
 	@Override
-	public PrintTextLayoutBuilder insertRight(String text, int position_right) {
+	public PrintFormatBuilder insertRight(String text, int position_right) {
 		this.setAlignment(Print_Align.LEFT);
 		this.changeMode(Print_Mode.DEFAULT);
 		return super.insertRight(text, position_right);
@@ -199,7 +201,7 @@ public class EpsonPrintBuilder extends AbstractPlainTextLayoutBuilder {
 		}
 	}
 
-	public PrintTextLayoutBuilder insertRight(String text) {
+	public PrintFormatBuilder insertRight(String text) {
 		return this.insertRight(text, this.getLineWidth()-1);
 	}
 
