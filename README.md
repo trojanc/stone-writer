@@ -1,4 +1,4 @@
-#stonemason [![Build Status](https://travis-ci.org/trojanc/stone-writer.svg?branch=master)](https://travis-ci.org/trojanc/stone-writer)
+#stone-writer [![Build Status](https://travis-ci.org/trojanc/stone-writer.svg?branch=master)](https://travis-ci.org/trojanc/stone-writer)
 
 
 
