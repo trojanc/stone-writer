@@ -4,9 +4,9 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>coza.trojanc</groupId>
+	<groupId>coza.trojanc.stonewrite</groupId>
 	<artifactId>stone-writer</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
 		<!-- Build settings -->
@@ -69,19 +69,15 @@
 							<configuration>
 								<rules>
 									<requireMavenVersion>
-										<message>To build this project, maven ${maven.min.version} (or
-											higher) is required. Please install the specified version.</message>
+										<message>To build this project, maven ${maven.min.version} (or higher) is required. Please install the specified version.</message>
 										<version>${maven.min.version}</version>
 									</requireMavenVersion>
 									<requireJavaVersion>
-										<message>To build this project, java
-											${project.jdk.min.version} (or higher) is required. Please
-											install the specified version.</message>
+										<message>To build this project, java ${project.jdk.min.version} (or higher) is required. Please install the specified version.</message>
 										<version>${project.jdk.min.version}</version>
 									</requireJavaVersion>
 									<requirePluginVersions>
-										<message>Build reproducibility: It is a best practice to
-											explicitly specify plugin versions!</message>
+										<message>Build reproducibility: It is a best practice to explicitly specify plugin versions!</message>
 									</requirePluginVersions>
 								</rules>
 							</configuration>
