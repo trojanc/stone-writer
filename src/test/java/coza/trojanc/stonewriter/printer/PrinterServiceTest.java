@@ -21,14 +21,12 @@ public class PrinterServiceTest {
 		TemplateProcessor processor = new DefaultTemplateProcessor();
 		ProcessedTemplate processedTemplate = processor.process(template, context);
 
-//		HtmlPrinter htmlPrinter = new HtmlPrinter();
-//		htmlPrinter.init();
-//		htmlPrinter.print(processedTemplate);
-//		htmlPrinter.getHtml();
-
 		PrinterService printerService = new PrinterService();
-		PlainTextPrinter plainTextPrinter = new PlainTextPrinter();
+		Printer plainTextPrinter = new PlainTextPrinter();
 		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
+		String printedText = (String)plainTextPrinter.getLayoutBuilder().getFormat();
+		System.out.println(printedText);
+//		assertArrayEquals(expected, buffer);
 
 	}
 

@@ -84,6 +84,8 @@ public class TestUtils {
 			.line()
 			.text("SHIFT").align(Align.LEFT)
 			.text("12").align(Align.RIGHT).offset(10)
+			.text("TX").align(Align.RIGHT).offset(-7)
+			.text("123").align(Align.RIGHT).offset(-2)
 			.line()
 			.text("Heres Johnny!").align(Align.RIGHT)
 			.line()
