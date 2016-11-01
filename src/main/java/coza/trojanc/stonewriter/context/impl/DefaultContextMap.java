@@ -5,17 +5,26 @@ import coza.trojanc.stonewriter.context.ContextMap;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * Created by Charl-PC on 2016-11-01.
+ * The type Default context map.
  */
 public class DefaultContextMap implements ContextMap {
 
 	private final Map<String, String> resolvedVariables;
 
+	/**
+	 * Instantiates a new Default context map.
+	 */
 	public DefaultContextMap(){
 		this(0);
 	}
 
+	/**
+	 * Instantiates a new Default context map.
+	 *
+	 * @param initialSize the initial size
+	 */
 	public DefaultContextMap(int initialSize){
 		resolvedVariables = new HashMap<>(initialSize);
 	}
@@ -28,5 +37,10 @@ public class DefaultContextMap implements ContextMap {
 	@Override
 	public String get(String name){
 		return resolvedVariables.get(name);
+	}
+
+	@Override
+	public boolean has(String key) {
+		return resolvedVariables.containsKey(key);
 	}
 }

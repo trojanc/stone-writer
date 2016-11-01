@@ -13,6 +13,9 @@ public class SimpleContextVariable implements ContextVariable {
 	 */
 	private String expression;
 
+	/**
+	 *
+	 */
 	private DynamicType type = DynamicType.String;
 
 	/**
@@ -61,18 +64,38 @@ public class SimpleContextVariable implements ContextVariable {
 		return this.expression;
 	}
 
+	/**
+	 * Sets expression.
+	 *
+	 * @param expression the expression
+	 */
 	public void setExpression(String expression) {
 		this.expression = expression;
 	}
 
+	/**
+	 * Sets type.
+	 *
+	 * @param type the type
+	 */
 	public void setType(DynamicType type) {
 		this.type = type;
 	}
 
+	/**
+	 * Sets formatting.
+	 *
+	 * @param formatting the formatting
+	 */
 	public void setFormatting(String formatting) {
 		this.formatting = formatting;
 	}
 
+	/**
+	 * Sets key.
+	 *
+	 * @param key the key
+	 */
 	public void setKey(String key) {
 		this.key = key;
 	}

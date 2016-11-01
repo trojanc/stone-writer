@@ -18,4 +18,11 @@ public interface ContextMap {
 	 * @return The variable
 	 */
 	String get(String key);
+
+	/**
+	 * Returns true if the key exists in the context.
+	 * @param key Key to look for.
+	 * @return True if the item exist.
+	 */
+	boolean has(String key);
 }
