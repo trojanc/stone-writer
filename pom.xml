@@ -4,9 +4,11 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>coza.trojanc.stonewrite</groupId>
+	<groupId>coza.trojanc.stonewriter</groupId>
 	<artifactId>stone-writer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<description>Library to help with print templating and converting templates to a format a printer can use</description>
+	<url>https://github.com/trojanc/stone-writer</url>
 
 	<properties>
 		<!-- Build settings -->
