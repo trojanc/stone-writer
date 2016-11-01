@@ -35,6 +35,12 @@
 		<plugin.site.version>3.4</plugin.site.version>
 		<plugin.release.version>2.5.1</plugin.release.version>
 	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:trojanc/stone-writer.git</connection>
+		<url>scm:git:git@github.com:trojanc/stone-writer.git</url>
+		<developerConnection>scm:git:git@github.com:trojanc/stone-writer.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
