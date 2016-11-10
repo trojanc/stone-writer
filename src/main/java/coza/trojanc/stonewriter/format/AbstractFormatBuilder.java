@@ -9,13 +9,13 @@ public abstract class AbstractFormatBuilder implements PrintFormatBuilder {
 
 
 	/** flag indicating that the char buffer has been used */
-	protected boolean charBufferInUse = false;
+	protected boolean lineBufferInUse = false;
 
 	/** Width of a line */
 	protected final int lineWidth;
 
 	/**
-	 * Creates a new instance of a <code>AbstractThinClientPrintBuilder</code> setting
+	 * Creates a new instance of a <code>AbstractFormatBuilder</code> setting
 	 * the line width.
 	 * @param line_width The number of characters that can be displayed on a line
 	 */

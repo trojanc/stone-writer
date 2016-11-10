@@ -34,7 +34,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //	private final int width;
 //
 //	/** flag indicating that the char buffer has been used */
-//	private boolean charBufferInUse;
+//	private boolean lineBufferInUse;
 //
 //	/** Flag if busy with first line */
 //	private boolean firstLine = true;
@@ -67,7 +67,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //	 * @return
 //	 */
 //	private boolean completeCharBuffer() {
-//		if (this.charBufferInUse) {
+//		if (this.lineBufferInUse) {
 //			if (!this.firstLine) {
 //				this.builder.append(NEW_LINE);
 //			}
@@ -86,7 +86,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //	 */
 //	private void resetCharBuffer() {
 //		System.arraycopy(this.defaultCharBuffer, 0, this.charBuffer, 0, this.width);
-//		this.charBufferInUse = false;
+//		this.lineBufferInUse = false;
 //	}
 //
 //
@@ -145,7 +145,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //	}
 //
 //	public PrintTextLayoutBuilder insertLeft(String text, int position_left) {
-//		this.charBufferInUse = true;
+//		this.lineBufferInUse = true;
 //		if (position_left < 0) {
 //			PrintStringUtil.insertLeftAligned(this.charBuffer, width + position_left - 1, text, width);
 //		}
@@ -157,7 +157,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //
 //
 //	public PrintTextLayoutBuilder insertCenter(String text, int position) {
-//		this.charBufferInUse = true;
+//		this.lineBufferInUse = true;
 //		if (position < 0) {
 //			PrintStringUtil.insertCenterAligned(this.charBuffer, width + position - 1, text, width);
 //		}
@@ -168,7 +168,7 @@ public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 //	}
 //
 //	public PrintTextLayoutBuilder insertRight(String text, int position_right) {
-//		this.charBufferInUse = true;
+//		this.lineBufferInUse = true;
 //		if (position_right < 0) {
 //			PrintStringUtil.insertRightAligned(this.charBuffer, width + position_right - 1, text, width);
 //		}

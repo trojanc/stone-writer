@@ -201,9 +201,4 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 		}
 	}
 
-	public PrintFormatBuilder insertRight(String text) {
-		return this.insertRight(text, this.getLineWidth()-1);
-	}
-
-
 }

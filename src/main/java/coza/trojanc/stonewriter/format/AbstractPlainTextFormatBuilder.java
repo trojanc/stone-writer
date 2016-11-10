@@ -8,29 +8,39 @@ import java.util.regex.Pattern;
 
 /**
  * An abstract implementation of a print text layout builder
+ *
  * @author Charl Thiem
  */
 public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuilder {
 
-	/** Builder used to create the text to display/print */
-	protected StringBuilder	builder;
+	/**
+	 * Builder used to create the text to display/print
+	 */
+	protected StringBuilder builder;
 
 	/** The default text in a char buffer when starting a line */
 	private final char[] defaultCharBuffer;
 
-	/** An array of chars to the width of the line */
+	/**
+	 * An array of chars to the width of the line
+	 */
 	protected char[] charBuffer = null;
 
-	/** Chars that should be removed from strings as it could possible break the print command */
-	protected final Pattern invalidCharsPatern;
+	/**
+	 * Chars that should be removed from strings as it could possible break the print command
+	 */
+	protected final Pattern invalidCharsPattern;
 
-	/** Char that should be placed in the place of an invalid char */
+	/**
+	 * Char that should be placed in the place of an invalid char
+	 */
 	protected final char invalidCharReplacement;
 
 
 	/**
 	 * Creates a new instance of a <code>AbstractThinClientPrintBuilder</code> setting
 	 * the line width.
+	 *
 	 * @param line_width The number of characters that can be displayed on a line
 	 */
 	protected AbstractPlainTextFormatBuilder(int line_width){
@@ -40,6 +50,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	/**
 	 * Creates a new instance of a <code>AbstractThinClientPrintBuilder</code> setting
 	 * the line width.
+	 *
 	 * @param line_width The number of characters that can be displayed on a line
 	 * @param invalidCharsRegex Regular expression of invalid characters
 	 * @param invalidCharReplacement The character that should be used to replace the invalid character
@@ -50,10 +61,10 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		this.builder = new StringBuilder();
 		this.charBuffer = new char[this.lineWidth];
 		if (invalidCharsRegex != null){
-			this.invalidCharsPatern = Pattern.compile(invalidCharsRegex);
+			this.invalidCharsPattern = Pattern.compile(invalidCharsRegex);
 		} 
 		else {
-			this.invalidCharsPatern = null;
+			this.invalidCharsPattern = null;
 		}
 		this.invalidCharReplacement = invalidCharReplacement;
 		initialize();
@@ -61,16 +72,17 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 
 	/**
 	 * Checks a String and removes illegal characters
-	 * @param str
-	 * @return
+	 *
+	 * @param str the str
+	 * @return string string
 	 */
 	protected String fixCharacters(String str){
 		if (str == null) {
 			return "";		//TODO confirm behaviour
 		}
 		
-		if (this.invalidCharsPatern != null){
-			Matcher m = this.invalidCharsPatern.matcher(str);
+		if (this.invalidCharsPattern != null){
+			Matcher m = this.invalidCharsPattern.matcher(str);
 			return m.replaceAll(Character.toString(this.invalidCharReplacement));
 		} 
 		else {
@@ -83,9 +95,14 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	 */
 	protected void resetCharBuffer() {
 		System.arraycopy(defaultCharBuffer, 0, this.charBuffer, 0, this.lineWidth);
-		this.charBufferInUse = false;
+		this.lineBufferInUse = false;
 	}
-	
+
+	/**
+	 * Initialize print format builder.
+	 *
+	 * @return the print format builder
+	 */
 	public PrintFormatBuilder initialize(){
 		this.resetCharBuffer();
 		return this;
@@ -95,7 +112,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	 * Returns the builder as a raw String
 	 */
 	public String toString(){
-		if (this.charBufferInUse){
+		if (this.lineBufferInUse){
 			this.nl(); // Complete the line
 		}
 		return this.builder.toString();
@@ -115,6 +132,18 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 
 	public PrintFormatBuilder insertCenter(String text, final int position){
 		return this.insertCenter(text, position, this.lineWidth);
+	}
+
+
+
+	/**
+	 * Insert right print format builder.
+	 *
+	 * @param text the text
+	 * @return the print format builder
+	 */
+	public PrintFormatBuilder insertRight(String text) {
+		return this.insertRight(text, this.getLineWidth()-1);
 	}
 
 
@@ -180,21 +209,21 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		return this;
 	}
 
-	
+
 	/**
 	 * Inserts left given a specific line width
-	 * 
-	 * @param text
-	 * @param position_left
-	 * @param width
-	 * @return
+	 *
+	 * @param text the text
+	 * @param position_left the position left
+	 * @param width the width
+	 * @return print format builder
 	 */
 	protected PrintFormatBuilder insertLeft(String text, int position_left, int width){
 		if (text == null) {
 			return this;
 		}
 		
-		this.charBufferInUse = true;
+		this.lineBufferInUse = true;
 		if (position_left < 0){
 			PrintStringUtil.insertLeftAligned(this.charBuffer, width+position_left-1, text, width);
 		} 
@@ -206,18 +235,18 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 
 	/**
 	 * Inserts Right given a specific line width
-	 * 
-	 * @param text
-	 * @param position_right
-	 * @param width
-	 * @return
+	 *
+	 * @param text the text
+	 * @param position_right the position right
+	 * @param width the width
+	 * @return print format builder
 	 */
 	protected PrintFormatBuilder insertRight(String text, int position_right, int width){
 		if (text == null) {
 			return this;
 		}
 		
-		this.charBufferInUse = true;
+		this.lineBufferInUse = true;
 		if (position_right < 0){
 			PrintStringUtil.insertRightAligned(this.charBuffer, width + position_right - 1, text, width);
 		}
@@ -229,18 +258,18 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 
 	/**
 	 * Inserts centered given a specific line width
-	 * 
-	 * @param text
-	 * @param position
-	 * @param width
-	 * @return
+	 *
+	 * @param text the text
+	 * @param position the position
+	 * @param width the width
+	 * @return print format builder
 	 */
 	protected PrintFormatBuilder insertCenter(String text, final int position, int width){
 		if (text == null) {
 			return this;
 		}
 		
-		this.charBufferInUse = true;
+		this.lineBufferInUse = true;
 		if (position < 0){
 			PrintStringUtil.insertCenterAligned(this.charBuffer, width+position-1, text, width);
 		}
@@ -255,7 +284,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	 * Flushes the char buffer
 	 */
 	public void completeCharBuffer() {
-		if (this.charBufferInUse) {
+		if (this.lineBufferInUse) {
 			int last_space_position = charBuffer.length-1;
 			for (; last_space_position > 0; last_space_position--) {	//> 0 since we will at least print one space char
 				if (charBuffer[last_space_position] != ' ')
@@ -267,20 +296,14 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	}
 
 
-
-	public PrintFormatBuilder insertRight(String text) {
-		return this.insertRight(text, this.getLineWidth()-1);
-	}
-
-
 	public PrintFormatBuilder nl() {
-		if (this.charBufferInUse){
+		if (this.lineBufferInUse){
 			this.builder.append(String.valueOf(charBuffer));
 			/* Clear each character */
 			for (int i = 0; i < lineWidth; i++){
 				this.charBuffer[i] = ' ';
 			}
-			this.charBufferInUse = false;
+			this.lineBufferInUse = false;
 		}
 		return this;
 	}
