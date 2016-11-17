@@ -1,6 +1,0 @@
-{
-  "name": "Stone Writer",
-  "tagline": "",
-  "body": "#stone-writer [![Build Status](https://travis-ci.org/trojanc/stone-writer.svg?branch=master)](https://travis-ci.org/trojanc/stone-writer)\r\n\r\n\r\n\r\n## Overview\r\n<pre>\r\n    ContextDefinition      ContextObject\r\n            \\                   /\r\n             \\                 /\r\n                ContextResolver\r\n                      /\r\n                    /\r\n           ContextMap      PrintTemplate\r\n                \\                 /\r\n                 \\               /\r\n                 TemplateProcessor\r\n                        /\r\n                       /\r\n           ProcessedTemplate    Printer -> LayoutBuilder\r\n                 \\                /\r\n                  \\              /\r\n                   PrinterService\r\n</pre>\r\n\r\n",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
