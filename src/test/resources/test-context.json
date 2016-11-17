@@ -1,0 +1,1 @@
+{"fields":{"playerAge":{"expression":"player.age","type":"Number","formatting":null,"key":"playerAge"},"playerName":{"expression":"player.name","type":"String","formatting":null,"key":"playerName"},"playerBirth":{"expression":"player.birth","type":"Date","formatting":"YYYY-MM-dd","key":"playerBirth"}}}

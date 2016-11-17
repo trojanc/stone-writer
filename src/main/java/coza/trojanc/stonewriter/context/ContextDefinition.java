@@ -7,5 +7,10 @@ import java.util.Map;
  */
 public interface ContextDefinition {
 
+	/**
+	 * Gets fields.
+	 *
+	 * @return the fields
+	 */
 	Map<String, ContextVariable> getFields();
 }
