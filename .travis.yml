@@ -6,6 +6,7 @@ before_install:
   - tar zxvf apache-maven-3.3.9-bin.tar.gz
   - chmod +x apache-maven-3.3.9/bin/mvn
   - export M2_HOME=$PWD/apache-maven-3.3.9
+  - export MAVEN_OPTS="-Dmaven.repo.remote=https://repo1.maven.org/maven2/"
   - export PATH=$PWD/apache-maven-3.3.9/bin:${PATH}
   - hash -r
 before_script:
