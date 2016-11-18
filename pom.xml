@@ -48,10 +48,27 @@
 	</scm>
 	<repositories>
 		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 			<id>central</id>
-			<url>http://repo1.maven.org/maven2/</url>
+			<name>Central Repository</name>
+			<url>https://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo1.maven.org/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
