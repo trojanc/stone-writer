@@ -1,7 +1,9 @@
-package coza.trojanc.stonewriter.template.process;
+package coza.trojanc.stonewriter.template.process.impl;
 
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.fields.*;
+import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
+import coza.trojanc.stonewriter.template.process.TemplateProcessor;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedFeed;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedLine;
 import coza.trojanc.stonewriter.template.process.fields.ProcessedText;

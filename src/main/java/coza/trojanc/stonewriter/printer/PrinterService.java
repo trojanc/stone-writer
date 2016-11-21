@@ -30,10 +30,7 @@ public class PrinterService {
 	}
 
 	private void printLine(ProcessedLine line){
-		line.getLineItems().forEach(processedText -> {
-			printText(processedText, line.getLineItems().size() == 1);
-
-		});
+		line.getLineItems().forEach(processedText -> printText(processedText, line.getLineItems().size() == 1));
 		builder.nl();
 	}
 

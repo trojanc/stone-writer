@@ -27,20 +27,20 @@ public class DefaultContextResolverTest {
 
 	@Test
 	public void resolveString() throws Exception {
-		assertTrue(resolvedVariables.has(TestUtils.KEY_PLAYER_NAME));
-		assertEquals("Tautua", resolvedVariables.get(TestUtils.KEY_PLAYER_NAME));
+		assertTrue(resolvedVariables.has(TestUtils.KEY_TRADER_NAME));
+		assertEquals("Tautua", resolvedVariables.get(TestUtils.KEY_TRADER_NAME));
 	}
 
 	@Test
 	public void resolveNumber() throws Exception {
-		assertTrue(resolvedVariables.has(TestUtils.KEY_PLAYER_AGE));
-		assertEquals("21", resolvedVariables.get(TestUtils.KEY_PLAYER_AGE));
+		assertTrue(resolvedVariables.has(TestUtils.KEY_NUM_ITEMS));
+		assertEquals("21", resolvedVariables.get(TestUtils.KEY_NUM_ITEMS));
 	}
 
 	@Test
 	public void resolveFormattedDate() throws Exception {
-		assertTrue(resolvedVariables.has(TestUtils.KEY_PLAYER_BIRTH));
-		assertEquals("2016-10-01", resolvedVariables.get(TestUtils.KEY_PLAYER_BIRTH));
+		assertTrue(resolvedVariables.has(TestUtils.KEY_TRANSCACTION_DATE));
+		assertEquals("2016-10-01", resolvedVariables.get(TestUtils.KEY_TRANSCACTION_DATE));
 	}
 
 

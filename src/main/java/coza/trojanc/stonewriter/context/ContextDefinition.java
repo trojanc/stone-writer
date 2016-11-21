@@ -12,5 +12,5 @@ public interface ContextDefinition {
 	 *
 	 * @return the fields
 	 */
-	Map<String, ContextVariable> getFields();
+	Map<String, ? extends ContextVariable> getFields();
 }

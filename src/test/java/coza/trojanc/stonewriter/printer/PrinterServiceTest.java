@@ -3,7 +3,7 @@ package coza.trojanc.stonewriter.printer;
 import coza.trojanc.stonewriter.TestUtils;
 import coza.trojanc.stonewriter.printer.impl.PlainTextPrinter;
 import coza.trojanc.stonewriter.template.PrintTemplate;
-import coza.trojanc.stonewriter.template.process.DefaultTemplateProcessor;
+import coza.trojanc.stonewriter.template.process.impl.DefaultTemplateProcessor;
 import coza.trojanc.stonewriter.template.process.ProcessedTemplate;
 import coza.trojanc.stonewriter.template.process.TemplateProcessor;
 import org.junit.Test;

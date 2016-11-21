@@ -2,7 +2,6 @@ package coza.trojanc.stonewriter.context.loader.impl;
 
 import coza.trojanc.stonewriter.TestUtils;
 import coza.trojanc.stonewriter.context.ContextDefinition;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -13,8 +12,14 @@ import java.io.ByteArrayOutputStream;
 public class JsonContextDefinitionLoaderTest {
 	@Test
 	public void load() throws Exception {
+		JsonContextDefinitionLoader loader = new JsonContextDefinitionLoader();
+		ContextDefinition contextDefinition = loader.load(getClass().getResourceAsStream("/context.json"));
 	}
 
+	/**
+	 * Test the we can write a context definition to JSON without errors
+	 * @throws Exception
+	 */
 	@Test
 	public void write() throws Exception {
 		JsonContextDefinitionLoader loader = new JsonContextDefinitionLoader();

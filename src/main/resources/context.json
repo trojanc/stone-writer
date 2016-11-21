@@ -1,0 +1,34 @@
+{
+  "fields": {
+    "soldItemValue": {
+      "expression": "transaction.soldItem.value",
+      "type": "String",
+      "formatting": null,
+      "key": "soldItemValue"
+    },
+    "soldItemName": {
+      "expression": "transaction.soldItem.Name",
+      "type": "String",
+      "formatting": null,
+      "key": "soldItemName"
+    },
+    "transactionDate": {
+      "expression": "transaction.transactionDate",
+      "type": "Date",
+      "formatting": "YYYY-MM-dd",
+      "key": "transactionDate"
+    },
+    "traderName": {
+      "expression": "transaction.traderName",
+      "type": "String",
+      "formatting": null,
+      "key": "traderName"
+    },
+    "numItems": {
+      "expression": "transaction.numItems",
+      "type": "Number",
+      "formatting": null,
+      "key": "numItems"
+    }
+  }
+}

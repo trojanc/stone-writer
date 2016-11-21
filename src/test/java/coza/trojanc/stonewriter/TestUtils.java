@@ -3,10 +3,12 @@ package coza.trojanc.stonewriter;
 import coza.trojanc.stonewriter.context.*;
 import coza.trojanc.stonewriter.context.impl.SimpleContextDefinition;
 import coza.trojanc.stonewriter.context.impl.SimpleContextVariable;
+import coza.trojanc.stonewriter.context.test.TestTransaction;
 import coza.trojanc.stonewriter.shared.Align;
 import coza.trojanc.stonewriter.template.PrintTemplate;
 import coza.trojanc.stonewriter.template.builder.PrintTemplateBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +18,12 @@ import java.util.Map;
  */
 public class TestUtils {
 
-	public static final String KEY_PLAYER_NAME = "playerName";
-	public static final String KEY_PLAYER_AGE = "playerAge";
-	public static final String KEY_PLAYER_BIRTH = "playerBirth";
+	public static final String KEY_TRADER_NAME = "traderName";
+	public static final String KEY_NUM_ITEMS = "numItems";
+	public static final String KEY_TRANSCACTION_DATE = "transactionDate";
+	public static final String KEY_TRANSCACTION_SOLD_NAME = "soldItemName";
+	public static final String KEY_TRANSCACTION_SOLD_VALUE = "soldItemValue";
+	public static final String DATE_FORMAT = "YYYY-MM-dd";
 
 	private static SimpleContextDefinition contextDefinition;
 	private static Map<String, Object> contextVariables;
@@ -27,30 +32,43 @@ public class TestUtils {
 	public static ContextDefinition createContextDefinitions(){
 		if(contextDefinition == null) {
 			contextDefinition = new SimpleContextDefinition();
-			Map<String, ContextDefinition> contextMap = new HashMap<>();
 
 			SimpleContextVariable cd;
 
 			// Name
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.String);
-			cd.setExpression("player.name");
-			cd.setKey(KEY_PLAYER_NAME);
+			cd.setExpression("transaction.traderName");
+			cd.setKey(KEY_TRADER_NAME);
 			contextDefinition.addVariable(cd);
 
 			// Age
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.Number);
-			cd.setExpression("player.age");
-			cd.setKey(KEY_PLAYER_AGE);
+			cd.setExpression("transaction.numItems");
+			cd.setKey(KEY_NUM_ITEMS);
 			contextDefinition.addVariable(cd);
 
 			// Birth
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.Date);
-			cd.setFormatting("YYYY-MM-dd");
-			cd.setExpression("player.birth");
-			cd.setKey(KEY_PLAYER_BIRTH);
+			cd.setFormatting(DATE_FORMAT);
+			cd.setExpression("transaction.transactionDate");
+			cd.setKey(KEY_TRANSCACTION_DATE);
+			contextDefinition.addVariable(cd);
+
+			// TODO these must become a list of items
+			cd = new SimpleContextVariable();
+			cd.setType(DynamicType.String);
+			cd.setExpression("transaction.soldItem.Name");
+			cd.setKey(KEY_TRANSCACTION_SOLD_NAME);
+			contextDefinition.addVariable(cd);
+
+			// TODO these must become a list of items
+			cd = new SimpleContextVariable();
+			cd.setType(DynamicType.String);
+			cd.setExpression("transaction.soldItem.value");
+			cd.setKey(KEY_TRANSCACTION_SOLD_VALUE);
 			contextDefinition.addVariable(cd);
 		}
 
@@ -62,7 +80,7 @@ public class TestUtils {
 	public static Map<String, Object> createContextVariables(){
 		if(contextVariables == null) {
 			Map<String, Object> variables = new HashMap<>();
-			variables.put("player", new ContextDummyObject());
+			variables.put("player", new TestTransaction());
 			contextVariables = Collections.unmodifiableMap(variables);
 		}
 		return contextVariables;
@@ -71,9 +89,9 @@ public class TestUtils {
 	public static Map<String, String> createResolvedVariables(){
 		if(resolvedVariables == null) {
 			Map<String, String> variables = new HashMap<>();
-			variables.put(KEY_PLAYER_NAME, ContextDummyObject.NAME);
-			variables.put(KEY_PLAYER_AGE, ContextDummyObject.AGE_STRING);
-			variables.put(KEY_PLAYER_BIRTH, "2016-10-01");
+			variables.put(KEY_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
+			variables.put(KEY_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
+			variables.put(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
 			resolvedVariables = Collections.unmodifiableMap(variables);
 		}
 		return resolvedVariables;
@@ -82,19 +100,24 @@ public class TestUtils {
 	public static PrintTemplate createTemplate(){
 		return new PrintTemplateBuilder().name("Test Template")
 			.line()
-			.text("CHARL TAKEWAYS").align(Align.CENTER)
+				.dynamicText(TestUtils.KEY_TRADER_NAME).align(Align.CENTER)
 			.line()
-			.text("SHIFT").align(Align.LEFT)
-			.text("12").align(Align.RIGHT).offset(10)
-			.text("TX").align(Align.RIGHT).offset(-7)
-			.text("123").align(Align.RIGHT).offset(-2)
+				.text("Date ").align(Align.LEFT)
+				.dynamicText(TestUtils.KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
 			.line()
-			.text("Heres Johnny!").align(Align.RIGHT)
-			.text("Heres Johnny!").align(Align.LEFT)
+				.text("SHIFT").align(Align.LEFT)
+				.text("12").align(Align.RIGHT).offset(10)
+				.text("TX").align(Align.RIGHT).offset(-7)
+				.text("123").align(Align.RIGHT).offset(-2)
 			.line()
-			.dynamicText(TestUtils.KEY_PLAYER_AGE).align(Align.RIGHT)
-			.dynamicText(TestUtils.KEY_PLAYER_NAME)
-			.dynamicText(TestUtils.KEY_PLAYER_BIRTH)
+				.text("Items:")
+			.line()
+				.dynamicText(TestUtils.KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
+				.dynamicText(TestUtils.KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
+			.line()
+				.dynamicText(TestUtils.KEY_NUM_ITEMS).align(Align.RIGHT)
+				.dynamicText(TestUtils.KEY_TRADER_NAME)
+				.dynamicText(TestUtils.KEY_TRANSCACTION_DATE)
 			.build();
 	}
 
