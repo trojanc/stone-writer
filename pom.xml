@@ -4,11 +4,11 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>coza.trojanc.stonewriter</groupId>
-	<artifactId>stone-writer</artifactId>
+	<groupId>coza.trojanc.receipt</groupId>
+	<artifactId>receipt-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Library to help with print templating and converting templates to a format a printer can use</description>
-	<url>https://github.com/trojanc/stone-writer</url>
+	<url>https://github.com/trojanc/receipt-java</url>
 
 	<properties>
 		<!-- Build settings -->
@@ -41,9 +41,9 @@
 		<plugin.release.version>2.5.1</plugin.release.version>
 	</properties>
 	<scm>
-		<connection>scm:git:git@github.com:trojanc/stone-writer.git</connection>
-		<url>scm:git:git@github.com:trojanc/stone-writer.git</url>
-		<developerConnection>scm:git:git@github.com:trojanc/stone-writer.git</developerConnection>
+		<connection>scm:git:git@github.com:trojanc/receipt-java.git</connection>
+		<url>scm:git:git@github.com:trojanc/receipt-java.git</url>
+		<developerConnection>scm:git:git@github.com:trojanc/receipt-java.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<repositories>
@@ -186,8 +186,6 @@
 								<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
 								<Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
 								<Bundle-Timestamp>${maven.build.timestamp}</Bundle-Timestamp>
-								<Bundle-BuildNumber>${env.BUILD_NUMBER}</Bundle-BuildNumber>
-								<Maven-Version>${maven.version}</Maven-Version>
 							</manifestEntries>
 						</archive>
 					</configuration>
