@@ -1,6 +1,7 @@
 package coza.trojanc.receipt;
 
 import coza.trojanc.receipt.context.*;
+import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
 import coza.trojanc.receipt.context.test.TestTransaction;
@@ -27,7 +28,7 @@ public class TestUtils {
 
 	private static SimpleContextDefinition contextDefinition;
 	private static Map<String, Object> contextVariables;
-	private static Map<String, String> resolvedVariables;
+	private static ContextMap resolvedVariables;
 
 	public static ContextDefinition createContextDefinitions(){
 		if(contextDefinition == null) {
@@ -86,13 +87,12 @@ public class TestUtils {
 		return contextVariables;
 	}
 
-	public static Map<String, String> createResolvedVariables(){
+	public static ContextMap createResolvedVariables(){
 		if(resolvedVariables == null) {
-			Map<String, String> variables = new HashMap<>();
-			variables.put(KEY_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
-			variables.put(KEY_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
-			variables.put(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
-			resolvedVariables = Collections.unmodifiableMap(variables);
+			resolvedVariables = new DefaultContextMap();
+			resolvedVariables.add(KEY_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
+			resolvedVariables.add(KEY_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
+			resolvedVariables.add(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
 		}
 		return resolvedVariables;
 	}

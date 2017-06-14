@@ -1,5 +1,7 @@
 package coza.trojanc.receipt.template.process.impl;
 
+import coza.trojanc.receipt.context.ContextMap;
+import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
@@ -8,17 +10,13 @@ import coza.trojanc.receipt.template.process.fields.ProcessedFeed;
 import coza.trojanc.receipt.template.process.fields.ProcessedLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedText;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by Charl-PC on 2016-10-11.
  */
 public class DefaultTemplateProcessor implements TemplateProcessor {
 
 	private ProcessedTemplate processedTemplate;
-	private Map<String, String> context;
+	private ContextMap context;
 
 	private void processTemplateItem(TemplateLine item){
 
@@ -33,7 +31,6 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 		else if(Line.class.isAssignableFrom(item.getClass())){
 			processLine((Line)item);
 		}
-
 
 	}
 
@@ -68,19 +65,15 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 
 	@Override
 	public ProcessedTemplate process(PrintTemplate template) {
-		return process(template, Collections.emptyMap());
+		return process(template, new DefaultContextMap(0));
 	}
 
 	@Override
-	public ProcessedTemplate process(PrintTemplate template, Map<String, String> context) {
+	public ProcessedTemplate process(PrintTemplate template, ContextMap context) {
 		this.processedTemplate = new ProcessedTemplate();
 		this.context = context;
 
-
-		List<TemplateLine> lines = template.getLines();
-		lines.forEach(printableTemplateItem -> {
-			processTemplateItem(printableTemplateItem);
-		});
+		template.getLines().forEach(this::processTemplateItem);
 		return processedTemplate;
 	}
 }

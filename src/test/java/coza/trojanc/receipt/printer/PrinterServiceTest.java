@@ -1,6 +1,7 @@
 package coza.trojanc.receipt.printer;
 
 import coza.trojanc.receipt.TestUtils;
+import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.printer.impl.PlainTextPrinter;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
@@ -17,7 +18,7 @@ public class PrinterServiceTest {
 	@Test
 	public void print() throws Exception {
 		final PrintTemplate template = TestUtils.createTemplate();
-		final Map<String, String> context = TestUtils.createResolvedVariables();
+		final ContextMap context = TestUtils.createResolvedVariables();
 		TemplateProcessor processor = new DefaultTemplateProcessor();
 		ProcessedTemplate processedTemplate = processor.process(template, context);
 

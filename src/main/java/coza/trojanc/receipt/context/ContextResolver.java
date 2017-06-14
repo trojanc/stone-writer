@@ -9,5 +9,5 @@ import java.util.Map;
  */
 public interface ContextResolver {
 
-	DefaultContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables);
+	ContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables);
 }

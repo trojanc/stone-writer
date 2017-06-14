@@ -1,9 +1,6 @@
 package coza.trojanc.receipt.context.impl;
 
-import coza.trojanc.receipt.context.ContextDefinition;
-import coza.trojanc.receipt.context.ContextResolver;
-import coza.trojanc.receipt.context.ContextVariable;
-import coza.trojanc.receipt.context.DynamicType;
+import coza.trojanc.receipt.context.*;
 import org.apache.commons.jexl3.*;
 
 import java.text.DecimalFormat;
@@ -26,7 +23,7 @@ public class DefaultContextResolver implements ContextResolver {
 	}
 
 	@Override
-	public DefaultContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables) {
+	public ContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables) {
 		this.contextDefinition = contextDefinition;
 		this.resolvedVariables = new DefaultContextMap();
 		this.jc = new MapContext(variables);

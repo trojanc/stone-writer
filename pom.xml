@@ -46,6 +46,18 @@
 		<developerConnection>scm:git:git@github.com:trojanc/receipt-java.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
+	<distributionManagement>
+		<repository>
+			<id>finclude-releases</id>
+			<name>Finclude releases repository</name>
+			<url>https://nexus3.opencollab.co.za/repository/finclude-maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>finclude-snapshots</id>
+			<name>Finclude snaphots repository</name>
+			<url>https://nexus3.opencollab.co.za/repository/finclude-maven-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<repositories>
 		<repository>
 			<snapshots>

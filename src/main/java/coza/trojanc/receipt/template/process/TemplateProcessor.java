@@ -1,5 +1,6 @@
 package coza.trojanc.receipt.template.process;
 
+import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.template.PrintTemplate;
 
 import java.util.Map;
@@ -22,5 +23,5 @@ public interface TemplateProcessor {
 	 * @param context Context to use for variables.
 	 * @return The processed template.
 	 */
-	ProcessedTemplate process(PrintTemplate template, Map<String, String> context);
+	ProcessedTemplate process(PrintTemplate template, ContextMap context);
 }

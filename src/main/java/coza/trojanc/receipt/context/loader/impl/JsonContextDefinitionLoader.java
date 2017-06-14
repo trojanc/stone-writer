@@ -24,8 +24,7 @@ public class JsonContextDefinitionLoader implements ContextDefinitionLoader{
 	@Override
 	public ContextDefinition load(InputStream inputStream) throws IOException {
 		try {
-			ContextDefinition definition = MAPPER.readValue(inputStream, JsonLoadedContextDefinition.class);
-			return definition;
+			return MAPPER.readValue(inputStream, JsonLoadedContextDefinition.class);
 		}catch (JsonParseException | JsonMappingException e){
 			throw new IOException("Failed to load json object", e);
 		}

@@ -44,6 +44,17 @@ public class SimpleContextVariable implements ContextVariable {
 
 	private String key;
 
+	public SimpleContextVariable(){
+
+	}
+
+	public SimpleContextVariable(String key, DynamicType type, String expression, String formatting) {
+		this.expression = expression;
+		this.type = type;
+		this.formatting = formatting;
+		this.key = key;
+	}
+
 	@Override
 	public DynamicType getType() {
 		return this.type;
