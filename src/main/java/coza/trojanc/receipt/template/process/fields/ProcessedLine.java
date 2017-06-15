@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Charl-PC on 2016-10-11.
  */
-public class ProcessedLine  implements ProcessedLineItem{
+public class ProcessedLine implements ProcessedLineItem{
 
 	private List<ProcessedText> lineItems = new ArrayList<>();
 

@@ -105,6 +105,7 @@ public class TestUtils {
 		return new PrintTemplateBuilder().name("Test Template")
 			.line()
 				.dynamicText(KEY_TRADER_NAME).align(Align.CENTER)
+			.fillLine('-')
 			.line()
 				.text("Date ").align(Align.LEFT)
 				.dynamicText(KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
@@ -113,12 +114,14 @@ public class TestUtils {
 				.text("12").align(Align.RIGHT).offset(10)
 				.text("TX").align(Align.RIGHT).offset(-7)
 				.text("123").align(Align.RIGHT).offset(-2)
+			.fillLine('-')
 			.line()
 				.text("Items:")
 				.dynamicText(KEY_NUM_ITEMS).align(Align.RIGHT)
 			.line()
 				.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
 				.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
+			.fillLine('-')
 			.feed()
 			.build();
 	}

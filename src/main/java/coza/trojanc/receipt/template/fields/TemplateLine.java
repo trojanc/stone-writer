@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = Feed.class, name = "feed"),
 		@JsonSubTypes.Type(value = Line.class, name = "line"),
+		@JsonSubTypes.Type(value = FillLine.class, name = "fillLine"),
 })
 public interface TemplateLine {
 }

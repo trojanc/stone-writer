@@ -2,8 +2,10 @@ package coza.trojanc.receipt.printer;
 
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 import coza.trojanc.receipt.shared.Align;
+import coza.trojanc.receipt.shared.PrintStringUtil;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.fields.ProcessedFeed;
+import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedText;
 
@@ -25,6 +27,11 @@ public class PrinterService {
 			else if(ProcessedLine.class.isAssignableFrom(processedLineItem.getClass())){
 				ProcessedLine line = (ProcessedLine)processedLineItem;
 				printLine(line);
+			}
+			else if(ProcessedFillLine.class.isAssignableFrom(processedLineItem.getClass())){
+				ProcessedFillLine line = (ProcessedFillLine)processedLineItem;
+				builder.left(PrintStringUtil.createStringOfChar(builder.getLineWidth(), line.getCharacter()));
+				builder.nl();
 			}
 		});
 

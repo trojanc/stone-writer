@@ -7,6 +7,7 @@ import coza.trojanc.receipt.template.fields.*;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.TemplateProcessor;
 import coza.trojanc.receipt.template.process.fields.ProcessedFeed;
+import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedText;
 
@@ -32,6 +33,14 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 			processLine((Line)item);
 		}
 
+		else if(FillLine.class.isAssignableFrom(item.getClass())){
+			processFillLine((FillLine)item);
+		}
+
+	}
+
+	private void processFillLine(FillLine fillLine){
+		processedTemplate.getItems().add(new ProcessedFillLine(fillLine.getCharacter()));
 	}
 
 	private void processLine(Line line){

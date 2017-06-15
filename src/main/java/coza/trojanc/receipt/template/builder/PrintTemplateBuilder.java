@@ -3,6 +3,7 @@ package coza.trojanc.receipt.template.builder;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
+import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
 
 /**
  * Created by Charl-PC on 2016-10-11.
@@ -54,6 +55,12 @@ public class PrintTemplateBuilder {
 	public PrintTemplateBuilder feed(int lines){
 		finishBusyLine();
 		this.template.addLine(new Feed(lines));
+		return this;
+	}
+
+	public PrintTemplateBuilder fillLine(char character){
+		finishBusyLine();
+		this.template.addLine(new FillLine(character));
 		return this;
 	}
 
