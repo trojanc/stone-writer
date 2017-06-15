@@ -31,7 +31,7 @@ public class DynamicText extends AbstractTextItem{
 	@Override
 	public String toString() {
 		return new StringBuilder()
-			.append("Text[")
+			.append("DynamicText[")
 			.append("key=").append(this.contextKey)
 			.append(",align=").append(this.getAlignment())
 			.append(",offset=").append(this.getOffset())

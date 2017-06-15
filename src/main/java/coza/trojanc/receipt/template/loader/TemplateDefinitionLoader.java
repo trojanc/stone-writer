@@ -22,6 +22,14 @@ public interface TemplateDefinitionLoader {
 	PrintTemplate load(InputStream inputStream) throws IOException;
 
 	/**
+	 * Create a template from a json formatted string
+	 * @param jsonString
+	 * @return
+	 * @throws IOException
+	 */
+	PrintTemplate load(String jsonString) throws IOException;
+
+	/**
 	 * Write.
 	 *
 	 * @param out the out

@@ -1,6 +1,7 @@
 package coza.trojanc.receipt.printer;
 
 import coza.trojanc.receipt.format.PrintFormatBuilder;
+import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.fields.ProcessedFeed;
 import coza.trojanc.receipt.template.process.fields.ProcessedLine;
@@ -37,9 +38,18 @@ public class PrinterService {
 	private void printText(ProcessedText processedText, boolean onlyItemInLine){
 		Integer offset = processedText.getOffset();
 		if(!onlyItemInLine){
-			offset = offset == null ? 0 : offset;
+			if(Align.RIGHT == processedText.getAlignment()){
+				offset = offset == null ? builder.getLineWidth()-1 : offset;
+			}
+			else if(Align.CENTER == processedText.getAlignment()){
+				offset = offset == null ? builder.getLineWidth() / 2 : offset;
+			}
+			else{
+				offset = offset == null ? 0 : offset;
+			}
 		}
 
+		// Calculate offset based on alignment
 		builder.insertText(processedText.getText(), offset, processedText.getAlignment());
 	}
 }

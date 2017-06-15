@@ -4,6 +4,7 @@ import coza.trojanc.receipt.context.*;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
+import coza.trojanc.receipt.context.test.SoldItem;
 import coza.trojanc.receipt.context.test.TestTransaction;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
@@ -61,7 +62,7 @@ public class TestUtils {
 			// TODO these must become a list of items
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.String);
-			cd.setExpression("transaction.soldItem.Name");
+			cd.setExpression("transaction.soldItem.name");
 			cd.setKey(KEY_TRANSCACTION_SOLD_NAME);
 			contextDefinition.addVariable(cd);
 
@@ -93,6 +94,9 @@ public class TestUtils {
 			resolvedVariables.add(KEY_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
 			resolvedVariables.add(KEY_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
 			resolvedVariables.add(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
+			resolvedVariables.add(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
+			resolvedVariables.add(KEY_TRANSCACTION_SOLD_VALUE, Double.toString(SoldItem.SOLD_ITEM_VALUE));
+			resolvedVariables.add(KEY_TRANSCACTION_SOLD_NAME, SoldItem.SOLD_ITEM_NAME);
 		}
 		return resolvedVariables;
 	}
@@ -100,10 +104,10 @@ public class TestUtils {
 	public static PrintTemplate createTemplate(){
 		return new PrintTemplateBuilder().name("Test Template")
 			.line()
-				.dynamicText(TestUtils.KEY_TRADER_NAME).align(Align.CENTER)
+				.dynamicText(KEY_TRADER_NAME).align(Align.CENTER)
 			.line()
 				.text("Date ").align(Align.LEFT)
-				.dynamicText(TestUtils.KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
+				.dynamicText(KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
 			.line()
 				.text("SHIFT").align(Align.LEFT)
 				.text("12").align(Align.RIGHT).offset(10)
@@ -111,13 +115,10 @@ public class TestUtils {
 				.text("123").align(Align.RIGHT).offset(-2)
 			.line()
 				.text("Items:")
+				.dynamicText(KEY_NUM_ITEMS).align(Align.RIGHT)
 			.line()
-				.dynamicText(TestUtils.KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
-				.dynamicText(TestUtils.KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
-			.line()
-				.dynamicText(TestUtils.KEY_NUM_ITEMS).align(Align.RIGHT)
-				.dynamicText(TestUtils.KEY_TRADER_NAME)
-				.dynamicText(TestUtils.KEY_TRANSCACTION_DATE)
+				.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
+				.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
 			.build();
 	}
 

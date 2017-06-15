@@ -5,11 +5,14 @@ package coza.trojanc.receipt.context.test;
  */
 public class SoldItem {
 
+	public static final String SOLD_ITEM_NAME = "Hake parsel";
+	public static final double SOLD_ITEM_VALUE = 200.9;
+
 	public String getName(){
-		return "Hake parsel";
+		return SOLD_ITEM_NAME;
 	}
 
 	public double getValue(){
-		return 200.95;
+		return SOLD_ITEM_VALUE;
 	}
 }

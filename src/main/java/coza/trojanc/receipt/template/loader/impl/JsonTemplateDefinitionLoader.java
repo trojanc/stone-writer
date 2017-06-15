@@ -20,8 +20,16 @@ public class JsonTemplateDefinitionLoader implements TemplateDefinitionLoader {
 	@Override
 	public PrintTemplate load(InputStream inputStream) throws IOException {
 		try {
-			PrintTemplate definition = MAPPER.readValue(inputStream, PrintTemplate.class);
-			return definition;
+			return MAPPER.readValue(inputStream, PrintTemplate.class);
+		}catch (JsonParseException | JsonMappingException e){
+			throw new IOException("Failed to load json object", e);
+		}
+	}
+
+	@Override
+	public PrintTemplate load(String jsonString) throws IOException {
+		try {
+			return MAPPER.readValue(jsonString, PrintTemplate.class);
 		}catch (JsonParseException | JsonMappingException e){
 			throw new IOException("Failed to load json object", e);
 		}
@@ -31,4 +39,5 @@ public class JsonTemplateDefinitionLoader implements TemplateDefinitionLoader {
 	public void write(PrintTemplate definition, OutputStream out) throws IOException {
 		MAPPER.writeValue(out, definition);
 	}
+
 }

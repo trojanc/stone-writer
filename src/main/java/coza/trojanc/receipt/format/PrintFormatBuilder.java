@@ -81,4 +81,6 @@ public interface PrintFormatBuilder {
 	 * @return the format
 	 */
 	Object getFormat();
+
+	int getLineWidth();
 }

@@ -33,6 +33,15 @@ public class PrintStringUtilTest {
     }
 
     @Test
+    public void insertCenterAligned() throws Exception {
+        char[] buffer = PrintStringUtil.getLineBuffer(10);
+        final char[] expected = {' ',' ',' ', ' ','1','2','3',' ',' ',' '};
+        PrintStringUtil.insertCenterAligned(buffer, 10/2, "123", 3);
+        System.out.println(">" + new String(buffer) + "<");
+        assertArrayEquals(expected, buffer);
+    }
+
+    @Test
     public void insertCenterAligned3chars10Line() throws Exception {
         char[] buffer = PrintStringUtil.getLineBuffer(10);
         final char[] expected = {' ',' ',' ',' ','1','2','3',' ',' ',' '};
