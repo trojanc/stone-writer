@@ -2,7 +2,6 @@ package coza.trojanc.receipt.shared;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by Charl-PC on 2016-10-13.

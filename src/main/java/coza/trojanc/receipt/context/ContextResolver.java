@@ -1,7 +1,5 @@
 package coza.trojanc.receipt.context;
 
-import coza.trojanc.receipt.context.impl.DefaultContextMap;
-
 import java.util.Map;
 
 /**

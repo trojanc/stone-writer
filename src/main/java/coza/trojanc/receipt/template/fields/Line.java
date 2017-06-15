@@ -1,8 +1,3 @@
-/*
- * Created on Jul 22, 2005
- *
- * Author RiaanL
- */
 package coza.trojanc.receipt.template.fields;
 
 import java.util.ArrayList;
