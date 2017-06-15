@@ -3,7 +3,6 @@ package coza.trojanc.receipt.template.builder;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
-import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
 
 /**
  * Created by Charl-PC on 2016-10-11.
