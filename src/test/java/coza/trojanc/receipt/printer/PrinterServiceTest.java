@@ -17,18 +17,13 @@ import java.util.Map;
 public class PrinterServiceTest {
 	@Test
 	public void print() throws Exception {
-		final PrintTemplate template = TestUtils.createTemplate();
-		final ContextMap context = TestUtils.createResolvedVariables();
-		TemplateProcessor processor = new DefaultTemplateProcessor();
-		ProcessedTemplate processedTemplate = processor.process(template, context);
+		ProcessedTemplate processedTemplate = TestUtils.getProcessedTemplate();
 
 		PrinterService printerService = new PrinterService();
 		Printer plainTextPrinter = new PlainTextPrinter();
 		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
 		String printedText = (String)plainTextPrinter.getLayoutBuilder().getFormat();
 		System.out.println(">" + printedText + "<");
-//		assertArrayEquals(expected, buffer);
-
 	}
 
 }

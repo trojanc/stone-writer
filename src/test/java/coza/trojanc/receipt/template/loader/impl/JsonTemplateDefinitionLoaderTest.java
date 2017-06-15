@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by charl on 2017/06/15.
+ * Unit test for {@link JsonTemplateDefinitionLoader}
  */
 public class JsonTemplateDefinitionLoaderTest{
 

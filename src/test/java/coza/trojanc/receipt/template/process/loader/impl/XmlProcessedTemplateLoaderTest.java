@@ -8,10 +8,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 /**
- * Created by Charl-PC on 2017-06-15.
+ * Unit test for {@link XmlProcessedTemplateLoader}
  */
 public class XmlProcessedTemplateLoaderTest {
 @Test
