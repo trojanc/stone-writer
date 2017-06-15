@@ -11,11 +11,11 @@ import java.io.IOException;
 /**
  * Created by charl on 2017/06/15.
  */
-public class JsonTemplateDefinitionLoaderTest{
+public class XmlTemplateDefinitionLoaderTest {
 
 	@Test
 	public void testGenerateJson() throws IOException {
-		TemplateDefinitionLoader loader = new JsonTemplateDefinitionLoader();
+		TemplateDefinitionLoader loader = new XmlTemplateDefinitionLoader();
 		PrintTemplate template = TestUtils.createTemplate();
 
 		loader.write(template, System.out);
@@ -23,7 +23,7 @@ public class JsonTemplateDefinitionLoaderTest{
 
 	@Test
 	public void testLoadBackJsonTemplate() throws IOException {
-		TemplateDefinitionLoader loader = new JsonTemplateDefinitionLoader();
+		TemplateDefinitionLoader loader = new XmlTemplateDefinitionLoader();
 		PrintTemplate template = TestUtils.createTemplate();
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		loader.write(template, byteArrayOutputStream);

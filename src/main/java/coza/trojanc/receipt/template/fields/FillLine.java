@@ -5,9 +5,14 @@ package coza.trojanc.receipt.template.fields;
  */
 public class FillLine implements TemplateLine {
 
-	private final char character;
+	private char character = ' ';
 
+	public FillLine(){}
 	public FillLine(char character){
+		this.character = character;
+	}
+
+	public void setCharacter(char character) {
 		this.character = character;
 	}
 

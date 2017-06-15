@@ -2,6 +2,7 @@ package coza.trojanc.receipt.context.loader.impl;
 
 import coza.trojanc.receipt.TestUtils;
 import coza.trojanc.receipt.context.ContextDefinition;
+import coza.trojanc.receipt.context.loader.ContextDefinitionLoader;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 public class JsonContextDefinitionLoaderTest {
 	@Test
 	public void load() throws Exception {
-		JsonContextDefinitionLoader loader = new JsonContextDefinitionLoader();
+		ContextDefinitionLoader loader = new JsonContextDefinitionLoader();
 		ContextDefinition contextDefinition = loader.load(getClass().getResourceAsStream("/context.json"));
 	}
 
@@ -22,7 +23,7 @@ public class JsonContextDefinitionLoaderTest {
 	 */
 	@Test
 	public void write() throws Exception {
-		JsonContextDefinitionLoader loader = new JsonContextDefinitionLoader();
+		ContextDefinitionLoader loader = new JsonContextDefinitionLoader();
 		ContextDefinition definition = TestUtils.createContextDefinitions();
 		ByteArrayOutputStream boas = new ByteArrayOutputStream();
 		loader.write(definition, boas);

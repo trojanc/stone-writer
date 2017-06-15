@@ -24,4 +24,8 @@ public class Feed implements TemplateLine {
 		return this.lines;
 	}
 
+	public void setFeedAmount(int amount){
+		this.lines = amount;
+	}
+
 }

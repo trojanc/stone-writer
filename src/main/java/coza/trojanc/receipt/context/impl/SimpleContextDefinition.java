@@ -12,18 +12,23 @@ import java.util.Map;
  */
 public class SimpleContextDefinition implements ContextDefinition {
 
-	private final Map<String, ContextVariable> variables = new HashMap<>();
+	private final Map<String, SimpleContextVariable> fields = new HashMap<>();
 
 	public SimpleContextDefinition(){
 
 	}
 
-	@Override
-	public Map<String, ContextVariable> getFields() {
-		return Collections.unmodifiableMap(variables);
+	public void addVariable(SimpleContextVariable variable) {
+		fields.put(variable.getKey(), variable);
 	}
 
-	public void addVariable(ContextVariable variable){
-		variables.put(variable.getKey(), variable);
+	@Override
+	public Map<String, ContextVariable> getFields() {
+		return Collections.unmodifiableMap(fields);
+	}
+
+	public void setFields(Map<String, SimpleContextVariable> fields) {
+		this.fields.clear();
+		this.fields.putAll(fields);
 	}
 }
