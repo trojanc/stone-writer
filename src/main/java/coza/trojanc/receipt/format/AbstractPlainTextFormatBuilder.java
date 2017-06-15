@@ -307,4 +307,9 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		}
 		return this;
 	}
+
+	public PrintFormatBuilder feed(){
+		this.nl();
+		return this;
+	}
 }

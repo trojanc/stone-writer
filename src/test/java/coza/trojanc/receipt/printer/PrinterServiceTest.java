@@ -26,7 +26,7 @@ public class PrinterServiceTest {
 		Printer plainTextPrinter = new PlainTextPrinter();
 		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
 		String printedText = (String)plainTextPrinter.getLayoutBuilder().getFormat();
-		System.out.println(printedText);
+		System.out.println(">" + printedText + "<");
 //		assertArrayEquals(expected, buffer);
 
 	}

@@ -2,10 +2,7 @@ package coza.trojanc.receipt.template.builder;
 
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
-import coza.trojanc.receipt.template.fields.AbstractTextItem;
-import coza.trojanc.receipt.template.fields.DynamicText;
-import coza.trojanc.receipt.template.fields.Line;
-import coza.trojanc.receipt.template.fields.Text;
+import coza.trojanc.receipt.template.fields.*;
 
 /**
  * Created by Charl-PC on 2016-10-11.
@@ -48,6 +45,17 @@ public class PrintTemplateBuilder {
 		return this;
 	}
 
+	public PrintTemplateBuilder feed(){
+		finishBusyLine();
+		this.template.addLine(new Feed());
+		return this;
+	}
+
+	public PrintTemplateBuilder feed(int lines){
+		finishBusyLine();
+		this.template.addLine(new Feed(lines));
+		return this;
+	}
 
 	public PrintTemplate build(){
 		finishBusyLine();

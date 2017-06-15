@@ -76,6 +76,12 @@ public interface PrintFormatBuilder {
 	PrintFormatBuilder nl();
 
 	/**
+	 * Add a feed
+	 * @return
+	 */
+	PrintFormatBuilder feed();
+
+	/**
 	 * Gets format.
 	 *
 	 * @return the format

@@ -45,7 +45,7 @@ public class PrintTemplate {
 		.append("name=").append(this.getName()).append(",")
 		.append("lines=[");
 		String linesString = lines.stream()
-				.map(printableTemplateItem -> printableTemplateItem.toString())
+				.map(Object::toString)
 				.collect(Collectors.joining(","));
 		sb.append(linesString);
 		sb.append("]")

@@ -20,7 +20,7 @@ public class PrinterService {
 		template.getItems().forEach(processedLineItem -> {
 
 			if(ProcessedFeed.class.isAssignableFrom(processedLineItem.getClass())){
-//				builder.feed();
+				builder.feed();
 			}
 			else if(ProcessedLine.class.isAssignableFrom(processedLineItem.getClass())){
 				ProcessedLine line = (ProcessedLine)processedLineItem;

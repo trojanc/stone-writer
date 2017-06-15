@@ -119,6 +119,7 @@ public class TestUtils {
 			.line()
 				.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
 				.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
+			.feed()
 			.build();
 	}
 

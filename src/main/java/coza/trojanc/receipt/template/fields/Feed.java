@@ -13,7 +13,7 @@ public class Feed implements TemplateLine {
 	 * Feed constructor.
 	 */ 
 	public Feed() {
-		this.lines = 1;
+		this.lines = 3;
 	}
 	
 	public Feed(int amount) {
