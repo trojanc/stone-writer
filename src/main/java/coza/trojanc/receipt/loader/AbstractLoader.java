@@ -11,7 +11,7 @@ import java.io.OutputStream;
 /**
  * Created by Charl-PC on 2017-06-15.
  */
-public abstract class AbstractDefinitionLoader<T> implements DefinitionLoader<T> {
+public abstract class AbstractLoader<T> implements Loader<T> {
 
 	public T load(InputStream inputStream, ObjectMapper mapper, Class<T> clazz) throws IOException {
 		try {

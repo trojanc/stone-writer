@@ -9,6 +9,9 @@ import coza.trojanc.receipt.context.test.TestTransaction;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.builder.PrintTemplateBuilder;
+import coza.trojanc.receipt.template.process.ProcessedTemplate;
+import coza.trojanc.receipt.template.process.TemplateProcessor;
+import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -99,6 +102,11 @@ public class TestUtils {
 			resolvedVariables.add(KEY_TRANSCACTION_SOLD_NAME, SoldItem.SOLD_ITEM_NAME);
 		}
 		return resolvedVariables;
+	}
+
+	public static ProcessedTemplate getProcessedTemplate(){
+		TemplateProcessor processor = new DefaultTemplateProcessor();
+		return processor.process(TestUtils.createTemplate(), TestUtils.createResolvedVariables());
 	}
 
 	public static PrintTemplate createTemplate(){

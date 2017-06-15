@@ -5,7 +5,9 @@ package coza.trojanc.receipt.template.process.fields;
  */
 public class ProcessedFillLine implements ProcessedLineItem {
 
-	private final char character;
+	private char character = ' ';
+	public ProcessedFillLine(){
+	}
 
 	public ProcessedFillLine(char character){
 		this.character = character;

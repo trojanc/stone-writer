@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * Created by Charl-PC on 2017-06-15.
  */
-public interface DefinitionLoader <T> {
+public interface Loader<T> {
 
 	T load(InputStream inputStream) throws IOException;
 

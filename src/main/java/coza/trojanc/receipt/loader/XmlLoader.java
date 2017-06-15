@@ -1,10 +1,7 @@
 package coza.trojanc.receipt.loader;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import coza.trojanc.receipt.template.PrintTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,13 +11,13 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by Charl-PC on 2017-06-15.
  */
-public class XmlDefinitionLoader<T> extends AbstractDefinitionLoader<T>{
+public class XmlLoader<T> extends AbstractLoader<T> {
 
 	protected static final ObjectMapper MAPPER = new XmlMapper();
 
 	protected Class<T> clazz;
 
-	public XmlDefinitionLoader(){
+	public XmlLoader(){
 		this.clazz = (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
