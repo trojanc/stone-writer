@@ -1,5 +1,7 @@
 package coza.trojanc.receipt.shared;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -396,12 +398,12 @@ public class PrintStringUtil {
 	 * @param new_line_sequence
 	 * @return
 	 */
-	public static final String[] getLines(String str, int width, String new_line_sequence) {
-		Vector<String> strs = new Vector<>();
-		int[] start_index = new int[1];
-		int[] end_index = new int[1];
-		int[] length = new int[1];
-		int[] tab_index = new int[1];
+	public static String[] getLines(String str, int width, String new_line_sequence) {
+		List<String> strs = new ArrayList<>();
+		final int[] start_index = new int[1];
+		final int[] end_index = new int[1];
+		final int[] length = new int[1];
+		final int[] tab_index = new int[1];
 		start_index[0] = 0;
 		end_index[0] = 0;
 		length[0] = 0;
@@ -420,7 +422,7 @@ public class PrintStringUtil {
 	 * @param source String to remove trailing spaces from.
 	 * @return String without trailing spaces.
 	 */
-	public static final String rtrim(String source) {
+	public static String rtrim(String source) {
 		return source.replaceAll("\\x20+$", "");
 	}
 
