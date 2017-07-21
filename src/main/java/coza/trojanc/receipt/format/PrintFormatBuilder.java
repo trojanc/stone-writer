@@ -10,9 +10,9 @@ public interface PrintFormatBuilder {
 	/**
 	 * Insert text print format builder.
 	 *
-	 * @param text the text
+	 * @param text   the text
 	 * @param offset the offset
-	 * @param align the align
+	 * @param align  the align
 	 * @return the print format builder
 	 */
 	PrintFormatBuilder insertText(String text, Integer offset, Align align);
@@ -20,7 +20,7 @@ public interface PrintFormatBuilder {
 	/**
 	 * Insert left print format builder.
 	 *
-	 * @param text the text
+	 * @param text          the text
 	 * @param position_left the position left
 	 * @return the print format builder
 	 */
@@ -37,7 +37,7 @@ public interface PrintFormatBuilder {
 	/**
 	 * Insert center print format builder.
 	 *
-	 * @param text the text
+	 * @param text     the text
 	 * @param position the position
 	 * @return the print format builder
 	 */
@@ -54,7 +54,7 @@ public interface PrintFormatBuilder {
 	/**
 	 * Insert right print format builder.
 	 *
-	 * @param text the text
+	 * @param text           the text
 	 * @param position_right the position right
 	 * @return the print format builder
 	 */
@@ -77,7 +77,8 @@ public interface PrintFormatBuilder {
 
 	/**
 	 * Add a feed
-	 * @return
+	 *
+	 * @return print format builder
 	 */
 	PrintFormatBuilder feed();
 
@@ -88,5 +89,10 @@ public interface PrintFormatBuilder {
 	 */
 	Object getFormat();
 
+	/**
+	 * Gets line width.
+	 *
+	 * @return the line width
+	 */
 	int getLineWidth();
 }

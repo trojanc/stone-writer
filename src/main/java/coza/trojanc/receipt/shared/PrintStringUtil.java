@@ -8,10 +8,23 @@ import java.util.List;
  */
 public class PrintStringUtil {
 
+	/**
+	 * Get line buffer char [ ].
+	 *
+	 * @param lineSize the line size
+	 * @return the char [ ]
+	 */
 	public static char[] getLineBuffer(int lineSize){
 		return getLineBuffer(lineSize, ' ');
 	}
 
+	/**
+	 * Get line buffer char [ ].
+	 *
+	 * @param lineSize     the line size
+	 * @param fillWithChar the fill with char
+	 * @return the char [ ]
+	 */
 	public static char[] getLineBuffer(final int lineSize, final char fillWithChar){
 		char[] buffer = new char[lineSize];
 		for(int i = 0 ; i < lineSize; i++){
@@ -20,16 +33,19 @@ public class PrintStringUtil {
 
 		return buffer;
 	}
+
 	/**
 	 * Parses one 'line' of chars from a string for the given width so that no words are chopped in half.
-	 * @param str
-	 * @param str_length
-	 * @param width
-	 * @param start_index
-	 * @param end_index
-	 * @param length
-	 * @param new_line_sequence
-	 * @return
+	 *
+	 * @param str               the str
+	 * @param str_length        the str length
+	 * @param width             the width
+	 * @param start_index       the start index
+	 * @param end_index         the end index
+	 * @param length            the length
+	 * @param tab_index         the tab index
+	 * @param new_line_sequence the new line sequence
+	 * @return line
 	 */
 	public static final boolean getLine(String str, int str_length, int width, int[] start_index, int[] end_index, int[] length, int[] tab_index, String new_line_sequence)
 	{
@@ -207,9 +223,10 @@ public class PrintStringUtil {
 	/**
 	 * Insert a value into a char array, left aligned
 	 *
-	 * @param line
-	 * @param position
-	 * @param value
+	 * @param line      the line
+	 * @param position  the position
+	 * @param value     the value
+	 * @param maxLength the max length
 	 */
 	public static void insertLeftAligned(char[] line, int position, String value, int maxLength)
 	{
@@ -223,9 +240,10 @@ public class PrintStringUtil {
 	/**
 	 * Insert a value into a char array, center aligned at a position
 	 *
-	 * @param line
-	 * @param position
-	 * @param value
+	 * @param line      the line
+	 * @param position  the position
+	 * @param value     the value
+	 * @param maxLength the max length
 	 */
 	public static void insertCenterAligned(char[] line, int position, String value, int maxLength){
 		if (value == null) {
@@ -244,9 +262,9 @@ public class PrintStringUtil {
 	/**
 	 * Insert a value into a char array, center aligned at the middel of the line specified.
 	 *
-	 * @param line Line in which the value should be added.
-	 * @param value Value to insert in the line
-	 * @param maxLength
+	 * @param line      Line in which the value should be added.
+	 * @param value     Value to insert in the line
+	 * @param maxLength the max length
 	 */
 	public static void insertCenterAligned(char[] line, String value, int maxLength){
 		insertCenterAligned(line, line.length/2, value, maxLength);
@@ -258,12 +276,13 @@ public class PrintStringUtil {
 	 * If the String specified is longer than the available space the String will be
 	 * substringed to fit into the space.
 	 * Eg.
-	 *  ("123",4,'0')    > 1230
-	 *  ("123465",4,'0') > 1234
-	 * @param value String value that needs to be padded
+	 * ("123",4,'0')    = 1230
+	 * ("123465",4,'0') = 1234
+	 *
+	 * @param value    String value that needs to be padded
 	 * @param fillSize Available space to fill.
-	 * @param padChar Character to use for padding.
-	 * @return
+	 * @param padChar  Character to use for padding.
+	 * @return string
 	 */
 	public static String createRightPaddedString(String value, int fillSize, char padChar) {
 
@@ -290,9 +309,10 @@ public class PrintStringUtil {
 
 	/**
 	 * Creates a String in length if the specified <code>length</code> filled with the specified <code>character</code>.
-	 * @param length The length the string should be.
+	 *
+	 * @param length    The length the string should be.
 	 * @param character Character that should be used to fill the string.
-	 * @return
+	 * @return string
 	 */
 	public static String createStringOfChar(int length, char character) {
 		return createLeftPaddedString("", length, character);
@@ -304,12 +324,13 @@ public class PrintStringUtil {
 	 * If the String specified is longer than the available space the String will be
 	 * substringed to fit into the space.
 	 * Eg.
-	 *  ("123",4,'0')    > 0123
-	 *  ("123465",4,'0') > 1234
-	 * @param value String value that needs to be padded
+	 * ("123",4,'0')    = 0123
+	 * ("123465",4,'0') = 1234
+	 *
+	 * @param value    String value that needs to be padded
 	 * @param fillSize Available space to fill.
-	 * @param padChar Character to use for padding.
-	 * @return
+	 * @param padChar  Character to use for padding.
+	 * @return string
 	 */
 	public static String createLeftPaddedString(String value, int fillSize, char padChar) {
 
@@ -337,14 +358,15 @@ public class PrintStringUtil {
 	}
 
 	/**
+	 * Name value string.
 	 *
-	 * @param line Default line char array (may be set to null)
-	 * @param name
-	 * @param name_pos Index position of the name
-	 * @param value
+	 * @param line      Default line char array (may be set to null)
+	 * @param name      the name
+	 * @param name_pos  Index position of the name
+	 * @param value     the value
 	 * @param value_pos Index position of the value.
-	 * @param width Length of the string.
-	 * @return
+	 * @param width     Length of the string.
+	 * @return string
 	 */
 	public static String nameValue(char[] line, String name, int name_pos, String value, int value_pos, int width){
 		if (line == null) {
@@ -368,9 +390,11 @@ public class PrintStringUtil {
 	 * Insert a value into a char array, right aligned
 	 * If the value of <code>position</code> is negative the position will be taken as an index
 	 * from the right, else the it will be taken as an index position from the left.
-	 * @param line Array containing the line in which the value should be added
-	 * @param position Index where last character of the <code>value</code> must be right aligned on
-	 * @param value The value to add in the line
+	 *
+	 * @param line      Array containing the line in which the value should be added
+	 * @param position  Index where last character of the <code>value</code> must be right aligned on
+	 * @param value     The value to add in the line
+	 * @param maxLength the max length
 	 */
 	public static void insertRightAligned(char[] line, int position, String value, int maxLength) {
 		if (value == null) {
@@ -387,15 +411,13 @@ public class PrintStringUtil {
 	}
 
 
-
-
 	/**
 	 * Parses a string and builds an array of wrapped strings from it.
 	 *
-	 * @param str
-	 * @param width
-	 * @param new_line_sequence
-	 * @return
+	 * @param str               the str
+	 * @param width             the width
+	 * @param new_line_sequence the new line sequence
+	 * @return string [ ]
 	 */
 	public static String[] getLines(String str, int width, String new_line_sequence) {
 		List<String> strs = new ArrayList<>();
@@ -418,6 +440,7 @@ public class PrintStringUtil {
 	/**
 	 * Removes trailing spaces from the source string.
 	 * Note only SPACE (0x20) will be removed, NOT newlines,tabs, etc.
+	 *
 	 * @param source String to remove trailing spaces from.
 	 * @return String without trailing spaces.
 	 */
@@ -428,9 +451,10 @@ public class PrintStringUtil {
 
 	/**
 	 * Returns the left most num chars of the string
-	 * @param str
-	 * @param num
-	 * @return
+	 *
+	 * @param str the str
+	 * @param num the num
+	 * @return string
 	 */
 	public static String left(String str, int num) {
 		int len = Math.min(str.length(), num);
@@ -440,8 +464,9 @@ public class PrintStringUtil {
 
 	/**
 	 * Trims the right side of the string of all whitespace
-	 * @param str
-	 * @return
+	 *
+	 * @param str the str
+	 * @return string
 	 */
 	public static String trimRight(String str) {
 		int i = str.length();

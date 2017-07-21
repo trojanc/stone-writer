@@ -9,7 +9,8 @@ public interface Printer {
 
 	/**
 	 * Gets the layout builder instance for the printer
-	 * @return
+	 *
+	 * @return layout builder
 	 */
 	PrintFormatBuilder getLayoutBuilder();
 

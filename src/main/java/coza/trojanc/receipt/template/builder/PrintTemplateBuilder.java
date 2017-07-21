@@ -24,14 +24,18 @@ public class PrintTemplateBuilder {
 	 */
 	private AbstractTextItem textItem;
 
+	/**
+	 * Instantiates a new Print template builder.
+	 */
 	public PrintTemplateBuilder(){
 		template = new PrintTemplate();
 	}
 
 	/**
 	 * Set the name of the template
-	 * @param name
-	 * @return
+	 *
+	 * @param name the name
+	 * @return print template builder
 	 */
 	public PrintTemplateBuilder name(String name){
 		template.setName(name);
@@ -39,40 +43,80 @@ public class PrintTemplateBuilder {
 	}
 
 
+	/**
+	 * Line print template builder.
+	 *
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder line(){
 		finishBusyLine();
 		line = new Line();
 		return this;
 	}
 
+	/**
+	 * Feed print template builder.
+	 *
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder feed(){
 		finishBusyLine();
 		this.template.addLine(new Feed());
 		return this;
 	}
 
+	/**
+	 * Feed print template builder.
+	 *
+	 * @param lines the lines
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder feed(int lines){
 		finishBusyLine();
 		this.template.addLine(new Feed(lines));
 		return this;
 	}
 
+	/**
+	 * Fill line print template builder.
+	 *
+	 * @param character the character
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder fillLine(char character){
 		finishBusyLine();
 		this.template.addLine(new FillLine(character));
 		return this;
 	}
 
+	/**
+	 * Build print template.
+	 *
+	 * @return the print template
+	 */
 	public PrintTemplate build(){
 		finishBusyLine();
 		return template;
 	}
 
 
+	/**
+	 * Text print template builder.
+	 *
+	 * @param text the text
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder text(String text){
 		return staticText(text);
 	}
 
+	/**
+	 * Text print template builder.
+	 *
+	 * @param text    the text
+	 * @param dynamic the dynamic
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder text(String text, boolean dynamic){
 		if(dynamic){
 			return dynamicText(text);
@@ -82,6 +126,12 @@ public class PrintTemplateBuilder {
 		}
 	}
 
+	/**
+	 * Static text print template builder.
+	 *
+	 * @param text the text
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder staticText(String text){
 		finishLineItem();
 		checkValidLine();
@@ -95,6 +145,12 @@ public class PrintTemplateBuilder {
 		return this;
 	}
 
+	/**
+	 * Dynamic text print template builder.
+	 *
+	 * @param key the key
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder dynamicText(String key){
 		finishLineItem();
 		checkValidLine();
@@ -107,6 +163,12 @@ public class PrintTemplateBuilder {
 	}
 
 
+	/**
+	 * Align print template builder.
+	 *
+	 * @param align the align
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder align(Align align){
 		checkValidLine();
 		ensureTextItem();
@@ -114,6 +176,12 @@ public class PrintTemplateBuilder {
 		return this;
 	}
 
+	/**
+	 * Offset print template builder.
+	 *
+	 * @param offset the offset
+	 * @return the print template builder
+	 */
 	public PrintTemplateBuilder offset(Integer offset){
 		checkValidLine();
 		ensureTextItem();

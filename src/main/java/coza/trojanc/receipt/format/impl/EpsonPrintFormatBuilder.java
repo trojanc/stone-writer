@@ -4,6 +4,9 @@ import coza.trojanc.receipt.format.AbstractPlainTextFormatBuilder;
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 import coza.trojanc.receipt.shared.PrintStringUtil;
 
+/**
+ * The type Epson print format builder.
+ */
 public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	/**
@@ -11,20 +14,41 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	 * NOTE: This can not be used inline to apply it to the printer
 	 */
 	public static class Sensors {
+		/**
+		 * The constant ROLL_NEAR_END.
+		 */
 		public static final byte	ROLL_NEAR_END	= 0x01;
+		/**
+		 * The constant ROLL_NEAR_END2.
+		 */
 		public static final byte	ROLL_NEAR_END2	= 0x02;
+		/**
+		 * The constant ROLL_END.
+		 */
 		public static final byte	ROLL_END		= 0x04;
+		/**
+		 * The constant ROLL_END2.
+		 */
 		public static final byte	ROLL_END2		= 0x08;
 	}
 
-	/** 
+	/**
 	 * Modes of underlining<br>
 	 * NOTE: Adding this inline will not change the undeline mode, it has
 	 * to be applied <strong>with</strong> the command
 	 */
 	public static class Undeline_Mode {
+		/**
+		 * The constant OFF.
+		 */
 		public static final byte	OFF		= 0x00;
+		/**
+		 * The constant ONE_DOT.
+		 */
 		public static final byte	ONE_DOT	= 0x01;
+		/**
+		 * The constant TWO_DOT.
+		 */
 		public static final byte	TWO_DOT	= 0x02;
 	}
 
@@ -34,7 +58,13 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	 * to be applied <strong>with</strong> the command
 	 */
 	public static class Cut_Style {
+		/**
+		 * The constant FULL.
+		 */
 		public static final byte	FULL		= 0x00;
+		/**
+		 * The constant PARTIALLY.
+		 */
 		public static final byte	PARTIALLY	= 0x01;
 	}
 
@@ -44,10 +74,25 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	 * to be applied <strong>with</strong> the command
 	 */
 	public static class Print_Mode {
+		/**
+		 * The constant DEFAULT.
+		 */
 		public static final byte	DEFAULT			= 0x00;
+		/**
+		 * The constant EMPH_ON.
+		 */
 		public static final byte	EMPH_ON			= 0x08;
+		/**
+		 * The constant DOUBLE_HEIGHT.
+		 */
 		public static final byte	DOUBLE_HEIGHT	= 0x10;
+		/**
+		 * The constant DOUBLE_WIDTH.
+		 */
 		public static final byte	DOUBLE_WIDTH	= 0x20;
+		/**
+		 * The constant UNDERLINE_ON.
+		 */
 		public static final byte	UNDERLINE_ON	= (byte) 0x80;
 	}
 
@@ -57,7 +102,13 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	 * to be applied <strong>with</strong> the command
 	 */
 	public static class Print_Font {
+		/**
+		 * The constant FONT_A.
+		 */
 		public static final byte	FONT_A	= 0x00;
+		/**
+		 * The constant FONT_B.
+		 */
 		public static final byte	FONT_B	= 0x01;
 	}
 
@@ -67,8 +118,17 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	 * to be applied <strong>with</strong> the command
 	 */
 	public static class Print_Align {
+		/**
+		 * The constant LEFT.
+		 */
 		public static final byte	LEFT	= 0x00;
+		/**
+		 * The constant CENTER.
+		 */
 		public static final byte	CENTER	= 0x01;
+		/**
+		 * The constant RIGHT.
+		 */
 		public static final byte	RIGHT	= 0x02;
 	}
 	
@@ -86,9 +146,10 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 	}
 
 	/**
-	 * Creates a new instances of <code>EpsonPrintBuilder</code> setting 
+	 * Creates a new instances of <code>EpsonPrintBuilder</code> setting
 	 * widrth of the paper.
-	 * @param line_width
+	 *
+	 * @param line_width the line width
 	 */
 	public EpsonPrintFormatBuilder(int line_width) {
 		super(line_width);
@@ -171,6 +232,7 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	/**
 	 * Changes the alignment of printing
+	 *
 	 * @param alignment Byte representing the new aligmnet style.
 	 */
 	protected void setAlignment(byte alignment) {
@@ -183,6 +245,7 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	/**
 	 * Sets the font of the printer
+	 *
 	 * @param font Byte representing the new font.
 	 */
 	protected void setFont(byte font) {
@@ -191,6 +254,7 @@ public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	/**
 	 * Changes the printing mode of the printer
+	 *
 	 * @param mode Byte representing the new print mode.
 	 */
 	protected void changeMode(byte mode) {
