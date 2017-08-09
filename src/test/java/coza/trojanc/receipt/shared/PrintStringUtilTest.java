@@ -56,7 +56,13 @@ public class PrintStringUtilTest {
 	@Test
 	public void maxStrLengthCenter0Width5(){
 		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 0);
-		assertEquals(3, maxSize);
+		assertEquals(1, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter0Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 0);
+		assertEquals(1, maxSize);
 	}
 
 	@Test
@@ -66,10 +72,53 @@ public class PrintStringUtilTest {
 	}
 
 	@Test
+	public void maxStrLengthCenter1Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 1);
+		assertEquals(3, maxSize);
+	}
+
+	@Test
 	public void maxStrLengthCenter2Width5(){
 		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 2);
 		assertEquals(5, maxSize);
 	}
+
+	@Test
+	public void maxStrLengthCenter2Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 2);
+		assertEquals(5, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter3Width5(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 3);
+		assertEquals(3, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter4Width5(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 4);
+		assertEquals(1, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter4Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 4);
+		assertEquals(3, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter5Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 5);
+		assertEquals(1, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter3Width6(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(6, 3);
+		assertEquals(5, maxSize);
+	}
+
 
 
 	@Test

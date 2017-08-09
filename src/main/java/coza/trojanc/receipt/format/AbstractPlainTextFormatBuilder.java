@@ -329,11 +329,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 			// Half of the width size
 			final int halfWidth = width / 2;
 
-			final int availableSpace =
-				// Left half
-				(positionLeft - halfWidth < 0 ? positionLeft : halfWidth) +
-				// Right half
-				(width - positionLeft - halfWidth < 0 ? width - positionLeft : halfWidth);
+			final int availableSpace = PrintStringUtil.maxStrLengthCenter(width, positionLeft);
 
 
 
@@ -351,7 +347,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 				String[] lines = PrintStringUtil.getLines(text, availableSpace, "");
 				// New offset if we need to move the center due to a smaller line
 				//                                       New offset                              Move on position left if uneven line length
-				final int centerOffset = (positionLeft - ((width - lines[0].length()) / 2)) - (lines[0].length() % 2 > 0 ? 1 : 0) ;
+				final int centerOffset = (positionLeft - ((width - lines[0].length()) / 2)) + (lines[0].length() % 2 > 0 ? 1 : 0) ;
 				this.insertCenter(lines[0], centerOffset, availableSpace, LineWrap.NO_WRAP);
 				if (lines.length > 1) {
 					this.nl();

@@ -532,7 +532,8 @@ public class PrintStringUtil {
 	}
 
 	/**
-	 *
+	 * Determine if we can use the full width to center with, or if we are going to hit any side first, we have to adapt
+	 * the length to still be centered.
 	 * @param width Width of the total string when centered
 	 * @param position Position the string should be added to
 	 * @return
@@ -540,13 +541,18 @@ public class PrintStringUtil {
 	public static int maxStrLengthCenter(final int width, final int position){
 		final int positionLeft = indexLeft(width, position);
 
-		final int halfWidth = width / 2;
-		final int availableSpace =
-				// Left half
-				(positionLeft - halfWidth < 0 ? positionLeft : halfWidth) +
-						// Right half
-						(width - positionLeft - halfWidth < 0 ? width - positionLeft : halfWidth);
-		return availableSpace;
+		// Position is in the middel of the width, therefore we can use the full width
+		if((width / 2) == positionLeft){
+			return width - (width % 2 == 0 ? 1 : 0);
+		}
+		// We'll be hitting the left
+		else if(positionLeft < (width / 2)){
+			return (positionLeft * 2) + 1;
+		}
+		// We'll be hitting the right side
+		else{
+			return ((width - (positionLeft + 1)) * 2) + 1;
+		}
 	}
 
 }

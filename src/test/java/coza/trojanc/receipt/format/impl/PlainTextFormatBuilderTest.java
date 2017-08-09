@@ -57,13 +57,33 @@ public class PlainTextFormatBuilderTest {
 	}
 
 	@Test
-	public void testCenterEven(){
+	public void testCenter6Line20(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.center("CENTER");
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
 		assertEquals("       CENTER       ", result);
+	}
+
+	@Test
+	public void testCenter6Line8(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(8);
+		builder.center("CENTER");
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(" CENTER ", result);
+	}
+
+	@Test
+	public void testCenter6Line7(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(7);
+		builder.center("CENTER");
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals("CENTER ", result);
 	}
 
 	@Test
@@ -88,19 +108,42 @@ public class PlainTextFormatBuilderTest {
 	}
 
 	@Test
-	public void testInsertCenterLongWrapLine(){
+	public void testInsert20Center15Long30WrapLine(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertCenter("123", 5)
 			.insertCenter("123456789012345678901234567890", 15, LineWrap.WRAP);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("    123      12345  \n" +
-				"             67890  \n" +
-				"             12345  \n" +
-				"             67890  \n" +
-				"             12345  \n" +
-				"             67890  \n", result);
+		assertEquals(""+
+				"    123    123456789\n" +
+				"           012345678\n" +
+				"           901234567\n" +
+				"              890   \n", result);
+	}
+
+	@Test
+	public void testInsert5Center1Long5WrapLine(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(5);
+		builder.insertCenter("value", 1, LineWrap.WRAP);
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals("val  \n" +
+				"ue   \n", result);
+	}
+
+	@Test
+	public void testInsert5Center1Long10WrapLine(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(5);
+		builder.insertCenter("abcdefghij", 1, LineWrap.WRAP);
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals("abc  \n" +
+				"def  \n" +
+				"ghi  \n" +
+				" j   \n", result);
 	}
 
 	@Test
@@ -111,17 +154,14 @@ public class PlainTextFormatBuilderTest {
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("    123      This   \n" +
-				"             is a   \n" +
-				"             very   \n" +
+		assertEquals(""+
+				"    123     This is \n" +
+				"            a very  \n" +
 				"             long   \n" +
-				"             piece  \n" +
-				"              of    \n" +
-				"             text   \n" +
-				"               I    \n" +
+				"           piece of \n" +
+				"            text I  \n" +
 				"             would  \n" +
-				"             like   \n" +
-				"              to    \n" +
+				"            like to \n" +
 				"             wrap   \n", result);
 	}
 
@@ -132,7 +172,9 @@ public class PlainTextFormatBuilderTest {
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("valu \ne    \n", result);
+		assertEquals(""+
+				"val  \n" +
+				"ue   \n", result);
 	}
 
 	@Test
@@ -142,9 +184,11 @@ public class PlainTextFormatBuilderTest {
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("    1123456789012345\n" +
-				"67\n" +
-				"12345678901234567890\n", result);
+		assertEquals(""+
+				"       123456789    \n" +
+				"01234567890123456789\n" +
+				"01234567890123456789\n" +
+				"0                   \n", result);
 	}
 
 	@Test
