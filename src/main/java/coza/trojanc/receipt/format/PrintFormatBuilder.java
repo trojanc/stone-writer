@@ -8,6 +8,9 @@ import coza.trojanc.receipt.shared.LineWrap;
  */
 public interface PrintFormatBuilder {
 
+	/**
+	 * The constant DEFAULT_LINE_WRAP.
+	 */
 	LineWrap DEFAULT_LINE_WRAP = LineWrap.WRAP;
 
 	/**
@@ -18,7 +21,7 @@ public interface PrintFormatBuilder {
 	 * @param align  the align
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder insertText(String text, Integer offset, Align align);
+	PrintFormatBuilder insertText(final String text, final Integer offset, final Align align);
 
 	/**
 	 * Insert left print format builder.
@@ -27,9 +30,17 @@ public interface PrintFormatBuilder {
 	 * @param position_left the position left
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder insertLeft(String text, int position_left);
+	PrintFormatBuilder insertLeft(final String text, final int position_left);
 
-	PrintFormatBuilder insertLeft(String text, int position_left, LineWrap lineWrap);
+	/**
+	 * Insert left print format builder.
+	 *
+	 * @param text          the text
+	 * @param position_left the position left
+	 * @param lineWrap      the line wrap
+	 * @return print format builder
+	 */
+	PrintFormatBuilder insertLeft(final String text, final int position_left, final LineWrap lineWrap);
 
 	/**
 	 * Left print format builder.
@@ -37,7 +48,7 @@ public interface PrintFormatBuilder {
 	 * @param text the text
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder left(String text);
+	PrintFormatBuilder left(final String text);
 
 	/**
 	 * Insert center print format builder.
@@ -46,7 +57,18 @@ public interface PrintFormatBuilder {
 	 * @param position the position
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder insertCenter(String text, int position);
+	PrintFormatBuilder insertCenter(final String text, final int position);
+
+
+	/**
+	 * Insert center print format builder.
+	 *
+	 * @param text     the text
+	 * @param position the position
+	 * @param lineWrap the line wrap
+	 * @return the print format builder
+	 */
+	PrintFormatBuilder insertCenter(final String text, final int position, final LineWrap lineWrap);
 
 	/**
 	 * Center print format builder.
@@ -63,7 +85,7 @@ public interface PrintFormatBuilder {
 	 * @param position_right the position right
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder insertRight(String text, int position_right);
+	PrintFormatBuilder insertRight(final String text, final int position_right);
 
 	/**
 	 * Right print format builder.
@@ -71,7 +93,7 @@ public interface PrintFormatBuilder {
 	 * @param text the text
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder right(String text);
+	PrintFormatBuilder right(final String text);
 
 	/**
 	 * Nl print format builder.

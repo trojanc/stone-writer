@@ -3,19 +3,74 @@ package coza.trojanc.receipt.shared;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by charl on 2016/10/14.
  */
 public class PrintStringUtilTest {
 
+	@Test
+	public void indexLeft5p1(){
+		final int index = PrintStringUtil.indexLeft(5, 1);
+		assertEquals(1, index);
+	}
 
 	@Test
-	public void getLine() throws Exception {
+	public void indexLeft5p0(){
+		final int index = PrintStringUtil.indexLeft(5, 0);
+		assertEquals(0, index);
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void indexLeft5p10(){
+		final int index = PrintStringUtil.indexLeft(5, 10);
+		assertEquals(0, index);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void indexLeft5p_10(){
+		final int index = PrintStringUtil.indexLeft(5, -10);
+		assertEquals(0, index);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void indexLeft5p_5(){
+		final int index = PrintStringUtil.indexLeft(5, -5);
+	}
+
+	@Test
+	public void indexLeft5p_1(){
+		final int index = PrintStringUtil.indexLeft(5, -1);
+		assertEquals(3, index);
+	}
+
+	@Test
+	public void indexLeft5p_2(){
+		final int index = PrintStringUtil.indexLeft(5, -2);
+		assertEquals(2, index);
+	}
+
+	@Test
+	public void maxStrLengthCenter0Width5(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 0);
+		assertEquals(3, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter1Width5(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 1);
+		assertEquals(3, maxSize);
+	}
+
+	@Test
+	public void maxStrLengthCenter2Width5(){
+		final int maxSize = PrintStringUtil.maxStrLengthCenter(5, 2);
+		assertEquals(5, maxSize);
+	}
+
 
 	@Test
 	public void insertLeftAligned9() throws Exception {
@@ -49,6 +104,106 @@ public class PrintStringUtilTest {
 		char[] buffer = PrintStringUtil.getLineBuffer(10);
 		final char[] expected = {' ',' ',' ',' ','1','2','3',' ',' ',' '};
 		PrintStringUtil.insertCenterAligned(buffer, "123", 3);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenterAligned13chars10Line() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = "2345678901".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, "1234567890123", 10);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenterAligned14chars10Line() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = "3456789012".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, "12345678901234", 10);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenterAligned14chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = "   56789  ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, "12345678901234", 5);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenterAligned13chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = "   56789  ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, "1234567890123", 5);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenterAligned5chars10LineMax3() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(5);
+		final char[] expected = " alu ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, "value", 3);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenter1Aligned5chars10LineMax3() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(5);
+		final char[] expected = "alu  ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 1, "value", 3);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenter1Aligned5chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(5);
+		final char[] expected = "alue ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 1, "value", 5);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenter3Aligned5chars10LineMax3() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(5);
+		final char[] expected = "  alu".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 3, "value", 3);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenter3Aligned5chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(5);
+		final char[] expected = " valu".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 3, "value", 5);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+
+	@Test
+	public void insertCenter3Aligned13chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = " 56789    ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 3, "1234567890123",5);
+		System.out.println(">" + new String(buffer) + "<");
+		assertArrayEquals(expected, buffer);
+	}
+
+	@Test
+	public void insertCenter3Aligned14chars10LineMax5() throws Exception {
+		char[] buffer = PrintStringUtil.getLineBuffer(10);
+		final char[] expected = " 56789    ".toCharArray();
+		PrintStringUtil.insertCenterAligned(buffer, 3, "12345678901234", 5);
 		System.out.println(">" + new String(buffer) + "<");
 		assertArrayEquals(expected, buffer);
 	}
@@ -105,16 +260,12 @@ public class PrintStringUtilTest {
 	}
 
 	@Test
-	public void nameValue() throws Exception {
-
-	}
-
-	@Test
 	public void insertRightAligned() throws Exception {
 		final int LINE_SIZE = 10;
 		char[] buffer = PrintStringUtil.getLineBuffer(LINE_SIZE);
 		PrintStringUtil.insertRightAligned(buffer, LINE_SIZE-1, "test", LINE_SIZE);
-		final char[] expected = {' ',' ',' ',' ',' ',' ','t','e','s','t'};
+		final char[] expected = "      test".toCharArray();
+		System.out.println(">" + new String(buffer) + "<");
 		assertArrayEquals(expected, buffer);
 	}
 

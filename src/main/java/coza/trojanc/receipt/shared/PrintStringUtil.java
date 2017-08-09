@@ -244,22 +244,46 @@ public class PrintStringUtil {
 	/**
 	 * Insert a value into a char array, center aligned at a position
 	 *
-	 * @param line      the line
-	 * @param position  the position
-	 * @param value     the value
-	 * @param maxLength the max length
+	 * @param line      the line buffer to insert the value to.
+	 * @param position The position to center the value on.
+	 * @param value     the value to add centered
+	 * @param maxLength The max length of the string being inserted
 	 */
 	public static void insertCenterAligned(char[] line, int position, String value, int maxLength){
 		if (value == null) {
 			return;
 		}
 
-		int length = value.length();
-		if (maxLength < length) {
-			insert(line, position - (maxLength / 2), value.substring(0, maxLength).toCharArray(), maxLength);
+		// We can also hit the sides of the line buffer when the maxlength and position are just right
+		// | | | | | |0|1|2|3|4|
+		// | | | | | | |^| | | | - offset (1)
+		// | | | | |v|a|l|u|e| |- value (5)
+		// | | | | | |x|x|x| | |- maxLength (3)
+		// | | | | | |a|l|u| | |- result (3)
+
+		final int valueLength = value.length();
+
+		// If the string is longer than the max length, we have to work out the
+		// substring so that the string appears centered in the available area
+		// |0|1|2|3|4|
+		// |v|a|l|u|e| - value (5)
+		// | |x|x|x| | - maxLength (3)
+		// | |a|l|u| | - result
+		if (maxLength < valueLength) {
+
+			// How much is the value longer than the available space
+			final int overshoot = valueLength - maxLength;
+
+			// How much do we need to shift up the start index for the substring
+			final int offset = overshoot / 2;
+
+			// How much do we need to additionally substract for the end of the string
+			final int end = overshoot % 2 > 0 ? 1 : 0;
+			insert(line, position - (maxLength / 2), value.substring(offset, valueLength-(offset+end)).toCharArray(), maxLength);
 		}
+		// The value fits perfectly in the line buffer
 		else {
-			insert(line, position - (length / 2), value.toCharArray(), length);
+			insert(line, position - (valueLength / 2), value.toCharArray(), valueLength);
 		}
 	}
 
@@ -482,6 +506,47 @@ public class PrintStringUtil {
 		} else {
 			return str.substring(0, i);
 		}
+	}
+
+	/**
+	 * Calculate the true position from the left
+	 * @param width Width within the position is set
+	 * @param index The position within the width
+	 * @return
+	 */
+	public static int indexLeft(final int width, final int index){
+		// If the position is negative, work out the position from the right
+		if(index < 0){
+			if(width + index <= 0){
+				throw new IllegalArgumentException("Position is larger than the width");
+			}
+			return width + index - 1;
+		}
+		// If the position is larger than the width, we cannot place it
+		else if(index >= width){
+			throw new IllegalArgumentException("Position is larger than the width");
+		}
+		else{
+			return index;
+		}
+	}
+
+	/**
+	 *
+	 * @param width Width of the total string when centered
+	 * @param position Position the string should be added to
+	 * @return
+	 */
+	public static int maxStrLengthCenter(final int width, final int position){
+		final int positionLeft = indexLeft(width, position);
+
+		final int halfWidth = width / 2;
+		final int availableSpace =
+				// Left half
+				(positionLeft - halfWidth < 0 ? positionLeft : halfWidth) +
+						// Right half
+						(width - positionLeft - halfWidth < 0 ? width - positionLeft : halfWidth);
+		return availableSpace;
 	}
 
 }
