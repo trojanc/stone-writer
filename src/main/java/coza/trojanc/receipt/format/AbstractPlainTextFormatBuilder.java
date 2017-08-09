@@ -1,5 +1,6 @@
 package coza.trojanc.receipt.format;
 
+import coza.trojanc.receipt.shared.LineWrap;
 import coza.trojanc.receipt.shared.PrintStringUtil;
 
 import java.util.regex.Matcher;
@@ -62,7 +63,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		this.charBuffer = new char[this.lineWidth];
 		if (invalidCharsRegex != null){
 			this.invalidCharsPattern = Pattern.compile(invalidCharsRegex);
-		} 
+		}
 		else {
 			this.invalidCharsPattern = null;
 		}
@@ -80,11 +81,11 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		if (str == null) {
 			return "";		//TODO confirm behaviour
 		}
-		
+
 		if (this.invalidCharsPattern != null){
 			Matcher m = this.invalidCharsPattern.matcher(str);
 			return m.replaceAll(Character.toString(this.invalidCharReplacement));
-		} 
+		}
 		else {
 			return str;
 		}
@@ -108,22 +109,19 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		return this;
 	}
 
-	/**
-	 * Returns the builder as a raw String
-	 */
-	public String toString(){
+	public Object getFormat(){
 		if (this.lineBufferInUse){
 			this.nl(); // Complete the line
 		}
 		return this.builder.toString();
 	}
 
-	public Object getFormat(){
-		return this.toString();
-	}
-
 	public PrintFormatBuilder insertLeft(String text, int position_left){
 		return this.insertLeft(text, position_left, this.lineWidth);
+	}
+
+	public PrintFormatBuilder insertLeft(String text, int position_left, LineWrap lineWrap){
+		return this.insertLeft(text, position_left, this.lineWidth, lineWrap);
 	}
 
 	public PrintFormatBuilder insertRight(String text, int position_right){
@@ -147,15 +145,22 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	}
 
 
-
 	public PrintFormatBuilder left(String text) {
+		return this.left(text, DEFAULT_LINE_WRAP);
+	}
+
+	public PrintFormatBuilder left(String text, LineWrap lineWrap) {
 		//complete char buffer line?
 		this.completeCharBuffer();
 
+		// If we don't wrap lines, instead user insert left to cut to only the current line
+		if(lineWrap == LineWrap.NO_WRAP){
+			return this.insertLeft(text, 0, this.lineWidth, LineWrap.NO_WRAP).nl();
+		}
+
 		//add all lines left aligned
-		int w = this.lineWidth;
 		int line = 0;
-		String[] strs = PrintStringUtil.getLines(text, w, "\n");
+		String[] strs = PrintStringUtil.getLines(text, this.lineWidth, "\n");
 		for (String value : strs) {
 			if(line++ != 0) {
 				this.nl();
@@ -170,10 +175,8 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		//complete char buffer line?
 		this.completeCharBuffer();
 
-		int w = this.lineWidth;
-
 		//add all lines center aligned
-		String[] strs = PrintStringUtil.getLines(text, w, "\n");
+		String[] strs = PrintStringUtil.getLines(text, this.lineWidth, "\n");
 		int line = 0;
 		int pos = this.lineWidth / 2;
 		for (String value : strs) {
@@ -219,16 +222,43 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 	 * @return print format builder
 	 */
 	protected PrintFormatBuilder insertLeft(String text, int position_left, int width){
+		return this.insertLeft(text, position_left, width, DEFAULT_LINE_WRAP);
+	}
+
+	protected PrintFormatBuilder insertLeft(String text, int position_left, int width, LineWrap lineWrap){
 		if (text == null) {
 			return this;
 		}
-		
+
 		this.lineBufferInUse = true;
-		if (position_left < 0){
-			PrintStringUtil.insertLeftAligned(this.charBuffer, width+position_left-1, text, width);
-		} 
-		else {
-			PrintStringUtil.insertLeftAligned(this.charBuffer, position_left, text, width);
+
+		// If we are not wrapping, add as much as we can into the current line buffer
+		if(lineWrap == LineWrap.NO_WRAP) {
+			if (position_left < 0) {
+				PrintStringUtil.insertLeftAligned(this.charBuffer, width + position_left - 1, text, width);
+			} else {
+				PrintStringUtil.insertLeftAligned(this.charBuffer, position_left, text, width);
+			}
+		}
+		else if(lineWrap == LineWrap.WRAP) {
+			final int maxStringLength = (position_left < 0 ? width + position_left - 1 : width - position_left);
+			String[] lines = PrintStringUtil.getLines(text, maxStringLength, "");
+			int line = 0;
+			for(String lineStr : lines){
+				this.insertLeft(lineStr, position_left, width, LineWrap.NO_WRAP);
+				if(lines.length > 1 && line++ < lines.length-1) {
+					this.nl();
+				}
+			}
+		}
+		else if(lineWrap == LineWrap.WRAP_LEFT) {
+			final int maxStringLength = (position_left < 0 ? width + position_left - 1 : width - position_left);
+			String[] lines = PrintStringUtil.getLines(text, maxStringLength, "");
+			this.insertLeft(lines[0], position_left, width, LineWrap.NO_WRAP);
+			if(lines.length > 1){
+				this.nl();
+				this.insertLeft(text.substring(lines[0].length(), text.length()), 0, width, LineWrap.WRAP);
+			}
 		}
 		return this;
 	}
@@ -245,7 +275,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		if (text == null) {
 			return this;
 		}
-		
+
 		this.lineBufferInUse = true;
 		if (position_right < 0){
 			PrintStringUtil.insertRightAligned(this.charBuffer, width + position_right - 1, text, width);
@@ -268,7 +298,7 @@ public abstract class AbstractPlainTextFormatBuilder extends AbstractFormatBuild
 		if (text == null) {
 			return this;
 		}
-		
+
 		this.lineBufferInUse = true;
 		if (position < 0){
 			PrintStringUtil.insertCenterAligned(this.charBuffer, width+position-1, text, width);

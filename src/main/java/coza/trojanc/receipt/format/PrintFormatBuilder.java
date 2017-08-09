@@ -1,11 +1,14 @@
 package coza.trojanc.receipt.format;
 
 import coza.trojanc.receipt.shared.Align;
+import coza.trojanc.receipt.shared.LineWrap;
 
 /**
  * Created by Charl-PC on 2016-10-16.
  */
 public interface PrintFormatBuilder {
+
+	LineWrap DEFAULT_LINE_WRAP = LineWrap.WRAP;
 
 	/**
 	 * Insert text print format builder.
@@ -25,6 +28,8 @@ public interface PrintFormatBuilder {
 	 * @return the print format builder
 	 */
 	PrintFormatBuilder insertLeft(String text, int position_left);
+
+	PrintFormatBuilder insertLeft(String text, int position_left, LineWrap lineWrap);
 
 	/**
 	 * Left print format builder.

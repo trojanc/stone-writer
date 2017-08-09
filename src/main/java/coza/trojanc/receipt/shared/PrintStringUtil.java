@@ -52,6 +52,10 @@ public class PrintStringUtil {
 		if ((str == null) || (str_length <= 0) || (start_index[0] >= str_length))
 			return false;
 
+		if(new_line_sequence == null){
+			new_line_sequence = "";
+		}
+
 		/*
 		 * find start
 		 */
@@ -78,7 +82,7 @@ public class PrintStringUtil {
 			/*
 			 * keep track of new line chars as line breaks
 			 */
-			else if ((str.charAt(end_index[0]) == new_line_sequence.charAt(0)) || (str.charAt(end_index[0]) == '\n')) {
+			else if (((new_line_sequence.length() > 0 && str.charAt(end_index[0]) == new_line_sequence.charAt(0))) || (str.charAt(end_index[0]) == '\n')) {
 				/*
 				 * allow '\n' as the default newline
 				 */
@@ -102,7 +106,7 @@ public class PrintStringUtil {
 					/*
 					 * ignore double \\ when the new line sequence starts with a \
 					 */
-					if ((new_line_sequence.charAt(0) == '\\') && (end_index[0]+1 < str_length) && (str.charAt(end_index[0]+1) == '\\')) {
+					if ((new_line_sequence.length() > 0 && new_line_sequence.charAt(0) == '\\') && (end_index[0]+1 < str_length) && (str.charAt(end_index[0]+1) == '\\')) {
 						end_index[0]++;
 					}
 					/*

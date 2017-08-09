@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static coza.trojanc.receipt.TestUtils.TEST_OUT;
+
 /**
  * Unit test for {@link XmlTemplateDefinitionLoader}
  */
@@ -18,7 +20,7 @@ public class XmlTemplateDefinitionLoaderTest {
 		TemplateDefinitionLoader loader = new XmlTemplateDefinitionLoader();
 		PrintTemplate template = TestUtils.createTemplate();
 
-		loader.write(template, System.out);
+		loader.write(template, TEST_OUT);
 	}
 
 	@Test

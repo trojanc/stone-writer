@@ -13,6 +13,8 @@ import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.TemplateProcessor;
 import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
@@ -111,28 +113,34 @@ public class TestUtils {
 
 	public static PrintTemplate createTemplate(){
 		return new PrintTemplateBuilder().name("Test Template")
-			.line()
+				.line()
 				.dynamicText(KEY_TRADER_NAME).align(Align.CENTER)
-			.fillLine('-')
-			.line()
+				.fillLine('-')
+				.line()
 				.text("Date ").align(Align.LEFT)
 				.dynamicText(KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
-			.line()
+				.line()
 				.text("SHIFT").align(Align.LEFT)
 				.text("12").align(Align.RIGHT).offset(10)
 				.text("TX").align(Align.RIGHT).offset(-7)
 				.text("123").align(Align.RIGHT).offset(-2)
-			.fillLine('-')
-			.line()
+				.fillLine('-')
+				.line()
 				.text("Items:")
 				.dynamicText(KEY_NUM_ITEMS).align(Align.RIGHT)
-			.line()
+				.line()
 				.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
 				.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
-			.fillLine('-')
-			.feed()
-			.build();
+				.fillLine('-')
+				.feed()
+				.build();
 	}
 
+	public static OutputStream TEST_OUT = new OutputStream() {
+		@Override
+		public void write(int b) throws IOException {
+			System.out.write(b);
+		}
+	};
 
 }

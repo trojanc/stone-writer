@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static coza.trojanc.receipt.TestUtils.TEST_OUT;
+
 /**
  * Unit test for {@link JsonProcessedTemplateLoader}
  */
@@ -18,7 +20,7 @@ public class JsonProcessedTemplateLoaderTest {
 		ProcessedTemplateLoader loader = new JsonProcessedTemplateLoader();
 		ProcessedTemplate processedTemplate = TestUtils.getProcessedTemplate();
 
-		loader.write(processedTemplate, System.out);
+		loader.write(processedTemplate, TEST_OUT);
 	}
 
 	@Test
