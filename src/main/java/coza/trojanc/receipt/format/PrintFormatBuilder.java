@@ -82,10 +82,19 @@ public interface PrintFormatBuilder {
 	 * Insert right print format builder.
 	 *
 	 * @param text           the text
-	 * @param position_right the position right
+	 * @param index the position right
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder insertRight(final String text, final int position_right);
+	PrintFormatBuilder insertRight(final String text, final int index);
+
+	/**
+	 *
+	 * @param text
+	 * @param index
+	 * @param lineWrap
+	 * @return
+	 */
+	PrintFormatBuilder insertRight(final String text, final int index, final LineWrap lineWrap);
 
 	/**
 	 * Right print format builder.

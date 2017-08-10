@@ -4,7 +4,12 @@ import coza.trojanc.receipt.format.PrintFormatBuilder;
 import coza.trojanc.receipt.shared.LineWrap;
 import coza.trojanc.receipt.shared.PrintStringUtil;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,9 +17,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Charl-PC on 2016-11-01.
  */
 public class PlainTextFormatBuilderTest {
-
-
-	@After
+	@Before
 	public void line(){
 		System.out.println(PrintStringUtil.createStringOfChar(30, '-'));
 	}
@@ -62,7 +65,7 @@ public class PlainTextFormatBuilderTest {
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("LEFTY", result);
+		assertEquals("LEFTY               ", result);
 	}
 
 	@Test
@@ -109,18 +112,18 @@ public class PlainTextFormatBuilderTest {
 	public void testCenterLeftFitSameLine(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertCenter("123", 5)
-			.insertCenter("456", 15);
+				.insertCenter("456", 15);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("    123       456   \n", result);
+		assertEquals("    123       456   ", result);
 	}
 
 	@Test
 	public void testInsert20Center15Long30WrapLine(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertCenter("123", 5)
-			.insertCenter("123456789012345678901234567890", 15, LineWrap.WRAP);
+				.insertCenter("123456789012345678901234567890", 15, LineWrap.WRAP);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -128,7 +131,7 @@ public class PlainTextFormatBuilderTest {
 				"    123    123456789\n" +
 				"           012345678\n" +
 				"           901234567\n" +
-				"              890   \n", result);
+				"              890   ", result);
 	}
 
 	@Test
@@ -139,7 +142,7 @@ public class PlainTextFormatBuilderTest {
 		String result = (String)builder.getFormat();
 		System.out.println(result);
 		assertEquals("val  \n" +
-				"ue   \n", result);
+				"ue   ", result);
 	}
 
 	@Test
@@ -152,14 +155,14 @@ public class PlainTextFormatBuilderTest {
 		assertEquals("abc  \n" +
 				"def  \n" +
 				"ghi  \n" +
-				" j   \n", result);
+				" j   ", result);
 	}
 
 	@Test
 	public void testInsertCenterLongWrapLineWithSpaces(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertCenter("123", 5)
-			.insertCenter("This is a very long piece of text I would like to wrap", 15, LineWrap.WRAP);
+				.insertCenter("This is a very long piece of text I would like to wrap", 15, LineWrap.WRAP);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -171,7 +174,7 @@ public class PlainTextFormatBuilderTest {
 				"            text I  \n" +
 				"             would  \n" +
 				"            like to \n" +
-				"             wrap   \n", result);
+				"             wrap   ", result);
 	}
 
 	@Test
@@ -214,7 +217,7 @@ public class PlainTextFormatBuilderTest {
 	public void testInsertCenterLongCutLineLeftSpaces(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP_LEFT).nl();
+				.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP_LEFT).nl();
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -222,32 +225,68 @@ public class PlainTextFormatBuilderTest {
 	}
 
 	@Test
-	public void testInsertLeftFitSameLine(){
+	public void testInsertLeftStart(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
-		builder.insertLeft("123", 0)
-			.insertLeft("456", 10);
+		builder.insertLeft("123", 0);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("123       456       \n", result);
+		assertEquals("123                 ", result);
+	}
+
+	@Test
+	public void testInsertLeftEnd(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertLeft("123", 19);
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(""+
+				"                   1\n" +
+				"                   2\n" +
+				"                   3", result);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInsertLeftPassedEnd(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertLeft("123", 20);
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(""+
+				"                   1\n" +
+				"                   2\n" +
+				"                   3", result);
+	}
+
+	@Test
+	public void testInsertLeftFitSameLine(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertLeft("123", 0)
+				.insertLeft("456", 10);
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals("123       456       ", result);
 	}
 
 	@Test
 	public void testInsertLeftLongWrapLine(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("123456789012345678901234567890", 10, LineWrap.WRAP);
+				.insertLeft("123456789012345678901234567890", 10, LineWrap.WRAP);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
-		assertEquals("123       1234567890\n          1234567890\n          1234567890\n", result);
+		assertEquals("123       1234567890\n          1234567890\n          1234567890", result);
 	}
 
 	@Test
 	public void testInsertLeftLongWrapLineWithSpaces(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP);
+				.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP);
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -257,14 +296,14 @@ public class PlainTextFormatBuilderTest {
 				"          text I    \n" +
 				"          would     \n" +
 				"          like to   \n" +
-				"          wrap      \n", result);
+				"          wrap      ", result);
 	}
 
 	@Test
 	public void testInsertLeftLongWrapLineLeft(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("123456789012345678901234567890123456789012345678901234567890", 10, LineWrap.WRAP_LEFT).nl();
+				.insertLeft("123456789012345678901234567890123456789012345678901234567890", 10, LineWrap.WRAP_LEFT).nl();
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -272,10 +311,25 @@ public class PlainTextFormatBuilderTest {
 	}
 
 	@Test
-	public void testInsertLeftLongCutLineLeftSpaces(){
+	public void testInsertRightLongWrapLineLeft(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertRight("123", 3)
+				.insertRight("123456789012345678901234567890123456789012345678901234567890", 10, LineWrap.WRAP_LEFT).nl();
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(""+
+				"12345678901         \n" +
+				"23456789012345678901\n" +
+				"23456789012345678901\n" +
+				"234567890           \n", result);
+	}
+
+	@Test
+	public void testInsertLeftLongWrapLeftSpaces(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP_LEFT).nl();
+				.insertLeft("This is a very long piece of text I would like to wrap", 10, LineWrap.WRAP_LEFT).nl();
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
@@ -283,18 +337,50 @@ public class PlainTextFormatBuilderTest {
 	}
 
 	@Test
+	public void testInsertRightLongWrapLeftSpaces(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertRight("123", 2)
+				.insertRight("This is a very long piece of text I would like to wrap", 15, LineWrap.WRAP_LEFT).nl();
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(""+
+				"12This is a very    \n" +
+				"long piece of text  \n" +
+				"I would like to wrap\n", result);
+	}
+
+	@Test
 	public void testInsertLeftFitSameLineMultipleLines(){
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
 		builder.insertLeft("123", 0)
-			.insertLeft("456", 10)
-			.nl()
-			.insertLeft("abc", 2)
-			.insertLeft("xyz", 12)
-			.nl();
+				.insertLeft("456", 10)
+				.nl()
+				.insertLeft("abc", 2)
+				.insertLeft("xyz", 12)
+				.nl();
 
 		String result = (String)builder.getFormat();
 		System.out.println(result);
 		assertEquals("123       456       \n  abc       xyz     \n", result);
+	}
+
+	@Test
+	public void testInsertRightFitSameLineMultipleLines(){
+		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+		builder.insertRight("123", 5)
+				.insertRight("456", 10)
+				.nl()
+				.insertRight("abc", 5)
+				.insertRight("xyz", 12)
+				.insertRight("xyz", 19)
+				.nl();
+
+		String result = (String)builder.getFormat();
+		System.out.println(result);
+		assertEquals(""+
+				"   123  456         \n" +
+				"   abc    xyz    xyz\n", result);
 	}
 
 
@@ -308,11 +394,10 @@ public class PlainTextFormatBuilderTest {
 		builder.center("CENTER");
 
 		String result = (String)builder.getFormat();
-		String expected = new StringBuilder()
-			.append("               Hello\n")
-			.append("LEFTY\n")
-			.append("       CENTER       ")
-			.toString();
+		String expected =
+				"               Hello\n" +
+				"LEFTY               \n" +
+				"       CENTER       ";
 
 
 		System.out.println(result);
