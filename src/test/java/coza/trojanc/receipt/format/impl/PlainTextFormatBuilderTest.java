@@ -2,13 +2,22 @@ package coza.trojanc.receipt.format.impl;
 
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 import coza.trojanc.receipt.shared.LineWrap;
+import coza.trojanc.receipt.shared.PrintStringUtil;
+import org.junit.After;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Charl-PC on 2016-11-01.
  */
 public class PlainTextFormatBuilderTest {
+
+
+	@After
+	public void line(){
+		System.out.println(PrintStringUtil.createStringOfChar(30, '-'));
+	}
 
 	@Test
 	public void testRight(){
@@ -185,7 +194,7 @@ public class PlainTextFormatBuilderTest {
 		String result = (String)builder.getFormat();
 		System.out.println(result);
 		assertEquals(""+
-				"       123456789    \n" +
+				"           123456789\n" +
 				"01234567890123456789\n" +
 				"01234567890123456789\n" +
 				"0                   \n", result);

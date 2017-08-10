@@ -2,7 +2,7 @@ package coza.trojanc.receipt.shared;
 
 public enum LineWrap {
 	/**
-	 * Do not wrap the line. Cut line
+	 * Do not wrap the line. Any content that does not fit into the line will be cut
 	 */
 	NO_WRAP("none"),
 
