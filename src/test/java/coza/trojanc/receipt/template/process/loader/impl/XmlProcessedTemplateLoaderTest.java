@@ -3,7 +3,7 @@ package coza.trojanc.receipt.template.process.loader.impl;
 import coza.trojanc.receipt.TestUtils;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.loader.ProcessedTemplateLoader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

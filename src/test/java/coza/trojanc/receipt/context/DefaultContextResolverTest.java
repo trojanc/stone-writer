@@ -3,14 +3,14 @@ package coza.trojanc.receipt.context;
 import coza.trojanc.receipt.TestUtils;
 import coza.trojanc.receipt.context.impl.DefaultContextResolver;
 import coza.trojanc.receipt.context.test.TestTransaction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Unit test for {@link DefaultContextResolver}
@@ -19,7 +19,7 @@ public class DefaultContextResolverTest {
 
 	private ContextMap resolvedVariables;
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		ContextResolver resolver = new DefaultContextResolver();
 		ContextDefinition contextDefinition = TestUtils.createContextDefinitions();

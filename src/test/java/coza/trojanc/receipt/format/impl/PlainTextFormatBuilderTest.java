@@ -3,21 +3,16 @@ package coza.trojanc.receipt.format.impl;
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 import coza.trojanc.receipt.shared.LineWrap;
 import coza.trojanc.receipt.shared.PrintStringUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by Charl-PC on 2016-11-01.
  */
 public class PlainTextFormatBuilderTest {
-	@Before
+	@BeforeEach
 	public void line(){
 		System.out.println(PrintStringUtil.createStringOfChar(30, '-'));
 	}
@@ -247,17 +242,19 @@ public class PlainTextFormatBuilderTest {
 				"                   3", result);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testInsertLeftPassedEnd(){
-		PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
-		builder.insertLeft("123", 20);
+		assertThrows(IllegalArgumentException.class, () -> {
+			PrintFormatBuilder builder = new PlainTextFormatBuilder(20);
+			builder.insertLeft("123", 20);
 
-		String result = (String)builder.getFormat();
-		System.out.println(result);
-		assertEquals(""+
-				"                   1\n" +
-				"                   2\n" +
-				"                   3", result);
+			String result = (String)builder.getFormat();
+			System.out.println(result);
+			assertEquals(""+
+					"                   1\n" +
+					"                   2\n" +
+					"                   3", result);
+		});
 	}
 
 	@Test

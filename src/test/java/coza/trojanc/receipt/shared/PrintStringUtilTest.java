@@ -1,11 +1,12 @@
 package coza.trojanc.receipt.shared;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Created by charl on 2016/10/14.
@@ -24,21 +25,27 @@ public class PrintStringUtilTest {
 		assertEquals(0, index);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void indexLeft5p10(){
-		final int index = PrintStringUtil.indexLeft(5, 10);
-		assertEquals(0, index);
+		assertThrows(IllegalArgumentException.class, () -> {
+			final int index = PrintStringUtil.indexLeft(5, 10);
+			assertEquals(0, index);
+		});
+
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void indexLeft5p_10(){
-		final int index = PrintStringUtil.indexLeft(5, -10);
-		assertEquals(0, index);
+		assertThrows(IllegalArgumentException.class, () -> {
+			PrintStringUtil.indexLeft(5, -5);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void indexLeft5p_5(){
-		final int index = PrintStringUtil.indexLeft(5, -5);
+		assertThrows(IllegalArgumentException.class, () -> {
+			PrintStringUtil.indexLeft(5, -5);
+		});
 	}
 
 	@Test

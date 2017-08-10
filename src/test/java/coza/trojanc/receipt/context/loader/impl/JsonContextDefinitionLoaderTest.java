@@ -3,7 +3,7 @@ package coza.trojanc.receipt.context.loader.impl;
 import coza.trojanc.receipt.TestUtils;
 import coza.trojanc.receipt.context.ContextDefinition;
 import coza.trojanc.receipt.context.loader.ContextDefinitionLoader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
