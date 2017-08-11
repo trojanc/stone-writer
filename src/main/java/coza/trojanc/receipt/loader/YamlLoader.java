@@ -2,6 +2,7 @@ package coza.trojanc.receipt.loader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.lang.reflect.ParameterizedType;
  */
 public class YamlLoader<T> extends AbstractLoader<T> {
 
-	protected static final ObjectMapper MAPPER = new YAMLMapper();
+	protected static final ObjectMapper MAPPER = new YAMLMapper().disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
 
 	protected Class<T> clazz;
 
