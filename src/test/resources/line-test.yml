@@ -1,0 +1,324 @@
+---
+tests:
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP
+  resultInsertLeft: |-
+    | 1234               |
+  resultInsertRight: |-
+    |12                  |
+    |34                  |
+  resultInsertCenter: |-
+    |123                 |
+    | 4                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP
+  resultInsertLeft: |-
+    | 12345              |
+  resultInsertRight: |-
+    |12                  |
+    |34                  |
+    | 5                  |
+  resultInsertCenter: |-
+    |123                 |
+    |45                  |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP
+  resultInsertCenter: |-
+    |123  |
+    |456  |
+    |789  |
+  resultInsertLeft: |-
+    | 1234|
+    | 5678|
+    | 9   |
+  resultInsertRight: |-
+    |12   |
+    |34   |
+    |56   |
+    |78   |
+    | 9   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP
+  resultInsertCenter: |-
+    |123  |
+    |456  |
+    |789  |
+    | 0   |
+  resultInsertLeft: |-
+    | 1234|
+    | 5678|
+    | 90  |
+  resultInsertRight: |-
+    |12   |
+    |34   |
+    |56   |
+    |78   |
+    |90   |
+
+
+# Repeat with no-wrap
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |234                 |
+  resultInsertLeft: |-
+    | 1234               |
+  resultInsertRight: |-
+    |34                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |2345                |
+  resultInsertLeft: |-
+    | 12345              |
+  resultInsertRight: |-
+    |45                  |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |4567 |
+  resultInsertLeft: |-
+    | 1234|
+  resultInsertRight: |-
+    |89   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |4567 |
+  resultInsertLeft: |-
+    | 1234|
+  resultInsertRight: |-
+    |90   |
+
+
+# Test with WRAP_LEFT
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123                 |
+    |4                   |
+  resultInsertLeft: |-
+    | 1234               |
+  resultInsertRight: |-
+    |12                  |
+    |34                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123                 |
+    |45                  |
+  resultInsertLeft: |-
+    | 12345              |
+  resultInsertRight: |-
+    |12                  |
+    |345                 |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123  |
+    |45678|
+    |9    |
+  resultInsertLeft: |-
+    | 1234|
+    |56789|
+  resultInsertRight: |-
+    |12   |
+    |34567|
+    |89   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123  |
+    |45678|
+    |90   |
+  resultInsertLeft: |-
+    | 1234|
+    |56789|
+    |0    |
+  resultInsertRight: |-
+    |12   |
+    |34567|
+    |890  |
+
+##
+## Now for all the tests over again, but with sentances with spaces
+##
+
+- text: "This is a not so long sentence to print"
+  index: 7
+  lineWidth: 20
+  lineWrap: WRAP
+  resultInsertCenter: |-
+    | This is a not      |
+    |    so long         |
+    |  sentence to       |
+    |     print          |
+  resultInsertLeft: |-
+    |       This is a    |
+    |       not so long  |
+    |       sentence to  |
+    |       print        |
+  resultInsertRight: |-
+    | This is            |
+    |   a not            |
+    | so long            |
+    |sentence            |
+    |to print            |
+- text: "This is a not so long sentence to print"
+  index: 8
+  lineWidth: 20
+  lineWrap: WRAP
+  resultInsertCenter: |-
+    |This is a not so    |
+    |long sentence to    |
+    |      print         |
+  resultInsertLeft: |-
+    |        This is a   |
+    |        not so long |
+    |        sentence to |
+    |        print       |
+  resultInsertRight: |-
+    |  This is           |
+    | a not so           |
+    |     long           |
+    | sentence           |
+    | to print           |
+- text: "This is a not so long sentence to print"
+  index: 15
+  lineWidth: 20
+  lineWrap: WRAP
+  resultInsertCenter: |-
+    |            This is |
+    |           a not so |
+    |             long   |
+    |           sentence |
+    |           to print |
+  resultInsertLeft: |-
+    |               This |
+    |               is a |
+    |               not  |
+    |               so   |
+    |               long |
+    |               sente|
+    |               nce  |
+    |               to   |
+    |               print|
+  resultInsertRight: |-
+    |   This is a not    |
+    |         so long    |
+    |     sentence to    |
+    |           print    |
+
+# Repeat with no-wrap
+- text: "This is a not so long sentence to print"
+  index: 7
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |t so long sentenc   |
+  resultInsertLeft: |-
+    |       This is a not|
+  resultInsertRight: |-
+    |to print            |
+- text: "This is a not so long sentence to print"
+  index: 8
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |ot so long sentenc  |
+  resultInsertLeft: |-
+    |        This is a no|
+  resultInsertRight: |-
+    | to print           |
+- text: "This is a not so long sentence to print"
+  index: 15
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultInsertCenter: |-
+    |      not so long se|
+  resultInsertLeft: |-
+    |               This |
+  resultInsertRight: |-
+    |entence to print    |
+
+
+# Test with WRAP_LEFT
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123                 |
+    |4                   |
+  resultInsertLeft: |-
+    | 1234               |
+  resultInsertRight: |-
+    |12                  |
+    |34                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123                 |
+    |45                  |
+  resultInsertLeft: |-
+    | 12345              |
+  resultInsertRight: |-
+    |12                  |
+    |345                 |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123  |
+    |45678|
+    |9    |
+  resultInsertLeft: |-
+    | 1234|
+    |56789|
+  resultInsertRight: |-
+    |12   |
+    |34567|
+    |89   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultInsertCenter: |-
+    |123  |
+    |45678|
+    |90   |
+  resultInsertLeft: |-
+    | 1234|
+    |56789|
+    |0    |
+  resultInsertRight: |-
+    |12   |
+    |34567|
+    |890  |
