@@ -131,7 +131,7 @@ public class PrintStringUtilTest {
 	@Test
 	public void insertLeftAligned9() throws Exception {
 		char[] buffer = PrintStringUtil.getLineBuffer(10);
-		final char[] expected = {' ',' ','5','6','7','8','9',' ',' ',' '};
+		final char[] expected = "  12345   ".toCharArray();
 		PrintStringUtil.insertLeftAligned(buffer, 2, "123456789", 5);
 		System.out.println(">" + new String(buffer) + "<");
 		assertArrayEquals(expected, buffer);
@@ -140,7 +140,7 @@ public class PrintStringUtilTest {
 	@Test
 	public void insertLeftAligned3() throws Exception {
 		char[] buffer = PrintStringUtil.getLineBuffer(10);
-		final char[] expected = {' ',' ','7','8','9',' ',' ',' ',' ',' '};
+		final char[] expected = "  123     ".toCharArray();
 		PrintStringUtil.insertLeftAligned(buffer, 2, "123456789", 3);
 		System.out.println(">" + new String(buffer) + "<");
 		assertArrayEquals(expected, buffer);

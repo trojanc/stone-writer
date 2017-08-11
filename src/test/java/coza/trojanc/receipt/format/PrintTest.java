@@ -36,9 +36,6 @@ public class PrintTest {
 		private String resultLeft;
 		private String resultRight;
 		private String resultCenter;
-		private String resultInsertLeft;
-		private String resultInsertRight;
-		private String resultInsertCenter;
 
 		public TestInstance(){
 		}
@@ -168,60 +165,6 @@ public class PrintTest {
 		 */
 		public String getResultCenter() {
 			return resultCenter;
-		}
-
-		/**
-		 * Getter for property 'resultInsertLeft'.
-		 *
-		 * @return Value for property 'resultInsertLeft'.
-		 */
-		public String getResultInsertLeft() {
-			return resultInsertLeft;
-		}
-
-		/**
-		 * Setter for property 'resultInsertLeft'.
-		 *
-		 * @param resultInsertLeft Value to set for property 'resultInsertLeft'.
-		 */
-		public void setResultInsertLeft(String resultInsertLeft) {
-			this.resultInsertLeft = resultInsertLeft;
-		}
-
-		/**
-		 * Getter for property 'resultInsertRight'.
-		 *
-		 * @return Value for property 'resultInsertRight'.
-		 */
-		public String getResultInsertRight() {
-			return resultInsertRight;
-		}
-
-		/**
-		 * Setter for property 'resultInsertRight'.
-		 *
-		 * @param resultInsertRight Value to set for property 'resultInsertRight'.
-		 */
-		public void setResultInsertRight(String resultInsertRight) {
-			this.resultInsertRight = resultInsertRight;
-		}
-
-		/**
-		 * Getter for property 'resultInsertCenter'.
-		 *
-		 * @return Value for property 'resultInsertCenter'.
-		 */
-		public String getResultInsertCenter() {
-			return resultInsertCenter;
-		}
-
-		/**
-		 * Setter for property 'resultInsertCenter'.
-		 *
-		 * @param resultInsertCenter Value to set for property 'resultInsertCenter'.
-		 */
-		public void setResultInsertCenter(String resultInsertCenter) {
-			this.resultInsertCenter = resultInsertCenter;
 		}
 	}
 
