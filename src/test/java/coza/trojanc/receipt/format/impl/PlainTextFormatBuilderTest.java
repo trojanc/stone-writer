@@ -1,12 +1,12 @@
 package coza.trojanc.receipt.format.impl;
 
+import coza.trojanc.receipt.format.PrintBuilderTestCases;
+import coza.trojanc.receipt.format.PrintBuilderTestCasesLoader;
 import coza.trojanc.receipt.format.PrintFormatBuilder;
-import coza.trojanc.receipt.format.PrintTest;
-import coza.trojanc.receipt.format.PrintTestLoader;
+import coza.trojanc.receipt.loader.YamlLoader;
 import coza.trojanc.receipt.shared.LineWrap;
 import coza.trojanc.receipt.shared.PrintStringUtil;
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by Charl-PC on 2016-11-01.
@@ -34,9 +34,9 @@ public class PlainTextFormatBuilderTest {
 		B apply(B b, T t, W w);
 	}
 
-	private void testInsert(PrintTest.TestInstance testInstance,
+	private void testInsert(PrintBuilderTestCases.TestInstance testInstance,
 							PrintInsertFunction<PrintFormatBuilder, String, Integer, LineWrap> function,
-							Function<PrintTest.TestInstance, String> resultFunction){
+							Function<PrintBuilderTestCases.TestInstance, String> resultFunction){
 		line();
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(testInstance.getLineWidth());
 		function.apply(builder, testInstance.getText(), testInstance.getIndex(), testInstance.getLineWrap());
@@ -45,9 +45,9 @@ public class PlainTextFormatBuilderTest {
 		assertEquals(resultFunction.apply(testInstance).replaceAll("\\|", ""), result);
 	}
 
-	private void testAlignment(PrintTest.TestInstance testInstance,
-							PrintAlignFunction<PrintFormatBuilder, String, LineWrap> function,
-							Function<PrintTest.TestInstance, String> resultFunction){
+	private void testAlignment(PrintBuilderTestCases.TestInstance testInstance,
+							   PrintAlignFunction<PrintFormatBuilder, String, LineWrap> function,
+							   Function<PrintBuilderTestCases.TestInstance, String> resultFunction){
 		line();
 		PrintFormatBuilder builder = new PlainTextFormatBuilder(testInstance.getLineWidth());
 		function.apply(builder, testInstance.getText(), testInstance.getLineWrap());
@@ -56,32 +56,32 @@ public class PlainTextFormatBuilderTest {
 		assertEquals(resultFunction.apply(testInstance).replaceAll("\\|", ""), result);
 	}
 
-	private static String insertTestDescription(PrintTest.TestInstance testInstance, String placement){
+	private static String insertTestDescription(PrintBuilderTestCases.TestInstance testInstance, String placement){
 		return String.format("%s line %d chars %s at %d with %d",  testInstance.getLineWrap(), testInstance.getText().length(), placement, testInstance.getIndex(), testInstance.getLineWidth());
 	}
 
-	private static String alignTestDescription(PrintTest.TestInstance testInstance, String placement){
+	private static String alignTestDescription(PrintBuilderTestCases.TestInstance testInstance, String placement){
 		return String.format("%s line %d chars %s with %d",  testInstance.getLineWrap(), testInstance.getText().length(), placement, testInstance.getLineWidth());
 	}
 
 	@TestFactory
 	public List<DynamicTest> testInsert() throws IOException {
-		PrintTestLoader loader = new PrintTestLoader();
-		PrintTest test = loader.load(getClass().getResourceAsStream("/plaintext-insert-results.yml"));
+		YamlLoader<PrintBuilderTestCases> loader = new PrintBuilderTestCasesLoader();
+		PrintBuilderTestCases test = loader.load(getClass().getResourceAsStream("/plaintext-insert-results.yml"));
 		List<DynamicTest> tests = new ArrayList<>();
 		test.getTests().forEach(testInstance -> {
 
 			// Add the left insert test
 			tests.add(DynamicTest.dynamicTest(insertTestDescription(testInstance, "insert left"),
-					() -> testInsert(testInstance, PrintFormatBuilder::insertLeft, PrintTest.TestInstance::getResultLeft)));
+					() -> testInsert(testInstance, PrintFormatBuilder::insertLeft, PrintBuilderTestCases.TestInstance::getResultLeft)));
 
 			// Add the right insert test
 			tests.add(DynamicTest.dynamicTest(insertTestDescription(testInstance, "insert right"),
-					() -> testInsert(testInstance, PrintFormatBuilder::insertRight, PrintTest.TestInstance::getResultRight)));
+					() -> testInsert(testInstance, PrintFormatBuilder::insertRight, PrintBuilderTestCases.TestInstance::getResultRight)));
 
 			// Add the center insert test
 			tests.add(DynamicTest.dynamicTest(insertTestDescription(testInstance, "insert center"),
-					() -> testInsert(testInstance, PrintFormatBuilder::insertCenter, PrintTest.TestInstance::getResultCenter)));
+					() -> testInsert(testInstance, PrintFormatBuilder::insertCenter, PrintBuilderTestCases.TestInstance::getResultCenter)));
 		});
 		return tests;
 	}
@@ -89,31 +89,23 @@ public class PlainTextFormatBuilderTest {
 
 	@TestFactory
 	public List<DynamicTest> testAlignment() throws IOException {
-		PrintTestLoader loader = new PrintTestLoader();
-		PrintTest test = loader.load(getClass().getResourceAsStream("/plaintext-align-results.yml"));
+		YamlLoader<PrintBuilderTestCases> loader = new PrintBuilderTestCasesLoader();
+		PrintBuilderTestCases test = loader.load(getClass().getResourceAsStream("/plaintext-align-results.yml"));
 		List<DynamicTest> tests = new ArrayList<>();
 		test.getTests().forEach(testInstance -> {
 
 			// Add the left insert test
 			tests.add(DynamicTest.dynamicTest(alignTestDescription(testInstance, "left"),
-					() -> testAlignment(testInstance, PrintFormatBuilder::left, PrintTest.TestInstance::getResultLeft)));
+					() -> testAlignment(testInstance, PrintFormatBuilder::left, PrintBuilderTestCases.TestInstance::getResultLeft)));
 
 			// Add the right insert test
 			tests.add(DynamicTest.dynamicTest(alignTestDescription(testInstance, "right"),
-					() -> testAlignment(testInstance, PrintFormatBuilder::right, PrintTest.TestInstance::getResultRight)));
+					() -> testAlignment(testInstance, PrintFormatBuilder::right, PrintBuilderTestCases.TestInstance::getResultRight)));
 
 			// Add the center insert test
 			tests.add(DynamicTest.dynamicTest(alignTestDescription(testInstance, "center"),
-					() -> testAlignment(testInstance, PrintFormatBuilder::center, PrintTest.TestInstance::getResultCenter)));
+					() -> testAlignment(testInstance, PrintFormatBuilder::center, PrintBuilderTestCases.TestInstance::getResultCenter)));
 		});
 		return tests;
-	}
-
-	@Test
-	public void testTester(){
-		PrintFormatBuilder builder = new PlainTextFormatBuilder(5);
-		builder.center("123456798");
-		String result = (String)builder.getFormat();
-		System.out.println(result);
 	}
 }

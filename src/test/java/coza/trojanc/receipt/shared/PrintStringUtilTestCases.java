@@ -1,11 +1,9 @@
-package coza.trojanc.receipt.format;
-
-import coza.trojanc.receipt.shared.LineWrap;
+package coza.trojanc.receipt.shared;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintTest {
+public class PrintStringUtilTestCases {
 
 
 	private List<TestInstance> tests = new ArrayList<>();
@@ -32,13 +30,33 @@ public class PrintTest {
 		private String text;
 		private int index;
 		private int lineWidth;
-		private LineWrap lineWrap;
+		private int maxLength;
 		private String resultLeft;
 		private String resultRight;
 		private String resultCenter;
 
 		public TestInstance(){
 		}
+
+
+		/**
+		 * Getter for property 'maxLength'.
+		 *
+		 * @return Value for property 'maxLength'.
+		 */
+		public int getMaxLength() {
+			return maxLength;
+		}
+
+		/**
+		 * Setter for property 'maxLength'.
+		 *
+		 * @param maxLength Value to set for property 'maxLength'.
+		 */
+		public void setMaxLength(int maxLength) {
+			this.maxLength = maxLength;
+		}
+
 
 		/**
 		 * Getter for property 'lineWidth'.
@@ -74,24 +92,6 @@ public class PrintTest {
 		 */
 		public void setText(String text) {
 			this.text = text;
-		}
-
-		/**
-		 * Getter for property 'lineWrap'.
-		 *
-		 * @return Value for property 'lineWrap'.
-		 */
-		public LineWrap getLineWrap() {
-			return lineWrap;
-		}
-
-		/**
-		 * Setter for property 'lineWrap'.
-		 *
-		 * @param lineWrap Value to set for property 'lineWrap'.
-		 */
-		public void setLineWrap(LineWrap lineWrap) {
-			this.lineWrap = lineWrap;
 		}
 
 		/**
