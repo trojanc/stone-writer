@@ -50,6 +50,8 @@ public interface PrintFormatBuilder {
 	 */
 	PrintFormatBuilder left(final String text);
 
+	PrintFormatBuilder left(final String text, final LineWrap lineWrap);
+
 	/**
 	 * Insert center print format builder.
 	 *
@@ -76,7 +78,9 @@ public interface PrintFormatBuilder {
 	 * @param text the text
 	 * @return the print format builder
 	 */
-	PrintFormatBuilder center(String text);
+	PrintFormatBuilder center(final String text, final LineWrap lineWrap);
+
+	PrintFormatBuilder center(final String text);
 
 	/**
 	 * Insert right print format builder.
@@ -103,6 +107,8 @@ public interface PrintFormatBuilder {
 	 * @return the print format builder
 	 */
 	PrintFormatBuilder right(final String text);
+
+	PrintFormatBuilder right(final String text, final LineWrap lineWrap);
 
 	/**
 	 * Nl print format builder.

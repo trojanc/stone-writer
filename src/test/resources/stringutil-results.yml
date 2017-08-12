@@ -1,0 +1,82 @@
+---
+tests:
+- text: "1234"
+  lineWidth: 20
+  maxLength: 20
+  index: 10
+  resultLeft: |-
+    |          1234      |
+  resultRight: |-
+    |       1234         |
+  resultCenter: |-
+    |        1234        |
+- text: "1234"
+  lineWidth: 20
+  maxLength: 20
+  index: 2
+  resultLeft: |-
+    |  1234              |
+  resultRight: |-
+    |234                 |
+  resultCenter: |-
+    |1234                |
+- text: "1234"
+  lineWidth: 20
+  maxLength: 20
+  index: 18
+  resultLeft: |-
+    |                  12|
+  resultRight: |-
+    |               1234 |
+  resultCenter: |-
+    |                1234|
+- text: "12345"
+  lineWidth: 20
+  maxLength: 20
+  index: 10
+  resultLeft: |-
+    |          12345     |
+  resultRight: |-
+    |      12345         |
+  resultCenter: |-
+    |        12345       |
+- text: "12345"
+  lineWidth: 20
+  maxLength: 20
+  index: 2
+  resultLeft: |-
+    |  12345             |
+  resultRight: |-
+    |345                 |
+  resultCenter: |-
+    |12345               |
+- text: "1234"
+  lineWidth: 19
+  maxLength: 19
+  index: 10
+  resultCenter: |-
+    |        1234       |
+  resultLeft: |-
+    |          1234     |
+  resultRight: |-
+    |       1234        |
+- text: "1234567890"
+  lineWidth: 5
+  maxLength: 5
+  index: 1
+  resultCenter: |-
+    |4567 |
+  resultLeft: |-
+    | 1234|
+  resultRight: |-
+    |90   |
+- text: "123456789"
+  lineWidth: 5
+  maxLength: 5
+  index: 1
+  resultCenter: |-
+    |4567 |
+  resultLeft: |-
+    | 1234|
+  resultRight: |-
+    |89   |

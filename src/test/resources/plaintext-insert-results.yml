@@ -1,0 +1,317 @@
+---
+tests:
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP
+  resultLeft: |-
+    | 1234               |
+  resultRight: |-
+    |12                  |
+    |34                  |
+  resultCenter: |-
+    |123                 |
+    | 4                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP
+  resultLeft: |-
+    | 12345              |
+  resultRight: |-
+    |12                  |
+    |34                  |
+    | 5                  |
+  resultCenter: |-
+    |123                 |
+    |45                  |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP
+  resultCenter: |-
+    |123  |
+    |456  |
+    |789  |
+  resultLeft: |-
+    | 1234|
+    | 5678|
+    | 9   |
+  resultRight: |-
+    |12   |
+    |34   |
+    |56   |
+    |78   |
+    | 9   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP
+  resultCenter: |-
+    |123  |
+    |456  |
+    |789  |
+    | 0   |
+  resultLeft: |-
+    | 1234|
+    | 5678|
+    | 90  |
+  resultRight: |-
+    |12   |
+    |34   |
+    |56   |
+    |78   |
+    |90   |
+
+
+# Repeat with no-wrap
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |234                 |
+  resultLeft: |-
+    | 1234               |
+  resultRight: |-
+    |34                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |2345                |
+  resultLeft: |-
+    | 12345              |
+  resultRight: |-
+    |45                  |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |4567 |
+  resultLeft: |-
+    | 1234|
+  resultRight: |-
+    |89   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |4567 |
+  resultLeft: |-
+    | 1234|
+  resultRight: |-
+    |90   |
+
+
+# Test with WRAP_LEFT
+- text: "1234"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |123                 |
+    |4                   |
+  resultLeft: |-
+    | 1234               |
+  resultRight: |-
+    |12                  |
+    |34                  |
+- text: "12345"
+  index: 1
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |123                 |
+    |45                  |
+  resultLeft: |-
+    | 12345              |
+  resultRight: |-
+    |12                  |
+    |345                 |
+- text: "123456789"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |123  |
+    |45678|
+    |9    |
+  resultLeft: |-
+    | 1234|
+    |56789|
+  resultRight: |-
+    |12   |
+    |34567|
+    |89   |
+- text: "1234567890"
+  index: 1
+  lineWidth: 5
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |123  |
+    |45678|
+    |90   |
+  resultLeft: |-
+    | 1234|
+    |56789|
+    |0    |
+  resultRight: |-
+    |12   |
+    |34567|
+    |890  |
+
+##
+## Now for all the tests over again, but with sentances with spaces
+##
+
+- text: "This is a not so long sentence to print"
+  index: 7
+  lineWidth: 20
+  lineWrap: WRAP
+  resultCenter: |-
+    | This is a not      |
+    |    so long         |
+    |  sentence to       |
+    |     print          |
+  resultLeft: |-
+    |       This is a    |
+    |       not so long  |
+    |       sentence to  |
+    |       print        |
+  resultRight: |-
+    | This is            |
+    |   a not            |
+    | so long            |
+    |sentence            |
+    |to print            |
+- text: "This is a not so long sentence to print"
+  index: 8
+  lineWidth: 20
+  lineWrap: WRAP
+  resultCenter: |-
+    |This is a not so    |
+    |long sentence to    |
+    |      print         |
+  resultLeft: |-
+    |        This is a   |
+    |        not so long |
+    |        sentence to |
+    |        print       |
+  resultRight: |-
+    |  This is           |
+    | a not so           |
+    |     long           |
+    | sentence           |
+    | to print           |
+- text: "This is a not so long sentence to print"
+  index: 15
+  lineWidth: 20
+  lineWrap: WRAP
+  resultCenter: |-
+    |            This is |
+    |           a not so |
+    |             long   |
+    |           sentence |
+    |           to print |
+  resultLeft: |-
+    |               This |
+    |               is a |
+    |               not  |
+    |               so   |
+    |               long |
+    |               sente|
+    |               nce  |
+    |               to   |
+    |               print|
+  resultRight: |-
+    |   This is a not    |
+    |         so long    |
+    |     sentence to    |
+    |           print    |
+
+# Repeat with no-wrap
+- text: "This is a not so long sentence to print"
+  index: 7
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |t so long sentenc   |
+  resultLeft: |-
+    |       This is a not|
+  resultRight: |-
+    |to print            |
+- text: "This is a not so long sentence to print"
+  index: 8
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |ot so long sentenc  |
+  resultLeft: |-
+    |        This is a no|
+  resultRight: |-
+    | to print           |
+- text: "This is a not so long sentence to print"
+  index: 15
+  lineWidth: 20
+  lineWrap: NO_WRAP
+  resultCenter: |-
+    |      not so long se|
+  resultLeft: |-
+    |               This |
+  resultRight: |-
+    |entence to print    |
+
+
+# Test with WRAP_LEFT
+- text: "This is a not so long sentence to print"
+  index: 7
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    | This is a not      |
+    |so long sentence to |
+    |print               |
+  resultLeft: |-
+    |       This is a    |
+    |not so long         |
+    |sentence to print   |
+  resultRight: |-
+    | This is            |
+    |a not so long       |
+    |sentence to print   |
+- text: "This is a not so long sentence to print"
+  index: 8
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |This is a not so    |
+    |long sentence to    |
+    |print               |
+  resultLeft: |-
+    |        This is a   |
+    |not so long         |
+    |sentence to print   |
+  resultRight: |-
+    |  This is           |
+    |a not so long       |
+    |sentence to print   |
+- text: "This is a not so long sentence to print"
+  index: 15
+  lineWidth: 20
+  lineWrap: WRAP_LEFT
+  resultCenter: |-
+    |            This is |
+    |a not so long       |
+    |sentence to print   |
+  resultLeft: |-
+    |               This |
+    |is a not so long    |
+    |sentence to print   |
+  resultRight: |-
+    |   This is a not    |
+    |so long sentence to |
+    |print               |

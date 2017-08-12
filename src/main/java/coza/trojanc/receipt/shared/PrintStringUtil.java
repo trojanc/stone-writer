@@ -238,7 +238,17 @@ public class PrintStringUtil {
 			return;
 		}
 
-		insert(line, position, value.toCharArray(), maxLength);
+		final int valueLength = value.length();
+
+		// If the string is longer than the max length, we cut the string on right to keeo
+		// only the left most characters
+		if (maxLength < valueLength) {
+			insert(line, position, value.substring(0, maxLength).toCharArray(), maxLength);
+		}
+		else{
+			insert(line, position, value.toCharArray(), maxLength);
+		}
+
 	}
 
 	/**
@@ -430,8 +440,10 @@ public class PrintStringUtil {
 		}
 
 		int length = value.length();
+		// If the value is longer than the available space, but the line to keep
+		// The right-most characters
 		if (maxLength < length) {
-			insert(line, position - maxLength + 1, value.substring(0, maxLength).toCharArray(), maxLength);
+			insert(line, position - maxLength + 1, value.substring(value.length()-maxLength).toCharArray(), maxLength);
 		}
 		else {
 			insert(line, position - length + 1, value.toCharArray(), length);
