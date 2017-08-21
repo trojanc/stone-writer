@@ -31,6 +31,6 @@ public class SimplePlainTextPrinterService {
 		PrinterService printerService = new PrinterService();
 		PrintFormatBuilder printerBuilder = new PlainTextFormatBuilder(width);
 		printerService.print(processedTemplate, printerBuilder);
-		return printerBuilder.toString();
+		return (String)printerBuilder.getFormat();
 	}
 }

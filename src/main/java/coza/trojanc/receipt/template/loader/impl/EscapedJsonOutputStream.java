@@ -25,4 +25,9 @@ public class EscapedJsonOutputStream extends OutputStream {
 			out.write(b);
 		}
 	}
+
+	@Override
+	public void close() throws IOException {
+
+	}
 }
