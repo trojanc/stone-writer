@@ -1,5 +1,6 @@
 package coza.trojanc.receipt.template.process.impl;
 
+import com.sun.deploy.util.StringUtils;
 import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.template.PrintTemplate;
@@ -11,15 +12,32 @@ import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedText;
 
+import static coza.trojanc.receipt.context.ContextResolver.ARRAY_LENGTH_SUFFIX;
+
 /**
  * Created by Charl-PC on 2016-10-11.
  */
 public class DefaultTemplateProcessor implements TemplateProcessor {
 
+	/**
+	 * The resulting processed template.
+	 */
 	private ProcessedTemplate processedTemplate;
+
+	/**
+	 * Context being used to retrieve dynamic values for the template.
+	 */
 	private ContextMap context;
 
+	/**
+	 * Process a template item.
+	 * @param item The template item to process.
+	 */
 	private void processTemplateItem(TemplateLine item){
+		this.processTemplateItem(item, null);
+	}
+
+	private void processTemplateItem(TemplateLine item, String repeatPrefix){
 
 		// If it is a feed
 		if(Feed.class.isAssignableFrom(item.getClass())){
@@ -30,7 +48,7 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 		}
 
 		else if(Line.class.isAssignableFrom(item.getClass())){
-			processLine((Line)item);
+			processLine((Line)item, repeatPrefix);
 		}
 
 		else if(FillLine.class.isAssignableFrom(item.getClass())){
@@ -44,40 +62,72 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 	}
 
 
+	/**
+	 * Process a repeat block
+	 * @param repeatBlock The repeat block to process
+	 */
 	private void processRepeatBlock(RepeatBlock repeatBlock){
-
+		final String keyPrefix = repeatBlock.getRepeatOn();
+		final int repeatSize = Integer.parseInt(context.get(keyPrefix+ARRAY_LENGTH_SUFFIX));
+		for(int idx = 0 ; idx < repeatSize; idx++) {
+			int iteration = idx;
+			repeatBlock.getLines().forEach(line -> processTemplateItem(line, keyPrefix + "[" + iteration + "]"));
+		}
 	}
 
+	/**
+	 * Process a fill line.
+	 * @param fillLine
+	 */
 	private void processFillLine(FillLine fillLine){
 		processedTemplate.getItems().add(new ProcessedFillLine(fillLine.getCharacter()));
 	}
 
-	private void processLine(Line line){
+	/**
+	 * Process a line that can contain text
+	 * @param line The line to process
+	 */
+	private void processLine(Line line, String repeatPrefix){
 		ProcessedLine processedLine = new ProcessedLine();
 		processedTemplate.getItems().add(processedLine);
 
 		line.getLineItems().forEach(lineItem -> {
-
 			if (Text.class.isAssignableFrom(lineItem.getClass())) {
-				Text text = (Text) lineItem;
-				ProcessedText processedText = new ProcessedText();
-				processedText.setAlignment(text.getAlignment());
-				processedText.setMode(text.getMode());
-				processedText.setText(text.getText());
-				processedText.setOffset(text.getOffset());
-				processedLine.getLineItems().add(processedText);
+				addStaticText((Text) lineItem, processedLine);
 			}
-
 			else if (DynamicText.class.isAssignableFrom(lineItem.getClass())) {
-				DynamicText text = (DynamicText) lineItem;
-				ProcessedText processedText = new ProcessedText();
-				processedText.setAlignment(text.getAlignment());
-				processedText.setMode(text.getMode());
-				processedText.setText(context.get(text.getContextKey()));
-				processedText.setOffset(text.getOffset());
-				processedLine.getLineItems().add(processedText);
+				addDynamicText((DynamicText) lineItem, processedLine, repeatPrefix);
 			}
 		});
+	}
+
+	private void addStaticText(Text text, ProcessedLine processedLine){
+		ProcessedText processedText = new ProcessedText();
+		processedText.setAlignment(text.getAlignment());
+		processedText.setMode(text.getMode());
+		processedText.setText(text.getText());
+		processedText.setOffset(text.getOffset());
+		processedLine.getLineItems().add(processedText);
+	}
+
+	private void addDynamicText(DynamicText text, ProcessedLine processedLine, String repeatPrefix){
+		ProcessedText processedText = new ProcessedText();
+		processedText.setAlignment(text.getAlignment());
+		processedText.setMode(text.getMode());
+		processedText.setOffset(text.getOffset());
+
+		String contextKey;
+		if(repeatPrefix == null){
+			contextKey = text.getContextKey();
+		}
+		else{
+			contextKey = repeatPrefix;
+			if(!(text.getContextKey() == null || text.getContextKey().length() == 0)){
+				contextKey += text.getContextKey();
+			}
+		}
+		processedText.setText(context.get(contextKey));
+		processedLine.getLineItems().add(processedText);
 	}
 
 

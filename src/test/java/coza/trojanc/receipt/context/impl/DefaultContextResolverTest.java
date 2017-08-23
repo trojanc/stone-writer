@@ -60,6 +60,12 @@ public class DefaultContextResolverTest {
 	}
 
 	@Test
+	public void resolveArraySize() throws Exception {
+		assertTrue(resolvedVariables.has(TestUtils.CTX_SOLD_ITEMS_LENGTH));
+		assertEquals("2", resolvedVariables.get(TestUtils.CTX_SOLD_ITEMS_LENGTH));
+	}
+
+	@Test
 	public void resolveArrayDecimal() throws Exception {
 		assertTrue(resolvedVariables.has(TestUtils.CTX_SOLD_ITEMS_VALUE_1));
 		assertTrue(resolvedVariables.has(TestUtils.CTX_SOLD_ITEMS_VALUE_2));

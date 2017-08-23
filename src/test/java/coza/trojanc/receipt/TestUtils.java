@@ -2,6 +2,7 @@ package coza.trojanc.receipt;
 
 import coza.trojanc.receipt.context.*;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
+import coza.trojanc.receipt.context.impl.DefaultContextResolver;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
 import coza.trojanc.receipt.context.test.TestTransaction;
@@ -50,6 +51,7 @@ public class TestUtils {
 	public static final String CTX_SOLD_ITEMS_NAME = "soldItems[].name";
 	public static final String CTX_SOLD_ITEMS_NAME_1 = "soldItems[0].name";
 	public static final String CTX_SOLD_ITEMS_NAME_2 = "soldItems[1].name";
+	public static final String CTX_SOLD_ITEMS_LENGTH = "soldItems[].$$length";
 	public static final String DATE_FORMAT = "YYYY-MM-dd";
 
 	private static SimpleContextDefinition contextDefinition;
@@ -115,12 +117,10 @@ public class TestUtils {
 
 	public static ContextMap createResolvedVariables(){
 		if(resolvedVariables == null) {
-			resolvedVariables = new DefaultContextMap();
-			resolvedVariables.add(CTX_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
-			resolvedVariables.add(CTX_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
-			resolvedVariables.add(CTX_TRANSACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
-//			resolvedVariables.add(KEY_TRANSCACTION_SOLD_VALUE, Double.toString(SoldItem.SOLD_ITEM1_VALUE));
-//			resolvedVariables.add(KEY_TRANSCACTION_SOLD_NAME, SoldItem.SOLD_ITEM1_NAME);
+			ContextResolver resolver = new DefaultContextResolver();
+			ContextDefinition contextDefinition = TestUtils.createContextDefinition();
+			Map<String, Object> contextVariables = TestUtils.createContextVariables();
+			resolvedVariables = resolver.resolve(contextDefinition, contextVariables);
 		}
 		return resolvedVariables;
 	}
@@ -147,11 +147,11 @@ public class TestUtils {
 				.line()
 				.text("Items:")
 				.dynamicText(CTX_NUM_ITEMS).align(Align.RIGHT)
-//				.repeat("items")
-//					.line()
-//						.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
-//						.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
-//				.end()
+				.repeat("soldItems")
+					.line()
+						.dynamicText(".name").align(Align.LEFT)
+						.dynamicText(".value").align(Align.RIGHT)
+				.end()
 				.fillLine('-')
 				.feed()
 				.build();

@@ -111,6 +111,7 @@ public class DefaultContextResolver implements ContextResolver {
 		final String expressionSuffix = getArrayExpressionSuffix(contextVariable.getExpression());
 		final String contextKeyPrefix = getArrayExpressionPrefix(contextVariable.getKey());
 		final String contextKeySuffix = getArrayExpressionSuffix(contextVariable.getKey());
+		resolvedVariables.add(contextKeyPrefix+ARRAY_LENGTH_SUFFIX, Integer.toString(size));
 		for(int idx = 0 ; idx < size; idx++){
 			final String lookupExpression = expressionPrefix + "[" + idx + "]" + expressionSuffix;
 			final String contextKey = contextKeyPrefix + "[" + idx + "]" + contextKeySuffix;

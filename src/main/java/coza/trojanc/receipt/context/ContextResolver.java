@@ -13,6 +13,7 @@ public interface ContextResolver {
 	 */
 	String ARRAY_EXPRESSION = "^([\\w+\\.?]+)\\[\\](\\.\\w+)*$";
 	Pattern ARRAY_EXPRESSION_PATTERN = Pattern.compile(ARRAY_EXPRESSION);
+	String ARRAY_LENGTH_SUFFIX = "[].$$length";
 
 	ContextMap resolve(ContextDefinition contextDefinition, Map<String, Object> variables);
 }
