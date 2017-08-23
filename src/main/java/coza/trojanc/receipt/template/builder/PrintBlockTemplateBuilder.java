@@ -1,30 +1,31 @@
 package coza.trojanc.receipt.template.builder;
 
 import coza.trojanc.receipt.shared.Align;
-import coza.trojanc.receipt.template.PrintTemplate;
-import coza.trojanc.receipt.template.fields.*;
+import coza.trojanc.receipt.template.fields.RepeatBlock;
+import coza.trojanc.receipt.template.fields.TemplateLine;
 
 /**
  * Created by Charl-PC on 2016-10-11.
  */
-public class PrintTemplateBuilder extends AbstractTemplateBuilder{
+public class PrintBlockTemplateBuilder extends AbstractTemplateBuilder{
 
 	/**
 	 * Template we are busy building
 	 */
-	private PrintTemplate template;
+	private final PrintTemplateBuilder parentBuilder;
+
+	/**
+	 * Block we are busy with
+	 */
+	private RepeatBlock block;
 
 
 	/**
 	 * Instantiates a new Print template builder.
 	 */
-	public PrintTemplateBuilder(){
-		template = new PrintTemplate();
-	}
-
-	@Override
-	protected void addTemplateLine(TemplateLine line) {
-		template.addLine(line);
+	public PrintBlockTemplateBuilder(PrintTemplateBuilder parentBuilder){
+		this.block = new RepeatBlock();
+		this.parentBuilder = parentBuilder;
 	}
 
 	/**
@@ -33,9 +34,23 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param name the name
 	 * @return print template builder
 	 */
-	public PrintTemplateBuilder name(String name){
-		template.setName(name);
+	public PrintBlockTemplateBuilder repeatOn(String name){
+		block.setRepeatOn(name);
 		return this;
+	}
+
+	public RepeatBlock getBlock() {
+		return block;
+	}
+
+	public PrintTemplateBuilder end(){
+		super.finishBusyLine();
+		return parentBuilder;
+	}
+
+	@Override
+	protected void addTemplateLine(TemplateLine line) {
+		block.getLines().add(line);
 	}
 
 
@@ -44,7 +59,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 *
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder line(){
+	public PrintBlockTemplateBuilder line(){
 		finishBusyLine();
 		super.addLine();
 		return this;
@@ -55,7 +70,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 *
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder feed(){
+	public PrintBlockTemplateBuilder feed(){
 		super.addFeed();
 		return this;
 	}
@@ -66,7 +81,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param lines the lines
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder feed(int lines){
+	public PrintBlockTemplateBuilder feed(int lines){
 		super.addFeed(lines);
 		return this;
 	}
@@ -77,7 +92,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param character the character
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder fillLine(char character){
+	public PrintBlockTemplateBuilder fillLine(char character){
 		super.addFillLine(character);
 		return this;
 	}
@@ -89,7 +104,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param text the text
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder text(String text){
+	public PrintBlockTemplateBuilder text(String text){
 		return staticText(text);
 	}
 
@@ -100,7 +115,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param dynamic the dynamic
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder text(String text, boolean dynamic){
+	public PrintBlockTemplateBuilder text(String text, boolean dynamic){
 		if(dynamic){
 			return dynamicText(text);
 		}
@@ -109,14 +124,13 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 		}
 	}
 
-
 	/**
 	 * Static text print template builder.
 	 *
 	 * @param text the text
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder staticText(String text){
+	public PrintBlockTemplateBuilder staticText(String text){
 		super.addStaticText(text);
 		return this;
 	}
@@ -127,7 +141,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param key the key
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder dynamicText(String key){
+	public PrintBlockTemplateBuilder dynamicText(String key){
 		super.addDynamicText(key);
 		return this;
 	}
@@ -139,7 +153,7 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param align the align
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder align(Align align){
+	public PrintBlockTemplateBuilder align(Align align){
 		super.addAlign(align);
 		return this;
 	}
@@ -150,23 +164,8 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 * @param offset the offset
 	 * @return the print template builder
 	 */
-	public PrintTemplateBuilder offset(Integer offset){
+	public PrintBlockTemplateBuilder offset(Integer offset){
 		super.addOffset(offset);
 		return this;
 	}
-
-
-	public PrintBlockTemplateBuilder repeat(String repeatOn){
-		finishBusyLine();
-		PrintBlockTemplateBuilder blockTemplateBuilder = new PrintBlockTemplateBuilder(this);
-		blockTemplateBuilder.repeatOn(repeatOn);
-		addTemplateLine(blockTemplateBuilder.getBlock());
-		return blockTemplateBuilder;
-	}
-
-	public PrintTemplate build(){
-		super.finishBusyLine();
-		return this.template;
-	}
-
 }

@@ -37,6 +37,15 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 			processFillLine((FillLine)item);
 		}
 
+		else if(RepeatBlock.class.isAssignableFrom(item.getClass())){
+			processRepeatBlock((RepeatBlock)item);
+		}
+
+	}
+
+
+	private void processRepeatBlock(RepeatBlock repeatBlock){
+
 	}
 
 	private void processFillLine(FillLine fillLine){

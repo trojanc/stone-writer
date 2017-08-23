@@ -22,22 +22,46 @@ public class PrintTemplate {
 	 */
 	private List<TemplateLine> lines = new ArrayList<>();
 
+	/**
+	 * Get the name of the template
+	 *
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set the name of the template
+	 *
+	 * @param name the name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Get the lines for this template
+	 *
+	 * @return lines
+	 */
 	public List<TemplateLine> getLines() {
 		return lines;
 	}
 
+	/**
+	 * Add a line to the template
+	 *
+	 * @param line the line
+	 */
 	public void addLine(TemplateLine line){
 		this.lines.add(line);
 	}
 
+	/**
+	 * Return a  string representing the template.
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

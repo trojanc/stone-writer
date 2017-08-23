@@ -4,7 +4,6 @@ import coza.trojanc.receipt.context.*;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
-import coza.trojanc.receipt.context.test.SoldItem;
 import coza.trojanc.receipt.context.test.TestTransaction;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
@@ -25,18 +24,39 @@ import java.util.Map;
  */
 public class TestUtils {
 
-	public static final String KEY_TRADER_NAME = "traderName";
-	public static final String KEY_NUM_ITEMS = "numItems";
-	public static final String KEY_TRANSCACTION_DATE = "transactionDate";
-	public static final String KEY_TRANSCACTION_SOLD_NAME = "soldItemName";
-	public static final String KEY_TRANSCACTION_SOLD_VALUE = "soldItemValue";
+	/*
+	  Inputs for the context
+	  */
+	public static final String INPUT_TRANSACTION = "transaction";
+
+	/*
+	  Expressions for items to be resolved from inputs
+	  */
+	public static final String EXPR_TRADER_NAME = "transaction.traderName";
+	public static final String EXPR_NUM_ITEMS = "transaction.numItems";
+	public static final String EXPR_TRANSACTION_DATE = "transaction.transactionDate";
+	public static final String EXPR_SOLD_ITEMS_VALUE = "transaction.soldItems[].value";
+	public static final String EXPR_SOLD_ITEMS_NAME = "transaction.soldItems[].name";
+
+	/*
+	  Keys for items resolved in the context
+	*/
+	public static final String CTX_TRADER_NAME = "traderName";
+	public static final String CTX_NUM_ITEMS = "numItems";
+	public static final String CTX_TRANSACTION_DATE = "transactionDate";
+	public static final String CTX_SOLD_ITEMS_VALUE = "soldItems[].value";
+	public static final String CTX_SOLD_ITEMS_VALUE_1 = "soldItems[0].value";
+	public static final String CTX_SOLD_ITEMS_VALUE_2 = "soldItems[1].value";
+	public static final String CTX_SOLD_ITEMS_NAME = "soldItems[].name";
+	public static final String CTX_SOLD_ITEMS_NAME_1 = "soldItems[0].name";
+	public static final String CTX_SOLD_ITEMS_NAME_2 = "soldItems[1].name";
 	public static final String DATE_FORMAT = "YYYY-MM-dd";
 
 	private static SimpleContextDefinition contextDefinition;
 	private static Map<String, Object> contextVariables;
 	private static ContextMap resolvedVariables;
 
-	public static ContextDefinition createContextDefinitions(){
+	public static ContextDefinition createContextDefinition(){
 		if(contextDefinition == null) {
 			contextDefinition = new SimpleContextDefinition();
 
@@ -45,37 +65,36 @@ public class TestUtils {
 			// Name
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.String);
-			cd.setExpression("transaction.traderName");
-			cd.setKey(KEY_TRADER_NAME);
+			cd.setExpression(EXPR_TRADER_NAME);
+			cd.setKey(CTX_TRADER_NAME);
 			contextDefinition.addVariable(cd);
 
 			// Age
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.Number);
-			cd.setExpression("transaction.numItems");
-			cd.setKey(KEY_NUM_ITEMS);
+			cd.setExpression(EXPR_NUM_ITEMS);
+			cd.setKey(CTX_NUM_ITEMS);
 			contextDefinition.addVariable(cd);
 
 			// Birth
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.Date);
 			cd.setFormatting(DATE_FORMAT);
-			cd.setExpression("transaction.transactionDate");
-			cd.setKey(KEY_TRANSCACTION_DATE);
+			cd.setExpression(EXPR_TRANSACTION_DATE);
+			cd.setKey(CTX_TRANSACTION_DATE);
 			contextDefinition.addVariable(cd);
 
-			// TODO these must become a list of items
 			cd = new SimpleContextVariable();
-			cd.setType(DynamicType.String);
-			cd.setExpression("transaction.soldItem.name");
-			cd.setKey(KEY_TRANSCACTION_SOLD_NAME);
+			cd.setType(DynamicType.Decimal);
+			cd.setFormatting("#0.00");
+			cd.setExpression(EXPR_SOLD_ITEMS_VALUE);
+			cd.setKey(CTX_SOLD_ITEMS_VALUE);
 			contextDefinition.addVariable(cd);
 
-			// TODO these must become a list of items
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.String);
-			cd.setExpression("transaction.soldItem.value");
-			cd.setKey(KEY_TRANSCACTION_SOLD_VALUE);
+			cd.setExpression(EXPR_SOLD_ITEMS_NAME);
+			cd.setKey(CTX_SOLD_ITEMS_NAME);
 			contextDefinition.addVariable(cd);
 		}
 
@@ -87,21 +106,21 @@ public class TestUtils {
 	public static Map<String, Object> createContextVariables(){
 		if(contextVariables == null) {
 			Map<String, Object> variables = new HashMap<>();
-			variables.put("transaction", new TestTransaction());
+			variables.put(INPUT_TRANSACTION, new TestTransaction());
 			contextVariables = Collections.unmodifiableMap(variables);
 		}
 		return contextVariables;
 	}
 
+
 	public static ContextMap createResolvedVariables(){
 		if(resolvedVariables == null) {
 			resolvedVariables = new DefaultContextMap();
-			resolvedVariables.add(KEY_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
-			resolvedVariables.add(KEY_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
-			resolvedVariables.add(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
-			resolvedVariables.add(KEY_TRANSCACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
-			resolvedVariables.add(KEY_TRANSCACTION_SOLD_VALUE, Double.toString(SoldItem.SOLD_ITEM_VALUE));
-			resolvedVariables.add(KEY_TRANSCACTION_SOLD_NAME, SoldItem.SOLD_ITEM_NAME);
+			resolvedVariables.add(CTX_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
+			resolvedVariables.add(CTX_NUM_ITEMS, TestTransaction.VALUE_NUM_ITEMS_STRING);
+			resolvedVariables.add(CTX_TRANSACTION_DATE, new SimpleDateFormat(DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE));
+//			resolvedVariables.add(KEY_TRANSCACTION_SOLD_VALUE, Double.toString(SoldItem.SOLD_ITEM1_VALUE));
+//			resolvedVariables.add(KEY_TRANSCACTION_SOLD_NAME, SoldItem.SOLD_ITEM1_NAME);
 		}
 		return resolvedVariables;
 	}
@@ -114,11 +133,11 @@ public class TestUtils {
 	public static PrintTemplate createTemplate(){
 		return new PrintTemplateBuilder().name("Test Template")
 				.line()
-				.dynamicText(KEY_TRADER_NAME).align(Align.CENTER)
+				.dynamicText(CTX_TRADER_NAME).align(Align.CENTER)
 				.fillLine('-')
 				.line()
 				.text("Date ").align(Align.LEFT)
-				.dynamicText(KEY_TRANSCACTION_DATE).align(Align.LEFT).offset(5)
+				.dynamicText(CTX_TRANSACTION_DATE).align(Align.LEFT).offset(5)
 				.line()
 				.text("SHIFT").align(Align.LEFT)
 				.text("12").align(Align.RIGHT).offset(10)
@@ -127,10 +146,12 @@ public class TestUtils {
 				.fillLine('-')
 				.line()
 				.text("Items:")
-				.dynamicText(KEY_NUM_ITEMS).align(Align.RIGHT)
-				.line()
-				.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
-				.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
+				.dynamicText(CTX_NUM_ITEMS).align(Align.RIGHT)
+//				.repeat("items")
+//					.line()
+//						.dynamicText(KEY_TRANSCACTION_SOLD_NAME).align(Align.LEFT)
+//						.dynamicText(KEY_TRANSCACTION_SOLD_VALUE).align(Align.RIGHT)
+//				.end()
 				.fillLine('-')
 				.feed()
 				.build();

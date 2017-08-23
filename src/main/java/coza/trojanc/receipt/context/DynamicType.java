@@ -7,5 +7,5 @@ public enum DynamicType {
 	Date,
 	String,
 	Number,
-	Decimal
+	Decimal,
 }

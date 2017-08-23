@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = Feed.class, name = "feed"),
 		@JsonSubTypes.Type(value = Line.class, name = "line"),
 		@JsonSubTypes.Type(value = FillLine.class, name = "fillLine"),
+		@JsonSubTypes.Type(value = RepeatBlock.class, name = "repeatBlock"),
 })
 public interface TemplateLine {
 }

@@ -1,7 +1,9 @@
 package coza.trojanc.receipt.context.test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Charl-PC on 2016-10-16.
@@ -36,8 +38,11 @@ public class TestTransaction {
 		return VALUE_NUM_ITEMS;
 	}
 
-	public SoldItem getSoldItem(){
-		return new SoldItem();
+	public List<SoldItem> getSoldItems(){
+		return new ArrayList<SoldItem>(){{
+			add(new SoldItem(SoldItem.SOLD_ITEM1_NAME, SoldItem.SOLD_ITEM1_VALUE));
+			add(new SoldItem(SoldItem.SOLD_ITEM2_NAME, SoldItem.SOLD_ITEM2_VALUE));
+		}};
 	}
 
 }

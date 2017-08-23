@@ -24,7 +24,7 @@ public class JsonContextDefinitionLoaderTest {
 	@Test
 	public void write() throws Exception {
 		ContextDefinitionLoader loader = new JsonContextDefinitionLoader();
-		ContextDefinition definition = TestUtils.createContextDefinitions();
+		ContextDefinition definition = TestUtils.createContextDefinition();
 		ByteArrayOutputStream boas = new ByteArrayOutputStream();
 		loader.write(definition, boas);
 		System.out.println(boas);
