@@ -23,7 +23,7 @@ public class PlainTextFormatBuilderTest {
 
 
 	private void line(){
-		System.out.println(PrintStringUtil.createStringOfChar(30, '-'));
+		System.out.println(PrintStringUtil.INSTANCE.createStringOfChar(30, '-'));
 	}
 
 	interface PrintInsertFunction<B, T, I, W> {
