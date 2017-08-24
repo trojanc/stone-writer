@@ -1,6 +1,5 @@
 package coza.trojanc.receipt.template.process.impl;
 
-import com.sun.deploy.util.StringUtils;
 import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.template.PrintTemplate;
