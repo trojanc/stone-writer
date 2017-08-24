@@ -4,7 +4,8 @@ import coza.trojanc.receipt.context.ContextVariable;
 import coza.trojanc.receipt.context.DynamicType;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * A simple implementation of a {@link ContextVariable}.
+ * @author Charl Thiem
  */
 public class SimpleContextVariable implements ContextVariable {
 
@@ -14,7 +15,7 @@ public class SimpleContextVariable implements ContextVariable {
 	private String expression;
 
 	/**
-	 *
+	 * The Dynamic type for the field, by default it is a {@link DynamicType#String}
 	 */
 	private DynamicType type = DynamicType.String;
 
@@ -42,12 +43,26 @@ public class SimpleContextVariable implements ContextVariable {
 	 */
 	private String formatting;
 
+	/**
+	 * The key where this item will be available in the {@link coza.trojanc.receipt.context.ContextMap} when the item
+	 * is resolved.
+	 */
 	private String key;
 
+	/**
+	 * Creates a new instance of a {@link SimpleContextVariable}.
+	 */
 	public SimpleContextVariable(){
-
 	}
 
+	/**
+	 * Creates a new instance of a {@link SimpleContextVariable}.
+	 * @param key The key where this item will be available in the {@link coza.trojanc.receipt.context.ContextMap} when the item
+	 * is resolved.
+	 * @param type
+	 * @param expression
+	 * @param formatting
+	 */
 	public SimpleContextVariable(String key, DynamicType type, String expression, String formatting) {
 		this.expression = expression;
 		this.type = type;
@@ -76,7 +91,7 @@ public class SimpleContextVariable implements ContextVariable {
 	}
 
 	/**
-	 * Sets expression.
+	 * Sets expression used to resolve the variable from input variables.
 	 *
 	 * @param expression the expression
 	 */

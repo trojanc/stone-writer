@@ -7,7 +7,8 @@ import java.util.Map;
 
 
 /**
- * The type Default context map.
+ * Default implementation of a {@link ContextMap}
+ * @author Charl Thiem
  */
 public class DefaultContextMap implements ContextMap {
 

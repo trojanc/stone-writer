@@ -6,14 +6,14 @@ import org.apache.commons.jexl3.*;
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * Default implementation of a {@link ContextResolver}.
+ * @author Charl Thiem
  */
 public class DefaultContextResolver implements ContextResolver {
 

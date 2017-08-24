@@ -146,7 +146,7 @@ public class TestUtils {
 				.fillLine('-')
 				.line()
 				.text("Items:")
-				.dynamicText(CTX_NUM_ITEMS).align(Align.RIGHT)
+				.dynamicText(CTX_SOLD_ITEMS_LENGTH).align(Align.RIGHT)
 				.repeat("soldItems")
 					.line()
 						.dynamicText(".name").align(Align.LEFT)
