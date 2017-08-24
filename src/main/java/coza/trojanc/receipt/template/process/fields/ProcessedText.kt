@@ -8,12 +8,44 @@ import coza.trojanc.receipt.shared.Mode
  */
 class ProcessedText {
     /** global printing mode bitmap - product of MODE_* constants above ORed together  */
-    var mode = Mode.NORMAL
+    private var mode = Mode.NORMAL
 
     /** global alignment  */
-    var alignment = Align.LEFT
+    private var alignment = Align.LEFT
 
-    var text: String? = null
+    private var text: String = "";
 
-    var offset: Int? = null
+    private var offset: Int? = null
+
+    fun getMode(): Mode {
+        return mode
+    }
+
+    fun setMode(mode: Mode) {
+        this.mode = mode
+    }
+
+    fun getAlignment(): Align {
+        return alignment
+    }
+
+    fun setAlignment(alignment: Align) {
+        this.alignment = alignment
+    }
+
+    fun getText(): String {
+        return text
+    }
+
+    fun setText(text: String) {
+        this.text = text
+    }
+
+    fun getOffset(): Int? {
+        return offset
+    }
+
+    fun setOffset(offset: Int?) {
+        this.offset = offset
+    }
 }

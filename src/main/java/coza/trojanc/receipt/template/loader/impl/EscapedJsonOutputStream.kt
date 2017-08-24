@@ -9,12 +9,12 @@ import java.io.OutputStream
 class EscapedJsonOutputStream(private val out: OutputStream) : OutputStream() {
     @Throws(IOException::class)
     override fun write(b: Int) {
-        if (b == '\'') {
-            out.write('\\')
-            out.write('\'')
-        } else if (b == '\"') {
-            out.write('\\')
-            out.write('\"')
+        if (b == '\''.toInt()) {
+            out.write('\\'.toInt())
+            out.write('\''.toInt())
+        } else if (b == '\"'.toInt()) {
+            out.write('\\'.toInt())
+            out.write('\"'.toInt())
         } else {
             out.write(b)
         }

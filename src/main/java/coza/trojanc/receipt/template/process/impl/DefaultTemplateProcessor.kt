@@ -1,6 +1,7 @@
 package coza.trojanc.receipt.template.process.impl
 
 import coza.trojanc.receipt.context.ContextMap
+import coza.trojanc.receipt.context.ContextResolver
 import coza.trojanc.receipt.context.impl.DefaultContextMap
 import coza.trojanc.receipt.template.PrintTemplate
 import coza.trojanc.receipt.template.fields.*
@@ -10,8 +11,8 @@ import coza.trojanc.receipt.template.process.fields.ProcessedFeed
 import coza.trojanc.receipt.template.process.fields.ProcessedFillLine
 import coza.trojanc.receipt.template.process.fields.ProcessedLine
 import coza.trojanc.receipt.template.process.fields.ProcessedText
+import java.util.function.Consumer
 
-import coza.trojanc.receipt.context.ContextResolver.ARRAY_LENGTH_SUFFIX
 
 /**
  * @author Charl Thiem
@@ -42,7 +43,7 @@ class DefaultTemplateProcessor : TemplateProcessor {
         if (Feed::class.java.isAssignableFrom(item.javaClass)) {
             val feed = item as Feed
             for (i in 0..feed.feedAmount - 1) {
-                processedTemplate!!.items.add(ProcessedFeed())
+                processedTemplate!!.addProcessedLineItem(ProcessedFeed())
             }
         } else if (Line::class.java.isAssignableFrom(item.javaClass)) {
             processLine(item as Line, repeatPrefix)
@@ -60,10 +61,10 @@ class DefaultTemplateProcessor : TemplateProcessor {
      * @param repeatBlock The repeat block to process
      */
     private fun processRepeatBlock(repeatBlock: RepeatBlock) {
-        val keyPrefix = repeatBlock.repeatOn
-        val repeatSize = Integer.parseInt(context!!.get(keyPrefix!! + ARRAY_LENGTH_SUFFIX))
+        val keyPrefix = repeatBlock.getRepeatOn()
+        val repeatSize = Integer.parseInt(context!![keyPrefix!! + ContextResolver.ARRAY_LENGTH_SUFFIX]!!)
         for (idx in 0..repeatSize - 1) {
-            repeatBlock.lines.forEach { line -> processTemplateItem(line, "$keyPrefix[$idx]") }
+            repeatBlock.getLines().forEach { line -> processTemplateItem(line, "$keyPrefix[$idx]") }
         }
     }
 
@@ -72,7 +73,7 @@ class DefaultTemplateProcessor : TemplateProcessor {
      * @param fillLine
      */
     private fun processFillLine(fillLine: FillLine) {
-        processedTemplate!!.items.add(ProcessedFillLine(fillLine.character))
+        processedTemplate!!.addProcessedLineItem(ProcessedFillLine(fillLine.character))
     }
 
     /**
@@ -81,9 +82,9 @@ class DefaultTemplateProcessor : TemplateProcessor {
      */
     private fun processLine(line: Line, repeatPrefix: String?) {
         val processedLine = ProcessedLine()
-        processedTemplate!!.items.add(processedLine)
+        processedTemplate!!.addProcessedLineItem(processedLine)
 
-        line.lineItems.forEach { lineItem ->
+        line.getLineItems().forEach { lineItem ->
             if (Text::class.java.isAssignableFrom(lineItem.javaClass)) {
                 addStaticText(lineItem as Text, processedLine)
             } else if (DynamicText::class.java.isAssignableFrom(lineItem.javaClass)) {
@@ -94,30 +95,32 @@ class DefaultTemplateProcessor : TemplateProcessor {
 
     private fun addStaticText(text: Text, processedLine: ProcessedLine) {
         val processedText = ProcessedText()
-        processedText.alignment = text.alignment
-        processedText.mode = text.mode
-        processedText.text = text.text
-        processedText.offset = text.offset
-        processedLine.lineItems.add(processedText)
+        processedText.setAlignment(text.getAlignment())
+        processedText.setMode(text.getMode())
+        processedText.setText(text.getText()!!)
+        processedText.setOffset(text.getOffset())
+        processedLine.addProcessedText(processedText)
     }
 
     private fun addDynamicText(text: DynamicText, processedLine: ProcessedLine, repeatPrefix: String?) {
         val processedText = ProcessedText()
-        processedText.alignment = text.alignment
-        processedText.mode = text.mode
-        processedText.offset = text.offset
+        processedText.setAlignment(text.getAlignment())
+        processedText.setMode(text.getMode())
+        if(text.getOffset() != null) {
+            processedText.setOffset(text.getOffset()!!)
+        }
 
         var contextKey: String?
         if (repeatPrefix == null) {
-            contextKey = text.contextKey
+            contextKey = text.getContextKey();
         } else {
             contextKey = repeatPrefix
-            if (!(text.contextKey == null || text.contextKey!!.length == 0)) {
-                contextKey += text.contextKey
+            if (!(text.getContextKey() == null || text.getContextKey()!!.length == 0)) {
+                contextKey += text.getContextKey()
             }
         }
-        processedText.text = context!!.get(contextKey)
-        processedLine.lineItems.add(processedText)
+        processedText.setText(context!![contextKey!!]!!)
+        processedLine.addProcessedText(processedText)
     }
 
 
@@ -129,7 +132,7 @@ class DefaultTemplateProcessor : TemplateProcessor {
         this.processedTemplate = ProcessedTemplate()
         this.context = context
 
-        template.lines.forEach(Consumer<TemplateLine> { this.processTemplateItem(it) })
-        return processedTemplate
+        template.getLines().forEach {this.processTemplateItem(it)}
+        return this.processedTemplate!!
     }
 }

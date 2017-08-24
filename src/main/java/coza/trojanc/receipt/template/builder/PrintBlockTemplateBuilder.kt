@@ -34,7 +34,7 @@ class PrintBlockTemplateBuilder
      * @return print template builder
      */
     fun repeatOn(name: String): PrintBlockTemplateBuilder {
-        block.repeatOn = name
+        block.setRepeatOn(name);
         return this
     }
 
@@ -44,7 +44,7 @@ class PrintBlockTemplateBuilder
     }
 
     override fun addTemplateLine(line: TemplateLine) {
-        block.lines.add(line)
+        block.getLines().add(line)
     }
 
 

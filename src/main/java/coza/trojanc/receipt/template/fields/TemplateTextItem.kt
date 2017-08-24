@@ -13,9 +13,9 @@ import coza.trojanc.receipt.shared.Mode
 @JsonSubTypes(JsonSubTypes.Type(value = DynamicText::class, name = "dynamicText"), JsonSubTypes.Type(value = Text::class, name = "staticText"))
 interface TemplateTextItem {
 
-    val alignment: Align
+    fun getAlignment(): Align
 
-    val offset: Int?
+    fun getOffset(): Int?
 
-    val mode: Mode
+    fun getMode(): Mode
 }

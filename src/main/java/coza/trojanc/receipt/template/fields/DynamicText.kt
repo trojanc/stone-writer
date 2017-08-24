@@ -7,22 +7,32 @@ package coza.trojanc.receipt.template.fields
 class DynamicText : AbstractTextItem {
 
 
-    var contextKey: String? = null
+    private var contextKey: String? = null
 
 
     /**
      * Text constructor.
      */
-    constructor() : super() {}
+    constructor(): super() {
+    }
 
-    constructor(source: AbstractTextItem) : super(source) {}
+    constructor(source: AbstractTextItem): super(source) {
+    }
+
+    fun getContextKey(): String? {
+        return contextKey
+    }
+
+    fun setContextKey(contextKey: String) {
+        this.contextKey = contextKey
+    }
 
     override fun toString(): String {
         return StringBuilder()
                 .append("DynamicText[")
                 .append("key=").append(this.contextKey)
-                .append(",align=").append(this.alignment)
-                .append(",offset=").append(this.offset)
+                .append(",align=").append(this.getAlignment())
+                .append(",offset=").append(this.getOffset())
                 .append("]")
                 .toString()
     }

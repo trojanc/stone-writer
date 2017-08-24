@@ -81,7 +81,7 @@ internal constructor() {
         if (DynamicText::class.java.isAssignableFrom(textItem!!.javaClass)) {
             throw IllegalArgumentException("Cannot add text value to dynamic text")
         }
-        (textItem as Text).text = text
+        (textItem as Text).setText(text);
     }
 
     /**
@@ -97,7 +97,7 @@ internal constructor() {
         if (!DynamicText::class.java.isAssignableFrom(textItem!!.javaClass)) {
             throw IllegalArgumentException("Cannot add key to static text")
         }
-        (textItem as DynamicText).contextKey = key
+        (textItem as DynamicText).setContextKey(key);
     }
 
 
@@ -110,7 +110,7 @@ internal constructor() {
     fun addAlign(align: Align) {
         checkValidLine()
         ensureTextItem()
-        textItem!!.alignment = align
+        textItem!!.setAlignment(align);
     }
 
     /**
@@ -122,7 +122,7 @@ internal constructor() {
     fun addOffset(offset: Int?) {
         checkValidLine()
         ensureTextItem()
-        textItem!!.offset = offset
+        textItem!!.setOffset(offset);
     }
 
 
@@ -132,7 +132,7 @@ internal constructor() {
     protected fun finishBusyLine() {
         if (line != null) {
             finishLineItem()
-            addTemplateLine(line)
+            addTemplateLine(line!!)
             line = null
         }
     }
@@ -142,7 +142,7 @@ internal constructor() {
      */
     private fun finishLineItem() {
         if (textItem != null) {
-            this.line!!.addLineItem(textItem)
+            this.line!!.addLineItem(textItem!!)
             textItem = null
         }
     }

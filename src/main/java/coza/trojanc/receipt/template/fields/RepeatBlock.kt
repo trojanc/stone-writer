@@ -1,7 +1,5 @@
 package coza.trojanc.receipt.template.fields
 
-import java.util.ArrayList
-
 /**
  * A class representing a repeating section of the receipt.
  *
@@ -14,30 +12,47 @@ class RepeatBlock : TemplateLine {
     /**+
      * Context item to repeat this block on
      */
+    private var repeatOn: String? = null
+
+    /**
+     * Lines to repeat
+     */
+    private var lines: MutableList<TemplateLine> = ArrayList()
+
     /**
      * Gets repeat on.
      *
      * @return the repeat on
      */
+    fun getRepeatOn(): String? {
+        return repeatOn
+    }
+
     /**
      * Sets repeat on.
      *
      * @param repeatOn the repeat on
      */
-    var repeatOn: String? = null
+    fun setRepeatOn(repeatOn: String) {
+        this.repeatOn = repeatOn
+    }
 
-    /**
-     * Lines to repeat
-     */
     /**
      * Gets lines.
      *
      * @return the lines
      */
+    fun getLines(): MutableList<TemplateLine> {
+        return lines
+    }
+
     /**
      * Sets lines.
      *
      * @param lines the lines
      */
-    var lines: List<TemplateLine> = ArrayList()
+    fun setLines(lines: List<TemplateLine>) {
+        this.lines.clear();
+        this.lines.addAll(lines);
+    }
 }

@@ -7,5 +7,13 @@ import java.util.ArrayList
  */
 class ProcessedLine : ProcessedLineItem {
 
-    val lineItems: List<ProcessedText> = ArrayList()
+    private val lineItems: MutableList<ProcessedText> = ArrayList<ProcessedText>()
+
+    fun getLineItems(): List<ProcessedText> {
+        return lineItems
+    }
+
+    fun addProcessedText(processedText: ProcessedText){
+        this.lineItems.add(processedText);
+    }
 }

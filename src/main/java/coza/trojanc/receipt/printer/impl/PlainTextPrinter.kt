@@ -9,18 +9,19 @@ import coza.trojanc.receipt.format.PrintFormatBuilder
  */
 class PlainTextPrinter : Printer {
 
-    private var layoutBuilder: PrintFormatBuilder? = null
+    private var layoutBuilder: PrintFormatBuilder;
 
     private val width = 40
 
+    constructor(){
+        this.layoutBuilder = PlainTextFormatBuilder(width);
+    }
+
     override fun getLayoutBuilder(): PrintFormatBuilder {
-        if (layoutBuilder == null) {
-            layoutBuilder = PlainTextFormatBuilder(width)
-        }
         return layoutBuilder
     }
 
     override fun print() {
-        layoutBuilder = null // Clear the layout builder for next print
+        this.layoutBuilder = PlainTextFormatBuilder(width) // Clear the layout builder for next print
     }
 }

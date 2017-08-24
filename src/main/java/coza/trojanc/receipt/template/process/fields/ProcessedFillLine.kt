@@ -5,11 +5,16 @@ package coza.trojanc.receipt.template.process.fields
  */
 class ProcessedFillLine : ProcessedLineItem {
 
-    val character = ' '
+    private val character: Char;
 
-    constructor() {}
+    constructor(): this(' '){
+    }
 
-    constructor(character: Char) {
+    constructor(character: Char): super() {
         this.character = character
+    }
+
+    fun getCharacter(): Char {
+        return character
     }
 }

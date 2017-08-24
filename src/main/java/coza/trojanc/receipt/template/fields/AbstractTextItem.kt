@@ -10,18 +10,43 @@ abstract class AbstractTextItem : TemplateTextItem {
 
 
     /** global printing mode bitmap - product of MODE_* constants above ORed together  */
-    override var mode = Mode.NORMAL
+    private var mode = Mode.NORMAL
 
     /** global alignment  */
-    override var alignment = Align.LEFT
+    private var alignment = Align.LEFT
 
-    override var offset: Int? = null
+    private var offset: Int? = null
 
-    constructor() {}
+    constructor(){}
 
-    constructor(source: AbstractTextItem) {
+    constructor(source: AbstractTextItem){
         this.mode = source.mode
         this.offset = source.offset
         this.alignment = source.alignment
+    }
+
+
+    override fun getMode(): Mode {
+        return mode
+    }
+
+    fun setMode(mode: Mode) {
+        this.mode = mode
+    }
+
+    override fun getAlignment(): Align {
+        return alignment
+    }
+
+    fun setAlignment(alignment: Align) {
+        this.alignment = alignment
+    }
+
+    fun setOffset(offset: Int?) {
+        this.offset = offset
+    }
+
+    override fun getOffset(): Int? {
+        return offset
     }
 }
