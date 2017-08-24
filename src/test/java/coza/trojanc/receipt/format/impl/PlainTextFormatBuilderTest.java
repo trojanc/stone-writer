@@ -17,7 +17,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Created by Charl-PC on 2016-11-01.
+ * @author Charl Thiem
  */
 public class PlainTextFormatBuilderTest {
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Charl-PC on 2016-10-13.
+ * @author Charl Thiem
  */
 public class PrintStringUtil {
 

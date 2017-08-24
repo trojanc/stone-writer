@@ -3,6 +3,9 @@ package coza.trojanc.receipt.format.impl;
 import coza.trojanc.receipt.format.AbstractPlainTextFormatBuilder;
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 
+/**
+ * @author Charl Thiem
+ */
 public class PlainTextFormatBuilder extends AbstractPlainTextFormatBuilder {
 
 	public PlainTextFormatBuilder(int line_width) {

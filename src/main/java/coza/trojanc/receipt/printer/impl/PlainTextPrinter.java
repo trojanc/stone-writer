@@ -5,7 +5,7 @@ import coza.trojanc.receipt.format.impl.PlainTextFormatBuilder;
 import coza.trojanc.receipt.format.PrintFormatBuilder;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public class PlainTextPrinter implements Printer{
 

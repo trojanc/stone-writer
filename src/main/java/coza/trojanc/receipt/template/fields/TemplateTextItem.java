@@ -7,7 +7,7 @@ import coza.trojanc.receipt.shared.Mode;
 
 /**
  * An interface representing an item that can be placed in a printing template
- * Created by Charl-PC on 2016-10-10.
+ * @author Charl Thiem
  */
 @JsonTypeInfo(
 		use = JsonTypeInfo.Id.NAME,

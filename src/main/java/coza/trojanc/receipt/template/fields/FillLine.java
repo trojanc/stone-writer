@@ -1,7 +1,8 @@
 package coza.trojanc.receipt.template.fields;
 
 /**
- * A line that is filled with the specified character
+ * A line that is filled with the specified character.
+ * @author Charl Thiem
  */
 public class FillLine implements TemplateLine {
 

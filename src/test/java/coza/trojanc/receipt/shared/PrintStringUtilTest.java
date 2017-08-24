@@ -15,7 +15,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by charl on 2016/10/14.
+ * @author Charl Thiem
  */
 public class PrintStringUtilTest {
 

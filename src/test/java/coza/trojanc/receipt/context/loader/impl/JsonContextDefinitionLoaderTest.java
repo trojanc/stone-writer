@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Created by Charl-PC on 2016-11-17.
+ * @author Charl Thiem
  */
 public class JsonContextDefinitionLoaderTest {
 	@Test

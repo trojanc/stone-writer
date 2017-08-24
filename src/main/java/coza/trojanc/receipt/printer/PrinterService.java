@@ -10,7 +10,7 @@ import coza.trojanc.receipt.template.process.fields.ProcessedLine;
 import coza.trojanc.receipt.template.process.fields.ProcessedText;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public class PrinterService {
 

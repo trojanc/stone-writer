@@ -6,6 +6,7 @@ import coza.trojanc.receipt.shared.PrintStringUtil;
 
 /**
  * The type Epson print format builder.
+ * @author Charl Thiem
  */
 public class EpsonPrintFormatBuilder extends AbstractPlainTextFormatBuilder {
 

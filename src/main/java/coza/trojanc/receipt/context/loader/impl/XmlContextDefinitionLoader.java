@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by Charl-PC on 2016-11-17.
+ * @author Charl Thiem
  */
 public class XmlContextDefinitionLoader extends XmlLoader<ContextDefinition> implements ContextDefinitionLoader {
 	@Override

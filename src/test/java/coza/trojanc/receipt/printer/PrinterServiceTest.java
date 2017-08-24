@@ -6,7 +6,7 @@ import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public class PrinterServiceTest {
 	@Test

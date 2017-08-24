@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public class TestTransaction {
 

@@ -12,6 +12,7 @@ import static coza.trojanc.receipt.TestUtils.TEST_OUT;
 
 /**
  * Unit test for {@link JsonTemplateDefinitionLoader}
+ * @author Charl Thiem
  */
 public class JsonTemplateDefinitionLoaderTest{
 

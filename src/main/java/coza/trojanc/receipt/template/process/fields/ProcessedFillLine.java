@@ -1,7 +1,7 @@
 package coza.trojanc.receipt.template.process.fields;
 
 /**
- * Created by Charl-PC on 2017-06-15.
+ * @author Charl Thiem
  */
 public class ProcessedFillLine implements ProcessedLineItem {
 

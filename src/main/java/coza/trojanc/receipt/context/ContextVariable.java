@@ -3,6 +3,7 @@ package coza.trojanc.receipt.context;
 /**
  * An interface defining the basic functions required for a <code>ContextVariable</code> implementation.
  * A context variable is a variable that will be resolved by using the <code>expression</code> and input variables.
+ * @author Charl Thiem
  */
 public interface ContextVariable {
 

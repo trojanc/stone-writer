@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents a line within a template
+ * Class that represents a line within a template.
+ * @author Charl Thiem
  */
 public class Line implements TemplateLine {
 

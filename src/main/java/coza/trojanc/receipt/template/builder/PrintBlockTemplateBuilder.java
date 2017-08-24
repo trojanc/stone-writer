@@ -5,7 +5,7 @@ import coza.trojanc.receipt.template.fields.RepeatBlock;
 import coza.trojanc.receipt.template.fields.TemplateLine;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public class PrintBlockTemplateBuilder extends AbstractTemplateBuilder{
 

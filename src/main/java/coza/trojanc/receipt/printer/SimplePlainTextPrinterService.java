@@ -12,7 +12,7 @@ import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
 import java.io.IOException;
 
 /**
- * Created by charl on 2017/06/14.
+ * @author Charl Thiem
  */
 public class SimplePlainTextPrinterService {
 

@@ -5,7 +5,7 @@ import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 

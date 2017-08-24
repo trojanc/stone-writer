@@ -8,18 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-   * A class representing a context definition loaded from a json file
-   */
+ * A class representing a context definition loaded from a json file
+ * @author Charl Thiem
+ */
 public class LoadedContextDefinition implements ContextDefinition {
 
-    private Map<String, SimpleContextVariable> fields = new HashMap<>();
+	private Map<String, SimpleContextVariable> fields = new HashMap<>();
 
-    @Override
-    public Map<String, ? extends ContextVariable> getFields() {
-      return fields;
-    }
+	@Override
+	public Map<String, ? extends ContextVariable> getFields() {
+		return fields;
+	}
 
-    public void setFields(Map<String, SimpleContextVariable> fields){
-      this.fields = fields;
-    }
-  }
+	public void setFields(Map<String, SimpleContextVariable> fields){
+		this.fields = fields;
+	}
+}

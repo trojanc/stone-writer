@@ -5,6 +5,9 @@ import org.junit.Test;
 import static coza.trojanc.receipt.TestUtils.EXPR_SOLD_ITEMS_VALUE;
 import static org.junit.Assert.*;
 
+/**
+ * @author Charl Thiem
+ */
 public class DefaultContextResolverArraysTest {
 
 	private static final String VALID_EXPRESSION_1 = "message[]";

@@ -2,6 +2,7 @@ package coza.trojanc.receipt.shared;
 
 /**
  * Enumuration of line wrapping methods
+ * @author Charl Thiem
  */
 public enum LineWrap {
 	/**

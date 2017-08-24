@@ -3,6 +3,9 @@ package coza.trojanc.receipt.shared;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Charl Thiem
+ */
 public class PrintStringUtilTestCases {
 
 

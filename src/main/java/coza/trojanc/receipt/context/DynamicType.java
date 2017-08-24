@@ -1,7 +1,8 @@
 package coza.trojanc.receipt.context;
 
 /**
- * Enumeration of DynamicTypes which should be resolved from a context of objects
+ * Enumeration of DynamicTypes which should be resolved from a context of objects.
+ * @author Charl Thiem
  */
 public enum DynamicType {
 

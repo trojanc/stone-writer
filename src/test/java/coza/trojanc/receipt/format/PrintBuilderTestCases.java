@@ -5,6 +5,9 @@ import coza.trojanc.receipt.shared.LineWrap;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Charl Thiem
+ */
 public class PrintBuilderTestCases {
 
 

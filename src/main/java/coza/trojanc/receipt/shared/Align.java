@@ -1,7 +1,7 @@
 package coza.trojanc.receipt.shared;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public enum Align {
 	LEFT("left"),

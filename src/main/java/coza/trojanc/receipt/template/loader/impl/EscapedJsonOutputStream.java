@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Created by charl on 2017/06/15.
+ * @author Charl Thiem
  */
 public class EscapedJsonOutputStream extends OutputStream {
 

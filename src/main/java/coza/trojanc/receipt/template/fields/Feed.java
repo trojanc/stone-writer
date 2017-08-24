@@ -2,7 +2,8 @@ package coza.trojanc.receipt.template.fields;
 
 
 /**
- * Text - Defines a printer feed element.   
+ * Text - Defines a printer feed element.
+ * @author Charl Thiem
  */
 public class Feed implements TemplateLine {
 

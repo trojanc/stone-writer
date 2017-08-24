@@ -1,7 +1,8 @@
 package coza.trojanc.receipt.template.fields;
 
 /**
- * A class representing simple static text to be printed
+ * A class representing simple static text to be printed.
+ * @author Charl Thiem
  */
 public class Text extends AbstractTextItem{
 

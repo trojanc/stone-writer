@@ -5,7 +5,7 @@ import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.loader.TemplateDefinitionLoader;
 
 /**
- * Created by Charl-PC on 2016-11-17.
+ * @author Charl Thiem
  */
 public class XmlTemplateDefinitionLoader extends XmlLoader<PrintTemplate> implements TemplateDefinitionLoader {
 }

@@ -1,7 +1,8 @@
 package coza.trojanc.receipt.context;
 
 /**
- * A class representing a context map of resolved variables
+ * A class representing a context map of resolved variables.
+ * @author Charl Thiem
  */
 public interface ContextMap {
 

@@ -3,10 +3,8 @@ package coza.trojanc.receipt.template.process;
 import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.template.PrintTemplate;
 
-import java.util.Map;
-
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public interface TemplateProcessor {
 

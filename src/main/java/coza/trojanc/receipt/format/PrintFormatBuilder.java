@@ -4,7 +4,7 @@ import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.shared.LineWrap;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public interface PrintFormatBuilder {
 

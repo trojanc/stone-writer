@@ -5,7 +5,7 @@ import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.loader.TemplateDefinitionLoader;
 
 /**
- *
+ * @author Charl Thiem
  */
 public class YamlTemplateDefinitionLoader extends YamlLoader<PrintTemplate> implements TemplateDefinitionLoader {
 }

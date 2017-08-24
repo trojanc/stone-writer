@@ -7,6 +7,7 @@ import java.util.List;
  * A class representing a repeating section of the receipt.
  * <p>
  * A repeated section can consist of one or more line items, and repeats on a context item array
+ * @author Charl Thiem
  */
 public class RepeatBlock implements TemplateLine{
 

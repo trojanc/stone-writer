@@ -5,7 +5,7 @@ import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.loader.ProcessedTemplateLoader;
 
 /**
- * Created by Charl-PC on 2016-11-17.
+ * @author Charl Thiem
  */
 public class JsonProcessedTemplateLoader extends JsonLoader<ProcessedTemplate> implements ProcessedTemplateLoader {
 }

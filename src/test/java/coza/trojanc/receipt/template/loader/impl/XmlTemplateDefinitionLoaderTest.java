@@ -12,6 +12,7 @@ import static coza.trojanc.receipt.TestUtils.TEST_OUT;
 
 /**
  * Unit test for {@link XmlTemplateDefinitionLoader}
+ * @author Charl Thiem
  */
 public class XmlTemplateDefinitionLoaderTest {
 

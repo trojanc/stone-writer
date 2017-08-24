@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for {@link DefaultContextResolver}
+ * @author Charl Thiem
  */
 public class DefaultContextResolverTest {
 

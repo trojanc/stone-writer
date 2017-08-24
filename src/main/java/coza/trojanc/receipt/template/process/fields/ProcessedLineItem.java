@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
  @JsonTypeInfo(
 		use = JsonTypeInfo.Id.NAME,

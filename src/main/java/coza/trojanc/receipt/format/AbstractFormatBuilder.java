@@ -3,7 +3,7 @@ package coza.trojanc.receipt.format;
 import coza.trojanc.receipt.shared.Align;
 
 /**
- * Created by Charl-PC on 2016-10-20.
+ * @author Charl Thiem
  */
 public abstract class AbstractFormatBuilder implements PrintFormatBuilder {
 

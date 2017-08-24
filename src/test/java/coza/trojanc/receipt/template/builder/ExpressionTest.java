@@ -5,7 +5,7 @@ import org.apache.commons.jexl3.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public class ExpressionTest {
 

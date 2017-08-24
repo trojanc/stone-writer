@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * A class representing a template that has been processed
- * Created by Charl on 2016-10-11.
+ * @author Charl Thiem
  */
 public class ProcessedTemplate {
 

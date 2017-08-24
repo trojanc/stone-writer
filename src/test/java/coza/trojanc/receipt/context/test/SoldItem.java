@@ -1,7 +1,7 @@
 package coza.trojanc.receipt.context.test;
 
 /**
- * Created by Charl-PC on 2016-11-21.
+ * @author Charl Thiem
  */
 public class SoldItem {
 

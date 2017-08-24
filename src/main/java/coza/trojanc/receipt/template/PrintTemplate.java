@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 /**
  * A print template defines all details and formulas that must be printed
- * Created by Charl-PC on 2016-10-10.
+ * @author Charl Thiem
  */
 public class PrintTemplate {
 

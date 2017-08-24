@@ -1,7 +1,6 @@
 package coza.trojanc.receipt.loader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
@@ -11,7 +10,7 @@ import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 
 /**
- * Created by Charl-PC on 2017-06-15.
+ * @author Charl Thiem
  */
 public class YamlLoader<T> extends AbstractLoader<T> {
 

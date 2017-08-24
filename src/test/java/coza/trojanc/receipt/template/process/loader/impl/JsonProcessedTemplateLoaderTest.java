@@ -11,7 +11,8 @@ import java.io.IOException;
 import static coza.trojanc.receipt.TestUtils.TEST_OUT;
 
 /**
- * Unit test for {@link JsonProcessedTemplateLoader}
+ * Unit test for {@link JsonProcessedTemplateLoader}.
+ * @author Charl Thiem
  */
 public class JsonProcessedTemplateLoaderTest {
 

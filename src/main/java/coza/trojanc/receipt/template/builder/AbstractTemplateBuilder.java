@@ -4,7 +4,7 @@ import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.fields.*;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public abstract class AbstractTemplateBuilder {
 

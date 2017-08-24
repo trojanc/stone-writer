@@ -10,6 +10,9 @@ import java.io.IOException;
 
 import static coza.trojanc.receipt.TestUtils.TEST_OUT;
 
+/**
+ * @author Charl Thiem
+ */
 class YamlTemplateDefinitionLoaderTest {
 
 	@Test

@@ -15,7 +15,7 @@ import coza.trojanc.receipt.template.process.fields.ProcessedText;
 import static coza.trojanc.receipt.context.ContextResolver.ARRAY_LENGTH_SUFFIX;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public class DefaultTemplateProcessor implements TemplateProcessor {
 

@@ -1,7 +1,9 @@
 package coza.trojanc.receipt;
 
-import coza.trojanc.receipt.context.*;
-import coza.trojanc.receipt.context.impl.DefaultContextMap;
+import coza.trojanc.receipt.context.ContextDefinition;
+import coza.trojanc.receipt.context.ContextMap;
+import coza.trojanc.receipt.context.ContextResolver;
+import coza.trojanc.receipt.context.DynamicType;
 import coza.trojanc.receipt.context.impl.DefaultContextResolver;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
@@ -15,13 +17,12 @@ import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Charl-PC on 2016-10-16.
+ * @author Charl Thiem
  */
 public class TestUtils {
 

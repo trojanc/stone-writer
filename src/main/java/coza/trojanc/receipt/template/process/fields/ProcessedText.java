@@ -4,7 +4,7 @@ import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.shared.Mode;
 
 /**
- * Created by Charl-PC on 2016-10-11.
+ * @author Charl Thiem
  */
 public class ProcessedText{
 	/** global printing mode bitmap - product of MODE_* constants above ORed together */

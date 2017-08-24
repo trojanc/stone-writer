@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 
 /**
- * Created by Charl-PC on 2017-06-15.
+ * @author Charl Thiem
  */
 public class XmlLoader<T> extends AbstractLoader<T> {
 

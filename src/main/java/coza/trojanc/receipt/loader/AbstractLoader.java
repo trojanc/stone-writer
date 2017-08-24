@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Created by Charl-PC on 2017-06-15.
+ * @author Charl Thiem
  */
 public abstract class AbstractLoader<T> implements Loader<T> {
 
