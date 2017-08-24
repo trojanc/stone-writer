@@ -16,7 +16,7 @@ public interface ContextResolver {
 	/**
 	 * Regular expression to match an expression containing an array
 	 */
-	String ARRAY_EXPRESSION = "^([\\w+\\.?]+)\\[\\](\\.\\w+)*$";
+	String ARRAY_EXPRESSION = "^([\\w+\\.?]+)\\[\\]([\\.\\w+]+)*$";
 	Pattern ARRAY_EXPRESSION_PATTERN = Pattern.compile(ARRAY_EXPRESSION);
 	String ARRAY_LENGTH_SUFFIX = "[].$$length";
 

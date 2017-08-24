@@ -12,6 +12,7 @@ public class DefaultContextResolverArraysTest {
 
 	private static final String VALID_EXPRESSION_1 = "message[]";
 	private static final String VALID_EXPRESSION_2 = "message[].value";
+	public static final String VALID_EXPRESSION_4 = "message[].amt.value";
 	private static final String INVALID_EXPRESSION_1 = "message";
 	private static final String INVALID_EXPRESSION_2 = "message.value";
 
@@ -49,6 +50,24 @@ public class DefaultContextResolverArraysTest {
 	public void testGetExpressionSuffix2(){
 		final String suffix = DefaultContextResolver.getArrayExpressionSuffix(VALID_EXPRESSION_2);
 		assertEquals("Did not receive the expected suffix", ".value", suffix);
+	}
+
+	@Test
+	public void testValidArray4(){
+		final boolean isArrayExpression = DefaultContextResolver.isArrayExpression(VALID_EXPRESSION_4);
+		assertTrue("Expected to be a valid array expression", isArrayExpression);
+	}
+
+	@Test
+	public void testGetExpressionPrefix4(){
+		final String prefix = DefaultContextResolver.getArrayExpressionPrefix(VALID_EXPRESSION_4);
+		assertEquals("Did not receive the expected prefix", "message", prefix);
+	}
+
+	@Test
+	public void testGetExpressionSuffix4(){
+		final String suffix = DefaultContextResolver.getArrayExpressionSuffix(VALID_EXPRESSION_4);
+		assertEquals("Did not receive the expected suffix", ".amt.value", suffix);
 	}
 
 	@Test
