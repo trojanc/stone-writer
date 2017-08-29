@@ -1,6 +1,5 @@
 package coza.trojanc.receipt.context
 
-import java.util.regex.Pattern
 
 /**
  * An interface defining the basic functionality required for implementing a context resolver.
@@ -27,7 +26,7 @@ interface ContextResolver {
          * Regular expression to match an expression containing an array
          */
         val ARRAY_EXPRESSION = "^([\\w+\\.?]+)\\[\\]([\\.\\w+]+)*$"
-        val ARRAY_EXPRESSION_PATTERN = Pattern.compile(ARRAY_EXPRESSION)
+        val ARRAY_EXPRESSION_PATTERN = Regex(ARRAY_EXPRESSION)
         val ARRAY_LENGTH_SUFFIX = "[].$\$length"
     }
 }

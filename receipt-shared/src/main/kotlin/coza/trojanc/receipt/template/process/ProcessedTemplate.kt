@@ -2,15 +2,13 @@ package coza.trojanc.receipt.template.process
 
 import coza.trojanc.receipt.template.process.fields.ProcessedLineItem
 
-import java.util.ArrayList
-
 /**
  * A class representing a template that has been processed
  * @author Charl Thiem
  */
 class ProcessedTemplate {
 
-    private var items: MutableList<ProcessedLineItem> = ArrayList()
+    private var items: MutableList<ProcessedLineItem> = ArrayList<ProcessedLineItem>()
 
     fun getItems(): List<ProcessedLineItem> {
         return items

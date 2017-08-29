@@ -1,7 +1,5 @@
 package coza.trojanc.receipt.template.process.fields
 
-import java.util.ArrayList
-
 /**
  * @author Charl Thiem
  */

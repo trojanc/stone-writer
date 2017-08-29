@@ -1,11 +1,27 @@
 package coza.trojanc.receipt.shared
 
-import java.util.ArrayList
-
 /**
  * @author Charl Thiem
  */
 object PrintStringUtil {
+
+    fun min(a: Int, b: Int): Int {
+        return if (a <= b) a else b
+    }
+
+    fun arraycopy(source: CharArray, srcPos: Int, dest: CharArray, destPos:Int, length: Int){
+        for (idx in 0..length-1){
+            dest[destPos+idx] = source[srcPos+idx];
+        }
+    }
+
+    fun toCharArray(value:String) : CharArray{
+        val chrs = CharArray(value.length);
+        for(idx in 0..value.length-1){
+            chrs[idx] = value[idx];
+        }
+        return chrs;
+    }
 
     /**
      * Get line buffer char [ ].
@@ -14,7 +30,6 @@ object PrintStringUtil {
      * @param fillWithChar the fill with char
      * @return the char [ ]
      */
-    @JvmOverloads
     fun getLineBuffer(lineSize: Int, fillWithChar: Char = ' '): CharArray {
         val buffer = CharArray(lineSize)
         for (i in 0..lineSize - 1) {
@@ -58,7 +73,7 @@ object PrintStringUtil {
 		 * parse string
 		 */
         tab_index[0] = -1
-        val max_index = Math.min(start_index[0] + width - 1, str_length - 1)
+        val max_index = min(start_index[0] + width - 1, str_length - 1)
         var break_index = -1
         var last_space_index = -1
         end_index[0] = start_index[0]
@@ -154,12 +169,12 @@ object PrintStringUtil {
      * value will be inserted at the `destPos` in the line.
      *
      * @param line Character array representing the line.
-     * @param destPos Index in line where the value should be inserted
+     * @param destPosition Index in line where the value should be inserted
      * @param value Value that must be inserted in the line
      * @param maxLength Maximum number of characters from the value that may be added
      */
-    private fun insert(line: CharArray, destPos: Int, value: CharArray?, maxLength: Int) {
-        var destPos = destPos
+    private fun insert(line: CharArray, destPosition: Int, value: CharArray?, maxLength: Int) {
+        var destPos = destPosition
         if (value == null) {
             return
         }
@@ -201,7 +216,7 @@ object PrintStringUtil {
             length = line.size - destPos
 
         //copy
-        System.arraycopy(value, srcPos, line, destPos, length)
+        arraycopy(value, srcPos, line, destPos, length)
     }
 
     /**
@@ -218,9 +233,10 @@ object PrintStringUtil {
         // If the string is longer than the max length, we cut the string on right to keeo
         // only the left most characters
         if (maxLength < valueLength) {
-            insert(line, position, value.substring(0, maxLength).toCharArray(), maxLength)
+        val ch = CharArray(1);
+            insert(line, position, toCharArray(value.substring(0, maxLength)), maxLength)
         } else {
-            insert(line, position, value.toCharArray(), maxLength)
+            insert(line, position, toCharArray(value), maxLength)
         }
 
     }
@@ -263,9 +279,9 @@ object PrintStringUtil {
 
             // How much do we need to additionally substract for the end of the string
             val end = if (overshoot % 2 > 0) 1 else 0
-            insert(line, position - maxLength / 2, value.substring(offset, valueLength - (offset + end)).toCharArray(), maxLength)
+            insert(line, position - maxLength / 2, toCharArray(value.substring(offset, valueLength - (offset + end))), maxLength)
         } else {
-            insert(line, position - valueLength / 2, value.toCharArray(), valueLength)
+            insert(line, position - valueLength / 2, toCharArray(value), valueLength)
         }// The value fits perfectly in the line buffer
     }
 
@@ -382,7 +398,7 @@ object PrintStringUtil {
         var line = line
         var value_pos = value_pos
         if (line == null) {
-            line = createStringOfChar(width, ' ').toCharArray()
+            line = toCharArray(createStringOfChar(width, ' '))
         }
         val name_length = name.length
         insertLeftAligned(line, name_pos, name, name_length)
@@ -395,7 +411,7 @@ object PrintStringUtil {
         line[value_pos - 2] = ':'
 
         insertLeftAligned(line, value_pos, value, value.length)
-        return String(line)
+        return line.toString()
     }
 
     /**
@@ -417,9 +433,9 @@ object PrintStringUtil {
         // If the value is longer than the available space, but the line to keep
         // The right-most characters
         if (maxLength < length) {
-            insert(line, position - maxLength + 1, value.substring(value.length - maxLength).toCharArray(), maxLength)
+            insert(line, position - maxLength + 1, toCharArray(value.substring(value.length - maxLength)), maxLength)
         } else {
-            insert(line, position - length + 1, value.toCharArray(), length)
+            insert(line, position - length + 1, toCharArray(value), length)
         }
     }
 
@@ -470,7 +486,7 @@ object PrintStringUtil {
      * @return string
      */
     fun left(str: String, num: Int): String {
-        val len = Math.min(str.length, num)
+        val len = min(str.length, num)
         return str.substring(0, len)
     }
 

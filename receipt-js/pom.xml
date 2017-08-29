@@ -16,7 +16,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.1.4-2</kotlin.version>
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -24,17 +23,11 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-js</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>coza.trojanc.receipt</groupId>
             <artifactId>receipt-shared</artifactId>
             <version>0.0.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre8</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -46,16 +39,11 @@
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
-
         <plugins>
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
-                </configuration>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <version>${kotlin.version}</version>
-
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -65,8 +53,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <sourceMap>true
-                            </sourceMap> <!-- source map is useful for debugging in tools that support source maps -->
+                            <sourceMap>true</sourceMap> <!-- source map is useful for debugging in tools that support source maps -->
                             <outputFile>${project.build.outputDirectory}/${project.artifactId}.js</outputFile>
                         </configuration>
                     </execution>
@@ -91,7 +78,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>kotlin-stdlib-js</includeArtifactIds>
+                            <includeArtifactIds>kotlin-stdlib-js,receipt-shared</includeArtifactIds>
                             <outputDirectory>${build.outputDirectory}/lib</outputDirectory>
                             <includes>**\/*.js</includes>
                             <excludes>**\/*.meta.js</excludes> <!-- we don't need meta.js files in runtime -->

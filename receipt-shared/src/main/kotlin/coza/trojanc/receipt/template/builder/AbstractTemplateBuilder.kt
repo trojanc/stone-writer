@@ -78,7 +78,7 @@ internal constructor() {
         checkValidLine()
         textItem = Text()
 
-        if (DynamicText::class.java.isAssignableFrom(textItem!!.javaClass)) {
+        if (textItem is DynamicText) {
             throw IllegalArgumentException("Cannot add text value to dynamic text")
         }
         (textItem as Text).setText(text);
@@ -94,7 +94,7 @@ internal constructor() {
         finishLineItem()
         checkValidLine()
         textItem = DynamicText()
-        if (!DynamicText::class.java.isAssignableFrom(textItem!!.javaClass)) {
+        if (textItem !is DynamicText) {
             throw IllegalArgumentException("Cannot add key to static text")
         }
         (textItem as DynamicText).setContextKey(key);

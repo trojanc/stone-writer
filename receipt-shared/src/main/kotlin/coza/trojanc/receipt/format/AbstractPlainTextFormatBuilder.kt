@@ -3,10 +3,6 @@ package coza.trojanc.receipt.format
 import coza.trojanc.receipt.shared.LineWrap
 import coza.trojanc.receipt.shared.PrintStringUtil
 
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
-
 /**
  * An abstract implementation of a print text layout builder
  *
@@ -21,11 +17,11 @@ abstract class AbstractPlainTextFormatBuilder
  * @param invalidCharsRegex Regular expression of invalid characters
  * @param invalidCharReplacement The character that should be used to replace the invalid character
  */
-@JvmOverloads protected constructor(line_width: Int, invalidCharsRegex: String? = null,
-                                    /**
-                                     * Char that should be placed in the place of an invalid char
-                                     */
-                                    protected val invalidCharReplacement: Char = ' ') : AbstractFormatBuilder(line_width) {
+protected constructor(line_width: Int, invalidCharsRegex: String? = null,
+                      /**
+                       * Char that should be placed in the place of an invalid char
+                       */
+                      protected val invalidCharReplacement: Char = ' ') : AbstractFormatBuilder(line_width) {
 
     /**
      * Builder used to create the text to display/print
@@ -43,14 +39,14 @@ abstract class AbstractPlainTextFormatBuilder
     /**
      * Chars that should be removed from strings as it could possible break the print command
      */
-    protected val invalidCharsPattern: Pattern?
+    protected val invalidCharsPattern: Regex?
 
     init {
         this.defaultCharBuffer = PrintStringUtil.getLineBuffer(line_width)
         this.builder = StringBuilder()
         this.charBuffer = CharArray(this.lineWidth)
         if (invalidCharsRegex != null) {
-            this.invalidCharsPattern = Pattern.compile(invalidCharsRegex)
+            this.invalidCharsPattern = Regex(invalidCharsRegex)
         } else {
             this.invalidCharsPattern = null
         }
@@ -69,8 +65,7 @@ abstract class AbstractPlainTextFormatBuilder
         }
 
         if (this.invalidCharsPattern != null) {
-            val m = this.invalidCharsPattern.matcher(str)
-            return m.replaceAll(Character.toString(this.invalidCharReplacement))
+            return this.invalidCharsPattern.replace(str, this.invalidCharReplacement.toString())
         } else {
             return str
         }
@@ -80,7 +75,7 @@ abstract class AbstractPlainTextFormatBuilder
      * Clears the char buffer;
      */
     protected fun resetCharBuffer() {
-        System.arraycopy(defaultCharBuffer, 0, this.charBuffer!!, 0, this.lineWidth)
+        PrintStringUtil.arraycopy(defaultCharBuffer, 0, this.charBuffer, 0, this.lineWidth)
         this.lineBufferInUse = false
     }
 
@@ -119,8 +114,8 @@ abstract class AbstractPlainTextFormatBuilder
         return this.insertRight(text, index, lineWidth, lineWrap)
     }
 
-    override fun insertCenter(text: String, index: Int): PrintFormatBuilder {
-        return this.insertCenter(text, index, this.lineWidth, PrintFormatBuilder.DEFAULT_LINE_WRAP)
+    override fun insertCenter(text: String, position: Int): PrintFormatBuilder {
+        return this.insertCenter(text, position, this.lineWidth, PrintFormatBuilder.DEFAULT_LINE_WRAP)
     }
 
     override fun insertCenter(text: String, index: Int, lineWrap: LineWrap): PrintFormatBuilder {
@@ -319,7 +314,7 @@ abstract class AbstractPlainTextFormatBuilder
      */
     fun completeCharBuffer() {
         if (this.lineBufferInUse) {
-            this.builder.append(String(charBuffer))
+            this.builder.append(charBuffer.toString())
             this.resetCharBuffer()
         }
     }

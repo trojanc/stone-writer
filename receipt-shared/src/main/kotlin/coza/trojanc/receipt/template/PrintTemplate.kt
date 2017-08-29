@@ -2,9 +2,6 @@ package coza.trojanc.receipt.template
 
 import coza.trojanc.receipt.template.fields.TemplateLine
 
-import java.util.ArrayList
-import java.util.stream.Collectors
-
 /**
  * A print template defines all details and formulas that must be printed
  * @author Charl Thiem

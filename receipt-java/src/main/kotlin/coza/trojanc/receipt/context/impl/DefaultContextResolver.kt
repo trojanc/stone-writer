@@ -160,9 +160,9 @@ class DefaultContextResolver : ContextResolver {
          * @return
          */
         fun getArrayExpressionPrefix(expression: String): String {
-            val m = ContextResolver.ARRAY_EXPRESSION_PATTERN.matcher(expression)
-            return if (m.find()) {
-                m.group(1)
+            val m: MatchResult? = ContextResolver.ARRAY_EXPRESSION_PATTERN.matchEntire(expression)
+            return if (m != null) {
+                m.groups.get(1)!!.value;
             } else {
                 throw RuntimeException("Expression is not an array pattern")
             }
@@ -174,9 +174,9 @@ class DefaultContextResolver : ContextResolver {
          * @return
          */
         fun getArrayExpressionSuffix(expression: String): String {
-            val m = ContextResolver.ARRAY_EXPRESSION_PATTERN.matcher(expression)
-            return if (m.find()) {
-                if (m.group(2) == null) "" else m.group(2)
+            val m = ContextResolver.ARRAY_EXPRESSION_PATTERN.matchEntire(expression)
+            return if (m != null) {
+                if (m.groups.get(2) == null) "" else m.groups.get(2)!!.value
             } else {
                 throw RuntimeException("Expression is not an array pattern")
             }

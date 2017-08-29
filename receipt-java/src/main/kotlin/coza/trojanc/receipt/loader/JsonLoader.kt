@@ -1,6 +1,10 @@
 package coza.trojanc.receipt.loader
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.jsontype.NamedType
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import coza.trojanc.receipt.template.process.fields.ProcessedFeed
 
 import java.io.IOException
 import java.io.InputStream
@@ -34,6 +38,6 @@ open class JsonLoader<T> : AbstractLoader<T>() {
     }
 
     companion object {
-        val MAPPER = ObjectMapper()
+        val MAPPER = jacksonObjectMapper()
     }
 }

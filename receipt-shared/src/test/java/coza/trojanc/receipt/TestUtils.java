@@ -4,6 +4,7 @@ import coza.trojanc.receipt.context.*;
 import coza.trojanc.receipt.context.impl.DefaultContextMap;
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition;
 import coza.trojanc.receipt.context.impl.SimpleContextVariable;
+import coza.trojanc.receipt.context.test.SoldItem;
 import coza.trojanc.receipt.context.test.TestTransaction;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
@@ -114,10 +115,15 @@ public class TestUtils {
 
 	public static ContextMap createResolvedVariables(){
 		if(resolvedVariables == null) {
-//			ContextResolver resolver = new DefaultContextResolver();
-//			ContextDefinition contextDefinition = TestUtils.createContextDefinition();
-//			Map<String, Object> contextVariables = TestUtils.createContextVariables();
 			resolvedVariables = new DefaultContextMap();
+			resolvedVariables.add(CTX_SOLD_ITEMS_LENGTH,"2");
+			resolvedVariables.add(CTX_SOLD_ITEMS_VALUE_2, Double.toString(SoldItem.SOLD_ITEM2_VALUE));
+			resolvedVariables.add(CTX_SOLD_ITEMS_NAME_1,SoldItem.SOLD_ITEM1_NAME);
+			resolvedVariables.add(CTX_SOLD_ITEMS_VALUE_1 ,Double.toString(SoldItem.SOLD_ITEM1_VALUE));
+			resolvedVariables.add(CTX_SOLD_ITEMS_NAME_2,SoldItem.SOLD_ITEM2_NAME);
+			resolvedVariables.add(CTX_TRANSACTION_DATE,"2016-03-15");
+			resolvedVariables.add(CTX_TRADER_NAME, TestTransaction.VALUE_TRADERNAME);
+			resolvedVariables.add(CTX_NUM_ITEMS , Integer.toString(TestTransaction.VALUE_NUM_ITEMS));
 		}
 		return resolvedVariables;
 	}
@@ -145,9 +151,9 @@ public class TestUtils {
 				.text("Items:")
 				.dynamicText(CTX_SOLD_ITEMS_LENGTH).align(Align.RIGHT)
 				.repeat("soldItems")
-					.line()
-						.dynamicText(".name").align(Align.LEFT)
-						.dynamicText(".value").align(Align.RIGHT)
+				.line()
+				.dynamicText(".name").align(Align.LEFT)
+				.dynamicText(".value").align(Align.RIGHT)
 				.end()
 				.fillLine('-')
 				.feed()

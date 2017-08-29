@@ -4,7 +4,6 @@ import coza.trojanc.receipt.context.ContextDefinition
 import coza.trojanc.receipt.context.ContextVariable
 import coza.trojanc.receipt.context.impl.SimpleContextVariable
 
-import java.util.HashMap
 
 /**
  * A class representing a context definition loaded from a json file
@@ -12,7 +11,7 @@ import java.util.HashMap
  */
 class LoadedContextDefinition : ContextDefinition {
 
-    private var fields: Map<String, SimpleContextVariable> = HashMap()
+    private var fields: Map<String, SimpleContextVariable> = hashMapOf()
 
     override fun getFields(): Map<String, ContextVariable> {
         return fields

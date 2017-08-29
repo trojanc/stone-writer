@@ -6,6 +6,8 @@ package coza.trojanc.receipt
  * Open example index.html in browser once you compile it.
  */
 fun main(args: Array<String>) {
-    println("Hello, World!")
+
+//   val cm:ContextMap  = DefaultContextMap();
+
 }
 

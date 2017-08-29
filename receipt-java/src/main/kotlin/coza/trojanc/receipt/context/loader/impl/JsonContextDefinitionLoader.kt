@@ -2,6 +2,7 @@ package coza.trojanc.receipt.context.loader.impl
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.JsonMappingException
+import com.fasterxml.jackson.databind.jsontype.NamedType
 import coza.trojanc.receipt.context.ContextDefinition
 import coza.trojanc.receipt.context.impl.SimpleContextDefinition
 import coza.trojanc.receipt.context.loader.ContextDefinitionLoader

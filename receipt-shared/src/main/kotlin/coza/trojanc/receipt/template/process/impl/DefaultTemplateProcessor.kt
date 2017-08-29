@@ -39,17 +39,17 @@ class DefaultTemplateProcessor : TemplateProcessor {
     private fun processTemplateItem(item: TemplateLine, repeatPrefix: String?) {
 
         // If it is a feed
-        if (Feed::class.java.isAssignableFrom(item.javaClass)) {
+        if (item is Feed) {
             val feed = item as Feed
             for (i in 0..feed.feedAmount - 1) {
                 processedTemplate!!.addProcessedLineItem(ProcessedFeed())
             }
-        } else if (Line::class.java.isAssignableFrom(item.javaClass)) {
-            processLine(item as Line, repeatPrefix)
-        } else if (FillLine::class.java.isAssignableFrom(item.javaClass)) {
-            processFillLine(item as FillLine)
-        } else if (RepeatBlock::class.java.isAssignableFrom(item.javaClass)) {
-            processRepeatBlock(item as RepeatBlock)
+        } else if (item is Line) {
+            processLine(item, repeatPrefix)
+        } else if (item is FillLine) {
+            processFillLine(item)
+        } else if (item is RepeatBlock) {
+            processRepeatBlock(item)
         }
 
     }
@@ -61,7 +61,7 @@ class DefaultTemplateProcessor : TemplateProcessor {
      */
     private fun processRepeatBlock(repeatBlock: RepeatBlock) {
         val keyPrefix = repeatBlock.getRepeatOn()
-        val repeatSize = Integer.parseInt(context!!.get(keyPrefix!! + ContextResolver.ARRAY_LENGTH_SUFFIX)!!)
+        val repeatSize = context!!.get(keyPrefix!! + ContextResolver.ARRAY_LENGTH_SUFFIX)!!.toInt()
         for (idx in 0 until repeatSize) {
             repeatBlock.getLines().forEach { line -> processTemplateItem(line, "$keyPrefix[$idx]") }
         }
@@ -84,10 +84,10 @@ class DefaultTemplateProcessor : TemplateProcessor {
         processedTemplate!!.addProcessedLineItem(processedLine)
 
         line.getLineItems().forEach { lineItem ->
-            if (Text::class.java.isAssignableFrom(lineItem.javaClass)) {
-                addStaticText(lineItem as Text, processedLine)
-            } else if (DynamicText::class.java.isAssignableFrom(lineItem.javaClass)) {
-                addDynamicText(lineItem as DynamicText, processedLine, repeatPrefix)
+            if (lineItem is Text) {
+                addStaticText(lineItem, processedLine)
+            } else if (lineItem is DynamicText) {
+                addDynamicText(lineItem, processedLine, repeatPrefix)
             }
         }
     }

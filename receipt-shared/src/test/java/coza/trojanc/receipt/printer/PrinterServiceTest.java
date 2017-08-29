@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 public class PrinterServiceTest {
 	@Test
 	public void print() throws Exception {
-//		ProcessedTemplate processedTemplate = TestUtils.getProcessedTemplate();
-//
-//		PrinterService printerService = new PrinterService();
-//		Printer plainTextPrinter = new PlainTextPrinter();
-//		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
-//		String printedText = (String)plainTextPrinter.getLayoutBuilder().getFormat();
-//		System.out.println(">" + printedText + "<");
+		ProcessedTemplate processedTemplate = TestUtils.getProcessedTemplate();
+
+		PrinterService printerService = new PrinterService();
+		Printer plainTextPrinter = new PlainTextPrinter();
+		printerService.print(processedTemplate, plainTextPrinter.getLayoutBuilder());
+		String printedText = (String)plainTextPrinter.getLayoutBuilder().getFormat();
+		System.out.println(">" + printedText.toString() + "<");
 	}
 
 }

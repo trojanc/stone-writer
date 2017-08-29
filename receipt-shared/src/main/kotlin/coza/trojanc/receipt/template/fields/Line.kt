@@ -1,7 +1,5 @@
 package coza.trojanc.receipt.template.fields
 
-import java.util.ArrayList
-
 /**
  * Class that represents a line within a template.
  * @author Charl Thiem

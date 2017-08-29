@@ -36,7 +36,7 @@ public class PrintStringUtilTest {
 							PrintInsertFunction<char[], Integer, String, Integer> function,
 							Function<PrintStringUtilTestCases.TestInstance, String> resultFunction){
 		line();
-		final char[] buffer = PrintStringUtil.INSTANCE.getLineBuffer(testInstance.getLineWidth());
+		final char[] buffer = PrintStringUtil.INSTANCE.getLineBuffer(testInstance.getLineWidth(), ' ');
 		function.apply(buffer, testInstance.getIndex(), testInstance.getText(), testInstance.getMaxLength());
 		System.out.println("|" + new String(buffer) + "|");
 		assertArrayEquals(resultFunction.apply(testInstance).replaceAll("\\|", "").toCharArray(), buffer);

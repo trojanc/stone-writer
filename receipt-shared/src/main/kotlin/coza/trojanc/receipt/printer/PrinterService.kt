@@ -21,13 +21,13 @@ class PrinterService {
 
         template.getItems().forEach { processedLineItem ->
 
-            if (ProcessedFeed::class.java.isAssignableFrom(processedLineItem.javaClass)) {
+            if (processedLineItem is ProcessedFeed) {
                 builder.feed()
-            } else if (ProcessedLine::class.java.isAssignableFrom(processedLineItem.javaClass)) {
-                val line = processedLineItem as ProcessedLine
+            } else if (processedLineItem is ProcessedLine) {
+                val line = processedLineItem
                 printLine(line)
-            } else if (ProcessedFillLine::class.java.isAssignableFrom(processedLineItem.javaClass)) {
-                val line = processedLineItem as ProcessedFillLine
+            } else if (processedLineItem is ProcessedFillLine) {
+                val line = processedLineItem
                 builder.left(PrintStringUtil.createStringOfChar(builder.lineWidth, line.getCharacter()))
                 builder.nl()
             }

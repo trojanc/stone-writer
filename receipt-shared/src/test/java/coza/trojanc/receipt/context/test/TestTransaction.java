@@ -13,7 +13,6 @@ public class TestTransaction {
 	public static final String VALUE_TRADERNAME = "Joe's Fisheries";
 	public static final double VALUE_TRANSACTION_TOTAL = 200.95;
 	public static final int VALUE_NUM_ITEMS = 21;
-	public static final String VALUE_NUM_ITEMS_STRING = Integer.toString(VALUE_NUM_ITEMS);
 	public static final Date VALUE_TRANSACTION_DATE;
 	static{
 		Calendar c = Calendar.getInstance();
