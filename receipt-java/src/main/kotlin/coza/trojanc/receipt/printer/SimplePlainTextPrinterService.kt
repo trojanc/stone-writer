@@ -29,6 +29,6 @@ object SimplePlainTextPrinterService {
         val printerService = PrinterService()
         val printerBuilder = PlainTextFormatBuilder(width)
         printerService.print(processedTemplate, printerBuilder)
-        return printerBuilder.format as String
+        return printerBuilder.getFormat() as String
     }
 }

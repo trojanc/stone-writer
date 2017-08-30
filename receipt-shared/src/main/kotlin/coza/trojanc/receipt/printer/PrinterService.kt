@@ -28,7 +28,7 @@ class PrinterService {
                 printLine(line)
             } else if (processedLineItem is ProcessedFillLine) {
                 val line = processedLineItem
-                builder.left(PrintStringUtil.createStringOfChar(builder.lineWidth, line.getCharacter()))
+                builder.left(PrintStringUtil.createStringOfChar(builder.getLineWidth(), line.getCharacter()))
                 builder.nl()
             }
         }
@@ -44,9 +44,9 @@ class PrinterService {
         var offset = processedText.getOffset()
         if (!onlyItemInLine) {
             if (Align.RIGHT == processedText.getAlignment()) {
-                offset = if (offset == null) builder!!.lineWidth - 1 else offset
+                offset = if (offset == null) builder!!.getLineWidth() - 1 else offset
             } else if (Align.CENTER == processedText.getAlignment()) {
-                offset = if (offset == null) builder!!.lineWidth / 2 else offset
+                offset = if (offset == null) builder!!.getLineWidth() / 2 else offset
             } else {
                 offset = if (offset == null) 0 else offset
             }

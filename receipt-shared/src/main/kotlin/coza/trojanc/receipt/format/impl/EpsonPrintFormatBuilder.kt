@@ -218,7 +218,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
     private fun printTextAsLines(text: String, double_width: Boolean) {
         var text = text
         text = super.fixCharacters(text)
-        val line = PrintStringUtil.getLines(text, if (double_width) lineWidth / 2 else lineWidth, " ")
+        val line = PrintStringUtil.getLines(text, if (double_width) getLineWidth() / 2 else getLineWidth(), " ")
         for (i in line.indices) {
             super.builder.append(line[i])
             this.nl()

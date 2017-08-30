@@ -12,7 +12,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * @author Charl Thiem
  */
-open class YamlLoader<T> : AbstractLoader<T>() {
+open class YamlLoader<T> : AbstractLoader<T>(YAMLMapper()) {
 
     protected var clazz: Class<T>
 
@@ -20,23 +20,22 @@ open class YamlLoader<T> : AbstractLoader<T>() {
         this.clazz = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
     }
 
+    override fun prepareMapper(mapper: ObjectMapper) {
+        (mapper as YAMLMapper).disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID)
+    }
+
     @Throws(IOException::class)
     override fun load(inputStream: InputStream): T {
-        return load(inputStream, MAPPER, clazz)
+        return load(inputStream, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun load(jsonString: String): T {
-        return load(jsonString, MAPPER, clazz)
+        return load(jsonString, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun write(instance: T, out: OutputStream) {
-        write(instance, out, MAPPER)
-    }
-
-    companion object {
-
-        protected val MAPPER: ObjectMapper = YAMLMapper().disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID)
+        write(instance, out, getMapper())
     }
 }

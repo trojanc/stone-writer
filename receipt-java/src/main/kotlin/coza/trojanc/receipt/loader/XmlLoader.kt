@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * @author Charl Thiem
  */
-open class XmlLoader<T> : AbstractLoader<T>() {
+abstract class XmlLoader<T> : AbstractLoader<T>(XmlMapper()) {
 
     protected var clazz: Class<T>
 
@@ -21,21 +21,17 @@ open class XmlLoader<T> : AbstractLoader<T>() {
 
     @Throws(IOException::class)
     override fun load(inputStream: InputStream): T {
-        return load(inputStream, MAPPER, clazz)
+        return load(inputStream, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun load(jsonString: String): T {
-        return load(jsonString, MAPPER, clazz)
+        return load(jsonString, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun write(instance: T, out: OutputStream) {
-        write(instance, out, MAPPER)
+        write(instance, out, getMapper())
     }
 
-    companion object {
-
-        val MAPPER: ObjectMapper = XmlMapper()
-    }
 }

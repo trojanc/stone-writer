@@ -44,7 +44,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
     init {
         this.defaultCharBuffer = PrintStringUtil.getLineBuffer(line_width)
         this.builder = StringBuilder()
-        this.charBuffer = CharArray(this.lineWidth)
+        this.charBuffer = CharArray(getLineWidth())
         if (invalidCharsRegex != null) {
             this.invalidCharsPattern = Regex(invalidCharsRegex)
         } else {
@@ -75,7 +75,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
      * Clears the char buffer;
      */
     protected fun resetCharBuffer() {
-        PrintStringUtil.arraycopy(defaultCharBuffer, 0, this.charBuffer, 0, this.lineWidth)
+        PrintStringUtil.arraycopy(defaultCharBuffer, 0, this.charBuffer, 0, getLineWidth())
         this.lineBufferInUse = false
     }
 
@@ -89,37 +89,35 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
         return this
     }
 
-    override // Complete the line
-    val format: Any
-        get() {
-            if (this.lineBufferInUse) {
-                this.completeCharBuffer()
-            }
-            return this.builder.toString()
+    override fun getFormat(): Any {
+        if (this.lineBufferInUse) {
+            this.completeCharBuffer()
         }
+        return this.builder.toString()
+    }
 
     override fun insertLeft(text: String, index: Int): PrintFormatBuilder {
-        return this.insertLeft(text, index, this.lineWidth)
+        return this.insertLeft(text, index, getLineWidth())
     }
 
     override fun insertLeft(text: String, index: Int, lineWrap: LineWrap): PrintFormatBuilder {
-        return this.insertLeft(text, index, this.lineWidth, lineWrap)
+        return this.insertLeft(text, index, getLineWidth(), lineWrap)
     }
 
     override fun insertRight(text: String, index: Int): PrintFormatBuilder {
-        return this.insertRight(text, index, this.lineWidth)
+        return this.insertRight(text, index, getLineWidth())
     }
 
     override fun insertRight(text: String, index: Int, lineWrap: LineWrap): PrintFormatBuilder {
-        return this.insertRight(text, index, lineWidth, lineWrap)
+        return this.insertRight(text, index, getLineWidth(), lineWrap)
     }
 
     override fun insertCenter(text: String, position: Int): PrintFormatBuilder {
-        return this.insertCenter(text, position, this.lineWidth, PrintFormatBuilder.DEFAULT_LINE_WRAP)
+        return this.insertCenter(text, position, getLineWidth(), PrintFormatBuilder.DEFAULT_LINE_WRAP)
     }
 
     override fun insertCenter(text: String, index: Int, lineWrap: LineWrap): PrintFormatBuilder {
-        return this.insertCenter(text, index, this.lineWidth, lineWrap)
+        return this.insertCenter(text, index, getLineWidth(), lineWrap)
     }
 
 
@@ -130,7 +128,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
      * @return the print format builder
      */
     fun insertRight(text: String): PrintFormatBuilder {
-        return this.insertRight(text, this.lineWidth - 1)
+        return this.insertRight(text, getLineWidth() - 1)
     }
 
 
@@ -141,7 +139,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
     override fun left(text: String, lineWrap: LineWrap): PrintFormatBuilder {
         //complete char buffer line?
         this.completeCharBuffer()
-        this.insertLeft(text, 0, this.lineWidth, lineWrap)
+        this.insertLeft(text, 0, getLineWidth(), lineWrap)
         this.completeCharBuffer()
         return this
     }
@@ -153,7 +151,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
     override fun center(text: String, lineWrap: LineWrap): PrintFormatBuilder {
         //complete char buffer line?
         this.completeCharBuffer()
-        this.insertCenter(text, this.lineWidth / 2, this.lineWidth, lineWrap)
+        this.insertCenter(text, getLineWidth() / 2, getLineWidth(), lineWrap)
         this.completeCharBuffer()
         return this
     }
@@ -166,7 +164,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
     override fun right(text: String, lineWrap: LineWrap): PrintFormatBuilder {
         //complete char buffer line?
         this.completeCharBuffer()
-        this.insertRight(text, this.lineWidth - 1, this.lineWidth, lineWrap)
+        this.insertRight(text, getLineWidth() - 1, getLineWidth(), lineWrap)
         this.completeCharBuffer()
         return this
     }
@@ -314,7 +312,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
      */
     fun completeCharBuffer() {
         if (this.lineBufferInUse) {
-            this.builder.append(charBuffer.toString())
+            this.builder.append(charBuffer)
             this.resetCharBuffer()
         }
     }

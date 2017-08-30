@@ -124,14 +124,14 @@ interface PrintFormatBuilder {
      *
      * @return the format
      */
-    val format: Any
+    fun getFormat(): Any
 
     /**
      * Gets line width.
      *
      * @return the line width
      */
-    val lineWidth: Int
+    fun getLineWidth(): Int
 
     companion object {
 
