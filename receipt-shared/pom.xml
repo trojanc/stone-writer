@@ -34,6 +34,10 @@
 							<goal>compile</goal>
 							<goal>js</goal>
 						</goals>
+						<configuration>
+							<outputFile>${project.build.outputDirectory}/${project.artifactId}.js</outputFile>
+                            <metaInfo>true</metaInfo>
+						</configuration>
 					</execution>
 					<execution>
 						<id>test-compile</id>

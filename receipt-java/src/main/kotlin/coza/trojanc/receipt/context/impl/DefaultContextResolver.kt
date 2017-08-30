@@ -56,13 +56,13 @@ class DefaultContextResolver : ContextResolver {
         if (contextVariable.getType() == DynamicType.String) {
             return evaluatedObject.toString()
         } else if (contextVariable.getType() == DynamicType.Date) {
-            if (!Date::class.java.isAssignableFrom(evaluatedObject.javaClass)) {
+            if (evaluatedObject !is Date) {
                 throw IllegalArgumentException("Expected evaluated object to be of type java.util.Date instead found: " + evaluatedObject.javaClass.toString())
             }
             val sdf = SimpleDateFormat(contextVariable.getFormatting())
             return sdf.format(evaluatedObject as Date)
         } else if (contextVariable.getType() == DynamicType.Decimal) {
-            if (!Number::class.java.isAssignableFrom(evaluatedObject.javaClass)) {
+            if (evaluatedObject !is Number) {
                 throw IllegalArgumentException("Expected evaluated object to be of type java.lang.Number instead found: " + evaluatedObject.javaClass.toString())
             }
             if (contextVariable.getFormatting() == null) {
@@ -72,7 +72,7 @@ class DefaultContextResolver : ContextResolver {
                 return df.format(evaluatedObject)
             }
         } else if (contextVariable.getType() == DynamicType.Number) {
-            if (!Number::class.java.isAssignableFrom(evaluatedObject.javaClass)) {
+            if (evaluatedObject !is Number) {
                 throw IllegalArgumentException("Expected evaluated object to be of type java.lang.Number instead found: " + evaluatedObject.javaClass.toString())
             }
             return if (contextVariable.getFormatting() == null) {
@@ -115,13 +115,7 @@ class DefaultContextResolver : ContextResolver {
         if (isArrayExpression(expression)) {
             val prefix = getArrayExpressionPrefix(expression)
             val evaluatedArray = evaluateExpression(prefix)
-            var size = (evaluatedArray as List<*>).size
-            // It is a list
-            if (evaluatedArray is List<*>) {
-                size = evaluatedArray.size
-            } else if (evaluatedArray.javaClass.isArray) {
-                size = Array.getLength(evaluatedArray)
-            }// It is an array
+            val size = (evaluatedArray as List<*>).size
             if (size > 0) {
                 resolveList(contextVariable, size)
             }

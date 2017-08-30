@@ -14,7 +14,7 @@ class PlainTextFormatBuilder : AbstractPlainTextFormatBuilder {
 
     override fun nl(): PrintFormatBuilder {
         super.nl()
-        super.builder.append("\n")
+        super.getStringBuilder().append("\n")
         return this
     }
 

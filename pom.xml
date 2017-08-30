@@ -335,6 +335,10 @@
 					<groupId>org.jetbrains.kotlin</groupId>
 					<artifactId>kotlin-maven-plugin</artifactId>
 					<version>${kotlin.version}</version>
+					<configuration>
+						<moduleKind>umd</moduleKind>
+						<sourceMap>true</sourceMap>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

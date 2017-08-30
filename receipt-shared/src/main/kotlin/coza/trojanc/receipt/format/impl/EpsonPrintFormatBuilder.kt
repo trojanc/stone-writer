@@ -155,7 +155,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
 
     override fun initialize(): PrintFormatBuilder {
         super.initialize()
-        super.builder.append(0x1B.toChar()).append(0x40.toChar())
+        super.getStringBuilder().append(0x1B.toChar()).append(0x40.toChar())
         this.current_alignment = Print_Align.LEFT
         this.current_mode = Print_Mode.DEFAULT
         return this
@@ -179,7 +179,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
         // Clear current style
         //this.changeMode(Print_Mode.DEFAULT); NOT NEEDED AS EACH LINE RESETS STYLE
         /* Move to next line */
-        super.builder.append(0x0A.toChar())
+        super.getStringBuilder().append(0x0A.toChar())
         return this
     }
 
@@ -220,7 +220,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
         text = super.fixCharacters(text)
         val line = PrintStringUtil.getLines(text, if (double_width) getLineWidth() / 2 else getLineWidth(), " ")
         for (i in line.indices) {
-            super.builder.append(line[i])
+            super.getStringBuilder().append(line[i])
             this.nl()
         }
     }
@@ -234,7 +234,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
         /* Only change the alignment if it REALY changed */
         if (this.current_alignment != alignment) {
             this.current_alignment = alignment
-            super.builder.append(0x1B.toChar()).append(0x61.toChar()).append(alignment.toChar())
+            super.getStringBuilder().append(0x1B.toChar()).append(0x61.toChar()).append(alignment.toChar())
         }
     }
 
@@ -244,7 +244,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
      * @param font Byte representing the new font.
      */
     protected fun setFont(font: Byte) {
-        super.builder.append(0x1B.toChar()).append(0x4D.toChar()).append(font.toChar())
+        super.getStringBuilder().append(0x1B.toChar()).append(0x4D.toChar()).append(font.toChar())
     }
 
     /**
@@ -256,7 +256,7 @@ class EpsonPrintFormatBuilder : AbstractPlainTextFormatBuilder {
         // Only change the mode if it REALY changed
         if (this.current_mode != mode) {
             this.current_mode = mode
-            super.builder.append(0x1B.toChar()).append(0x21.toChar()).append(mode.toChar())
+            super.getStringBuilder().append(0x1B.toChar()).append(0x21.toChar()).append(mode.toChar())
         }
     }
 
