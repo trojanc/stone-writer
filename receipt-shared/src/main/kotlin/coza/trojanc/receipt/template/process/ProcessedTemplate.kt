@@ -8,7 +8,7 @@ import coza.trojanc.receipt.template.process.fields.ProcessedLineItem
  */
 class ProcessedTemplate {
 
-    private var items: MutableList<ProcessedLineItem> = ArrayList<ProcessedLineItem>()
+    private val items: MutableList<ProcessedLineItem> = ArrayList<ProcessedLineItem>()
 
     fun getItems(): List<ProcessedLineItem> {
         return items

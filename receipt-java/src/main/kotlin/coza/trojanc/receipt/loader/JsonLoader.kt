@@ -14,30 +14,36 @@ import java.lang.reflect.ParameterizedType
 /**
  * @author Charl Thiem
  */
-open class JsonLoader<T> : AbstractLoader<T>() {
+abstract class JsonLoader<T> : AbstractLoader<T>() {
 
     protected var clazz: Class<T>
+    private val objectMapper: ObjectMapper;
 
     init {
         this.clazz = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
+        objectMapper = jacksonObjectMapper();
+        prepareMapper(objectMapper);
     }
 
     @Throws(IOException::class)
     override fun load(inputStream: InputStream): T {
-        return load(inputStream, MAPPER, clazz)
+        return load(inputStream, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun load(jsonString: String): T {
-        return load(jsonString, MAPPER, clazz)
+        return load(jsonString, getMapper(), clazz)
     }
 
     @Throws(IOException::class)
     override fun write(instance: T, out: OutputStream) {
-        write(instance, out, MAPPER)
+        write(instance, out, getMapper())
     }
 
-    companion object {
-        val MAPPER = jacksonObjectMapper()
+    fun getMapper(): ObjectMapper{
+        return objectMapper;
     }
+
+    abstract fun prepareMapper(mapper: ObjectMapper);
+
 }
