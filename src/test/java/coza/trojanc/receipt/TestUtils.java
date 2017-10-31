@@ -37,6 +37,7 @@ public class TestUtils {
 	public static final String EXPR_TRADER_NAME = "transaction.traderName";
 	public static final String EXPR_NUM_ITEMS = "transaction.numItems";
 	public static final String EXPR_TRANSACTION_DATE = "transaction.transactionDate";
+	public static final String EXPR_TRANSACTION_SYSTEM_DATETIME = "transaction.systemDatetime";
 	public static final String EXPR_SOLD_ITEMS_VALUE = "transaction.soldItems[].value";
 	public static final String EXPR_SOLD_ITEMS_NAME = "transaction.soldItems[].name";
 
@@ -45,6 +46,7 @@ public class TestUtils {
 	*/
 	public static final String CTX_TRADER_NAME = "traderName";
 	public static final String CTX_NUM_ITEMS = "numItems";
+	public static final String CTX_TRANSACTION_SYSTEM_DATETIME = "systemDatetime";
 	public static final String CTX_TRANSACTION_DATE = "transactionDate";
 	public static final String CTX_SOLD_ITEMS_VALUE = "soldItems[].value";
 	public static final String CTX_SOLD_ITEMS_VALUE_1 = "soldItems[0].value";
@@ -79,12 +81,20 @@ public class TestUtils {
 			cd.setKey(CTX_NUM_ITEMS);
 			contextDefinition.addVariable(cd);
 
-			// Birth
+			// Transaction Date
 			cd = new SimpleContextVariable();
 			cd.setType(DynamicType.Date);
 			cd.setFormatting(DATE_FORMAT);
 			cd.setExpression(EXPR_TRANSACTION_DATE);
 			cd.setKey(CTX_TRANSACTION_DATE);
+			contextDefinition.addVariable(cd);
+
+			// Transaction Date
+			cd = new SimpleContextVariable();
+			cd.setType(DynamicType.Date);
+			cd.setFormatting(DATE_FORMAT);
+			cd.setExpression(EXPR_TRANSACTION_SYSTEM_DATETIME);
+			cd.setKey(CTX_TRANSACTION_SYSTEM_DATETIME);
 			contextDefinition.addVariable(cd);
 
 			cd = new SimpleContextVariable();

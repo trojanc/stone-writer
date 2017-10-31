@@ -1,5 +1,6 @@
 package coza.trojanc.receipt.context.test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,10 +16,13 @@ public class TestTransaction {
 	public static final int VALUE_NUM_ITEMS = 21;
 	public static final String VALUE_NUM_ITEMS_STRING = Integer.toString(VALUE_NUM_ITEMS);
 	public static final Date VALUE_TRANSACTION_DATE;
+	public static final LocalDateTime VALUE_SYSTEM_DATE_TIME;
 	static{
 		Calendar c = Calendar.getInstance();
 		c.set(2016, 02, 15);
 		VALUE_TRANSACTION_DATE = c.getTime();
+
+		VALUE_SYSTEM_DATE_TIME = LocalDateTime.of(2016, 02, 15, 0, 0, 0);
 	}
 
 
@@ -36,6 +40,10 @@ public class TestTransaction {
 
 	public int getNumItems(){
 		return VALUE_NUM_ITEMS;
+	}
+
+	public LocalDateTime getSystemDatetime(){
+		return VALUE_SYSTEM_DATE_TIME;
 	}
 
 	public List<SoldItem> getSoldItems(){

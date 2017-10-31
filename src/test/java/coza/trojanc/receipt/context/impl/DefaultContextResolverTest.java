@@ -4,7 +4,6 @@ import coza.trojanc.receipt.TestUtils;
 import coza.trojanc.receipt.context.ContextDefinition;
 import coza.trojanc.receipt.context.ContextMap;
 import coza.trojanc.receipt.context.ContextResolver;
-import coza.trojanc.receipt.context.impl.DefaultContextResolver;
 import coza.trojanc.receipt.context.test.SoldItem;
 import coza.trojanc.receipt.context.test.TestTransaction;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,9 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -50,6 +51,13 @@ public class DefaultContextResolverTest {
 		assertTrue(resolvedVariables.has(TestUtils.CTX_TRANSACTION_DATE));
 		String expectedDate = new SimpleDateFormat(TestUtils.DATE_FORMAT).format(TestTransaction.VALUE_TRANSACTION_DATE);
 		assertEquals(expectedDate, resolvedVariables.get(TestUtils.CTX_TRANSACTION_DATE));
+	}
+
+	@Test
+	public void resolveFormattedDateTime() throws Exception {
+		assertTrue(resolvedVariables.has(TestUtils.CTX_TRANSACTION_SYSTEM_DATETIME));
+		String expectedDate = DateTimeFormatter.ofPattern(TestUtils.DATE_FORMAT).format(TestTransaction.VALUE_SYSTEM_DATE_TIME);
+		assertEquals(expectedDate, resolvedVariables.get(TestUtils.CTX_TRANSACTION_SYSTEM_DATETIME));
 	}
 
 	@Test

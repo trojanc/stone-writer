@@ -6,6 +6,8 @@ import org.apache.commons.jexl3.*;
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -67,11 +69,15 @@ public class DefaultContextResolver implements ContextResolver {
 
 		// Date
 		else if(contextVariable.getType() == DynamicType.Date){
-			if(!Date.class.isAssignableFrom(evaluatedObject.getClass())){
+			if(!Date.class.isAssignableFrom(evaluatedObject.getClass()) && !LocalDateTime.class.isAssignableFrom(evaluatedObject.getClass())){
 				throw new IllegalArgumentException("Expected evaluated object to be of type java.util.Date instead found: " + evaluatedObject.getClass().toString());
 			}
-			SimpleDateFormat sdf = new SimpleDateFormat(contextVariable.getFormatting());
-			return sdf.format((Date)evaluatedObject);
+			if(Date.class.isAssignableFrom(evaluatedObject.getClass())) {
+				return new SimpleDateFormat(contextVariable.getFormatting()).format((Date) evaluatedObject);
+			}
+			else{
+				return DateTimeFormatter.ofPattern(contextVariable.getFormatting()).format((LocalDateTime) evaluatedObject);
+			}
 		}
 
 		// Decimal
