@@ -315,7 +315,7 @@ protected constructor(line_width: Int, invalidCharsRegex: String? = null,
 	 */
 	fun completeCharBuffer() {
 		if (this.lineBufferInUse) {
-			this.builder.append(charBuffer)
+			this.builder.append(charBuffer.joinToString(""))
 			this.resetCharBuffer()
 		}
 	}

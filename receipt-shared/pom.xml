@@ -36,7 +36,6 @@
 						</goals>
 						<configuration>
 							<outputFile>${project.build.outputDirectory}/${project.artifactId}.js</outputFile>
-                            <metaInfo>true</metaInfo>
 						</configuration>
 					</execution>
 					<execution>
