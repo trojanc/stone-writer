@@ -120,7 +120,13 @@ public class PrintTemplate {
 		StringBuilder sb = new StringBuilder();
 		sb.append("PrintTemplate[")
 		.append("name=").append(this.getName()).append(",")
-		.append("lines=[");
+		.append("lines=[")
+		.append("BarcodeFormat").append(this.getBarcodeFormat()).append(",")
+		.append("BarcodeFormatString").append(this.getBarcodeFormatString())
+		.append("BarcodeText").append(this.getBarcodeText())
+		.append("BarcodeBytes").append(this.getBarcodeBytes())
+		.append("LocalizationResult").append(this.getLocalizationResult())
+		;
 		
 		String linesString = lines.stream()
 				.map(Object::toString)

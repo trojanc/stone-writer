@@ -4,7 +4,7 @@
 
 	<groupId>coza.trojanc.receipt</groupId>
 	<artifactId>receipt-java</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<description>Library to help with print templating and converting templates to a format a printer can use</description>
 	<url>https://github.com/trojanc/receipt-java</url>
 
