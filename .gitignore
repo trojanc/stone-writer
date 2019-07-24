@@ -4,3 +4,6 @@ target
 Gemfile.lock
 .sass-cache
 _site
+.project
+.settings/
+.classpath
