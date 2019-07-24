@@ -15,6 +15,8 @@ import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.TemplateProcessor;
 import coza.trojanc.receipt.template.process.impl.DefaultTemplateProcessor;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collections;
@@ -136,12 +138,12 @@ public class TestUtils {
 		return resolvedVariables;
 	}
 
-	public static ProcessedTemplate getProcessedTemplate(){
+	public static ProcessedTemplate getProcessedTemplate() throws IOException {
 		TemplateProcessor processor = new DefaultTemplateProcessor();
 		return processor.process(TestUtils.createTemplate(), TestUtils.createResolvedVariables());
 	}
 
-	public static PrintTemplate createTemplate(){
+	public static PrintTemplate createTemplate() throws IOException {
 		return new PrintTemplateBuilder().name("Test Template")
 				.line()
 				.dynamicText(CTX_TRADER_NAME).align(Align.CENTER)
@@ -156,6 +158,7 @@ public class TestUtils {
 				.text("123").align(Align.RIGHT).offset(-2)
 				.fillLine('-')
 				.line()
+				.barcodeImage(ImageIO.read(new File((System.getProperty("user.dir") + "/barcode/6009709300897.png"))))
 				.text("Items:")
 				.dynamicText(CTX_SOLD_ITEMS_LENGTH).align(Align.RIGHT)
 				.repeat("soldItems")

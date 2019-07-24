@@ -6,10 +6,7 @@ import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
 import coza.trojanc.receipt.template.process.ProcessedTemplate;
 import coza.trojanc.receipt.template.process.TemplateProcessor;
-import coza.trojanc.receipt.template.process.fields.ProcessedFeed;
-import coza.trojanc.receipt.template.process.fields.ProcessedFillLine;
-import coza.trojanc.receipt.template.process.fields.ProcessedLine;
-import coza.trojanc.receipt.template.process.fields.ProcessedText;
+import coza.trojanc.receipt.template.process.fields.*;
 
 import static coza.trojanc.receipt.context.ContextResolver.ARRAY_LENGTH_SUFFIX;
 
@@ -58,6 +55,10 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 			processRepeatBlock((RepeatBlock)item);
 		}
 
+		else if(BarcodeImage.class.isAssignableFrom(item.getClass())){
+			processBarcodeImage((BarcodeImage)item);
+		}
+
 	}
 
 
@@ -80,6 +81,14 @@ public class DefaultTemplateProcessor implements TemplateProcessor {
 	 */
 	private void processFillLine(FillLine fillLine){
 		processedTemplate.getItems().add(new ProcessedFillLine(fillLine.getCharacter()));
+	}
+
+	/**
+	 * Process a Barcode Image.
+	 * @param barcodeImage
+	 */
+	private void processBarcodeImage(BarcodeImage barcodeImage){
+		processedTemplate.getItems().add(new ProcessedBarcodeImage());
 	}
 
 	/**

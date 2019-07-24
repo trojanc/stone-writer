@@ -3,6 +3,8 @@ package coza.trojanc.receipt.template.builder;
 import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.fields.*;
 
+import java.awt.*;
+
 /**
  * @author Charl Thiem
  */
@@ -54,6 +56,23 @@ public abstract class AbstractTemplateBuilder {
 	public void addFeed(int lines){
 		finishBusyLine();
 		addTemplateLine(new Feed(lines));
+	}
+
+	/**
+	 * Barcode image print template builder.
+	 *
+	 * @param image the barcode
+	 * @return the print template builder
+	 */
+	public void addBarcodeImage(Image image){
+		finishLineItem();
+		checkValidLine();
+		BarcodeImage barcodeItem = new BarcodeImage();
+
+		if(BarcodeImage.class.isAssignableFrom(BarcodeImage.class)){
+			throw new IllegalArgumentException("Cannot add image value to barcode");
+		}
+		barcodeItem.setBarcodeEAN(image);
 	}
 
 	/**
