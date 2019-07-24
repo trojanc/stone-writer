@@ -4,6 +4,8 @@ import coza.trojanc.receipt.shared.Align;
 import coza.trojanc.receipt.template.PrintTemplate;
 import coza.trojanc.receipt.template.fields.*;
 
+import java.awt.*;
+
 /**
  * @author Charl Thiem
  */
@@ -68,6 +70,11 @@ public class PrintTemplateBuilder extends AbstractTemplateBuilder{
 	 */
 	public PrintTemplateBuilder feed(int lines){
 		super.addFeed(lines);
+		return this;
+	}
+
+	public PrintTemplateBuilder barcodeImage(Image image){
+		super.addBarcodeImage(image);
 		return this;
 	}
 

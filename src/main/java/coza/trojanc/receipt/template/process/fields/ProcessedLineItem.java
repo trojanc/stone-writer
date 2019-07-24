@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = ProcessedFeed.class, name = "feed"),
 		@JsonSubTypes.Type(value = ProcessedLine.class, name = "line"),
 		@JsonSubTypes.Type(value = ProcessedFillLine.class, name = "fillLine"),
+		@JsonSubTypes.Type(value = ProcessedBarcodeImage.class, name = "image"),
 })
 public interface ProcessedLineItem {
 }
